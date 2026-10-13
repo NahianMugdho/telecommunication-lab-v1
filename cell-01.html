@@ -1,0 +1,481 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellular Topic 1: Telecom Basics — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Cellular Topic 1: Telecom Basics</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="card"><b>Erlang-B ক্যালকুলেটর</b> — কত channel লাগবে?<div class="tools">Traffic (Erlang) <input id="eE" value="10"> Blocking % <input id="eG" value="2"><button onclick="calcErlangB()">Calculate</button></div><b id="out"></b></div><div class="doc">
+<p>Telecommunication মানে দূরত্ব পার করে তথ্য (voice, data, video) পাঠানো। যেকোনো সিস্টেমের তিনটি মূল অংশ: Transmitter, Channel (medium), Receiver; এর সাথে থাকে noise, যা সংকেত নষ্ট করে।</p>
+<p><strong>মূল ধারণা</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>Analog বনাম Digital:</strong> Analog সংকেত ক্রমাগত পরিবর্তিত হয়, Digital সংকেত 0/1 আকারে থাকে। Digital-এ noise সহ্যক্ষমতা বেশি, error correction করা যায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Modulation:</strong> তথ্য বহনকারী সংকেতকে carrier-এ চড়ানো। Analog: AM, FM, PM। Digital: ASK, FSK, PSK, QAM (4G/5G-তে 64-QAM, 256-QAM ব্যবহার হয়)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Multiplexing:</strong> একটি চ্যানেলে অনেক সংকেত পাঠানো। FDM (frequency ভাগ), TDM (সময় ভাগ), WDM (তরঙ্গদৈর্ঘ্য ভাগ, ফাইবারে), CDM/CDMA (code ভাগ)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Switching:</strong> Circuit switching (কল চলাকালীন পথ বরাদ্দ, যেমন PSTN, 2G voice), Packet switching (ডেটা প্যাকেটে ভেঙে পাঠানো, যেমন Internet, 4G/5G)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Transmission media:</strong> Twisted pair, coaxial, optical fiber (সবচেয়ে বেশি bandwidth, কম loss), wireless।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>PSTN:</strong> ঐতিহ্যবাহী ল্যান্ডলাইন নেটওয়ার্ক; subscriber → local exchange → trunk → destination।</p>
+</blockquote></li>
+</ul>
+<p><strong>গুরুত্বপূর্ণ সূত্র ও একক</strong></p>
+<p>C = B \log_2(1 + \mathrm{SNR})</p>
+<p>এটি Shannon capacity: C = সর্বোচ্চ ডেটা রেট (bps), B = bandwidth (Hz), SNR রৈখিক অনুপাত। Bandwidth বা SNR বাড়ালে capacity বাড়ে।</p>
+<p>\mathrm{dB} = 10 \log_{10}\left(\frac{P_2}{P_1}\right), \qquad \mathrm{dBm} = 10 \log_{10}\left(\frac{P}{1\,\mathrm{mW}}\right)</p>
+<ul>
+<li><blockquote>
+<p>3 dB বাড়া মানে power প্রায় দ্বিগুণ; 0 dBm = 1 mW; 30 dBm = 1 W।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Erlang:</strong> ট্রাফিকের একক। A = λ × h (λ = প্রতি ঘণ্টায় কলের সংখ্যা, h = গড় কল সময় ঘণ্টায়)। 1 Erlang = একটি চ্যানেল পুরো এক ঘণ্টা ব্যস্ত।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Nyquist:</strong> সর্বোচ্চ সিগন্যাল ফ্রিকোয়েন্সির কমপক্ষে দ্বিগুণ হারে sampling করতে হয়। PCM voice: 8000 sample/s × 8 bit = 64 kbps (এক DS0 চ্যানেল)। E1 = 30 voice চ্যানেল = 2.048 Mbps; T1 = 24 চ্যানেল = 1.544 Mbps।</p>
+</blockquote></li>
+</ul>
+<p><strong>মোবাইল প্রজন্ম এক নজরে</strong></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>প্রজন্ম</th>
+<th>মূল প্রযুক্তি</th>
+<th>Switching</th>
+<th>বৈশিষ্ট্য</th>
+</tr>
+<tr class="odd">
+<th>1G</th>
+<th>AMPS (analog)</th>
+<th>Circuit</th>
+<th>শুধু voice, FDMA</th>
+</tr>
+<tr class="header">
+<th>2G</th>
+<th>GSM (TDMA), IS-95 (CDMA)</th>
+<th>Circuit (+GPRS packet)</th>
+<th>Digital voice, SMS; GPRS/EDGE ডেটা</th>
+</tr>
+<tr class="odd">
+<th>3G</th>
+<th>UMTS/WCDMA, HSPA</th>
+<th>Circuit + Packet</th>
+<th>মোবাইল ইন্টারনেট, video call</th>
+</tr>
+<tr class="header">
+<th>4G</th>
+<th>LTE, LTE-Advanced</th>
+<th>সম্পূর্ণ Packet (all-IP)</th>
+<th>OFDMA, MIMO, VoLTE</th>
+</tr>
+<tr class="odd">
+<th>5G</th>
+<th>NR (New Radio)</th>
+<th>Packet, Service-based core</th>
+<th>eMBB, URLLC, mMTC; slicing</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>সম্ভাব্য MCQ</strong></p>
+<ul>
+<li><blockquote>
+<p>E1 লিংকের ডেটা রেট কত? → 2.048 Mbps</p>
+</blockquote></li>
+<li><blockquote>
+<p>Voice-এর PCM-এ sampling rate কত? → 8 kHz</p>
+</blockquote></li>
+<li><blockquote>
+<p>ট্রাফিকের একক কী? → Erlang</p>
+</blockquote></li>
+<li><blockquote>
+<p>Shannon-এর সূত্রে capacity কিসের উপর নির্ভর করে? → Bandwidth ও SNR</p>
+</blockquote></li>
+</ul>
+<h2>বিস্তারিত নোট</h2>
+<h3 id="যগযগ-বযবসথর-কঠম"><strong>১.১ যোগাযোগ ব্যবস্থার কাঠামো</strong></h3>
+<p>যেকোনো যোগাযোগ ব্যবস্থায় তথ্য উৎস থেকে গন্তব্যে পৌঁছাতে কয়েকটি ধাপ পার হয়:</p>
+<ol type="1">
+<li><blockquote>
+<p><strong>Information source:</strong> কথা, ছবি, ডেটা (যেমন মাইক্রোফোনের শব্দ)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Transducer:</strong> শব্দ বা আলোকে বৈদ্যুতিক সংকেতে বদলায় (মাইক্রোফোন, ক্যামেরা সেন্সর)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Transmitter:</strong> সংকেতকে মাধ্যমে পাঠানোর উপযোগী করে (source coding, channel coding, modulation, amplification)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Channel:</strong> তার, ফাইবার বা বাতাস; এখানে attenuation (ক্ষীণ হওয়া), distortion ও noise ঢোকে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Receiver:</strong> demodulation, decoding ও error সংশোধন করে মূল তথ্য ফেরত আনে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Destination:</strong> স্পিকার, স্ক্রিন, কম্পিউটার।</p>
+</blockquote></li>
+</ol>
+<p>পরীক্ষার জন্য মনে রাখো: noise ও interference চ্যানেলেই যুক্ত হয়, আর repeater বা amplifier সংকেতের পাশাপাশি noise-ও বাড়ায়, কিন্তু digital regenerative repeater সংকেত পুনর্গঠন করে noise সরিয়ে ফেলে। এ কারণেই digital সিস্টেম দূরপাল্লায় ভালো।</p>
+<h3 id="analog-বনম-digital"><strong>১.২ Analog বনাম Digital</strong></h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>বিষয়</th>
+<th>Analog</th>
+<th>Digital</th>
+</tr>
+<tr class="odd">
+<th>সংকেতের ধরন</th>
+<th>ক্রমাগত মান</th>
+<th>নির্দিষ্ট মান (0/1)</th>
+</tr>
+<tr class="header">
+<th>Noise সহ্যক্ষমতা</th>
+<th>কম, noise জমে যায়</th>
+<th>বেশি, regenerate করা যায়</th>
+</tr>
+<tr class="odd">
+<th>Error সংশোধন</th>
+<th>সম্ভব নয়</th>
+<th>FEC/ARQ সম্ভব</th>
+</tr>
+<tr class="header">
+<th>নিরাপত্তা</th>
+<th>এনক্রিপশন কঠিন</th>
+<th>সহজ</th>
+</tr>
+<tr class="odd">
+<th>Multiplexing</th>
+<th>মূলত FDM</th>
+<th>TDM, সহজে অনেক সেবা মেশানো</th>
+</tr>
+<tr class="header">
+<th>Bandwidth</th>
+<th>কম লাগে</th>
+<th>বেশি লাগে (কিন্তু compression-এ কমে)</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h3 id="analog-থক-digital-pcm-পরকরয"><strong>১.৩ Analog থেকে Digital: PCM প্রক্রিয়া</strong></h3>
+<p>ভয়েসকে ডিজিটাল করার সবচেয়ে প্রচলিত পদ্ধতি <strong>PCM (Pulse Code Modulation)</strong>। তিন ধাপ:</p>
+<ol type="1">
+<li><blockquote>
+<p><strong>Sampling:</strong> Nyquist উপপাদ্য অনুযায়ী সংকেতের সর্বোচ্চ ফ্রিকোয়েন্সির কমপক্ষে দ্বিগুণ হারে নমুনা নিতে হয়। ভয়েসের সর্বোচ্চ ফ্রিকোয়েন্সি 4 kHz ধরা হয়, তাই sampling = 8 kHz (প্রতি 125 µs-এ একটি নমুনা)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Quantization:</strong> প্রতিটি নমুনাকে নিকটতম স্তরে (level) বদলানো। n বিটে 2ⁿ স্তর পাওয়া যায়। এখানে ভুল (quantization error) হয়, যা quantization noise।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Encoding:</strong> প্রতিটি স্তরকে n বিটের বাইনারি কোডে রূপান্তর। ভয়েসে n = 8।</p>
+</blockquote></li>
+</ol>
+<p>\text{Bit rate} = f_s \times n = 8000 \times 8 = 64\ \text{kbps},\qquad \mathrm{SQNR} \approx 6.02\,n + 1.76\ \mathrm{dB}</p>
+<p>8 বিটে SQNR ≈ 6.02 × 8 + 1.76 = <strong>49.92 dB</strong>। প্রতি এক বিট বাড়ালে SQNR প্রায় 6 dB বাড়ে।</p>
+<p><strong>Companding:</strong> ভয়েসে ছোট সংকেত বেশি, তাই ছোট সংকেতকে বেশি স্তর দিতে compressor-expander ব্যবহার হয়। <strong>A-law</strong> ইউরোপ ও বাংলাদেশসহ E1 ব্যবস্থায় এবং <strong>μ-law</strong> উত্তর আমেরিকা ও জাপানের T1 ব্যবস্থায়।</p>
+<h3 id="tdm-ও-digital-hierarchy"><strong>১.৪ TDM ও Digital Hierarchy</strong></h3>
+<p><strong>E1 ফ্রেম (বাংলাদেশে প্রচলিত):</strong> প্রতি ফ্রেমে 32টি time slot (TS0–TS31), প্রতিটিতে 8 বিট, প্রতি সেকেন্ডে 8000 ফ্রেম।</p>
+<p>32 \times 8 \times 8000 = 2.048\ \text{Mbps}</p>
+<ul>
+<li><blockquote>
+<p><strong>TS0:</strong> frame synchronization ও alarm। <strong>TS16:</strong> signalling (CAS-এ) বা কোনো কাজে না লাগলে ডেটা। বাকি 30টি slot-এ ভয়েস, তাই E1 = 30 voice channel।</p>
+</blockquote></li>
+<li><blockquote>
+<p>T1 (উত্তর আমেরিকা): 24 channel × 64 kbps + 8 kbps framing = 1.544 Mbps।</p>
+</blockquote></li>
+</ul>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>PDH স্তর</th>
+<th>ডেটা রেট</th>
+<th>মূল চ্যানেল</th>
+</tr>
+<tr class="odd">
+<th>E1</th>
+<th>2.048 Mbps</th>
+<th>30</th>
+</tr>
+<tr class="header">
+<th>E2</th>
+<th>8.448 Mbps</th>
+<th>120 (4 × E1)</th>
+</tr>
+<tr class="odd">
+<th>E3</th>
+<th>34.368 Mbps</th>
+<th>480</th>
+</tr>
+<tr class="header">
+<th>E4</th>
+<th>139.264 Mbps</th>
+<th>1920</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>SDH স্তর</th>
+<th>ডেটা রেট</th>
+</tr>
+<tr class="odd">
+<th>STM-1</th>
+<th>155.52 Mbps</th>
+</tr>
+<tr class="header">
+<th>STM-4</th>
+<th>622.08 Mbps</th>
+</tr>
+<tr class="odd">
+<th>STM-16</th>
+<th>2488.32 Mbps (≈ 2.5 Gbps)</th>
+</tr>
+<tr class="header">
+<th>STM-64</th>
+<th>9953.28 Mbps (≈ 10 Gbps)</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>STM-1 কীভাবে আসে: 9 সারি × 270 কলাম = 2430 বাইট ফ্রেম; 2430 × 8 বিট × 8000 = 155.52 Mbps। SDH-এর সুবিধা: একক সিঙ্ক্রোনাইজেশন, সরাসরি ছোট স্ট্রিম বের করা (add-drop), ring protection (50 ms-এ পথ বদল)।</p>
+<h3 id="modulation"><strong>১.৫ Modulation</strong></h3>
+<p>Modulation মানে তথ্যবাহী baseband সংকেত দিয়ে উচ্চ ফ্রিকোয়েন্সির carrier-এর কোনো বৈশিষ্ট্য বদলানো, কারণ: (ক) ছোট antenna লাগে, (খ) একই মাধ্যমে অনেক চ্যানেল (FDM), (গ) noise থেকে ভালো সুরক্ষা।</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ধরন</th>
+<th>পরিবর্তনশীল বৈশিষ্ট্য</th>
+<th>বিশেষত্ব</th>
+</tr>
+<tr class="odd">
+<th>AM</th>
+<th>Amplitude</th>
+<th>Bandwidth = 2 f_m; সরল কিন্তু noise-প্রবণ</th>
+</tr>
+<tr class="header">
+<th>FM</th>
+<th>Frequency</th>
+<th>Carson: BW ≈ 2(Δf + f_m); noise-সহনশীল, FM রেডিও</th>
+</tr>
+<tr class="odd">
+<th>PM</th>
+<th>Phase</th>
+<th>FM-এর কাছাকাছি</th>
+</tr>
+<tr class="header">
+<th>ASK, FSK, PSK</th>
+<th>Digital amplitude/frequency/phase</th>
+<th>PSK সবচেয়ে বেশি ব্যবহৃত</th>
+</tr>
+<tr class="odd">
+<th>QPSK</th>
+<th>4 phase, 2 bit/symbol</th>
+<th>3G/4G-তে</th>
+</tr>
+<tr class="header">
+<th>16-QAM, 64-QAM, 256-QAM</th>
+<th>Amplitude ও phase মিলিয়ে</th>
+<th>যথাক্রমে 4, 6, 8 bit/symbol; 4G/5G-তে</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>উদাহরণ: FM-এ Δf = 75 kHz ও f_m = 15 kHz হলে Carson BW = 2(75 + 15) = <strong>180 kHz</strong>।</p>
+<p><strong>Higher-order modulation-এর শর্ত:</strong> যত বেশি বিট প্রতি symbol, তত ভালো SNR দরকার। তাই cell-এর কেন্দ্রে ইউজার 256-QAM পায়, কিনারায় QPSK-তে নামে (adaptive modulation)।</p>
+<h3 id="multiplexing-ও-multiple-access"><strong>১.৬ Multiplexing ও Multiple Access</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>FDM/FDMA:</strong> ফ্রিকোয়েন্সি ভাগ; guard band লাগে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>TDM/TDMA:</strong> সময় ভাগ; guard time লাগে, synchronization জরুরি।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>WDM:</strong> ফাইবারে ভিন্ন তরঙ্গদৈর্ঘ্যে ভিন্ন সংকেত। <strong>CWDM</strong> (20 nm ফাঁক, ~18 channel), <strong>DWDM</strong> (0.8 nm বা 100 GHz ফাঁক, 40–80+ channel)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>CDM/CDMA:</strong> প্রতিটি ইউজারের জন্য আলাদা code; সবাই একসাথে একই ফ্রিকোয়েন্সিতে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>OFDM/OFDMA:</strong> অনেক সরু orthogonal subcarrier।</p>
+</blockquote></li>
+</ul>
+<p>Multiplexing মানে একটি লিংকে একাধিক সংকেত বহন (স্থির ব্যবস্থা), আর multiple access মানে অনেক ব্যবহারকারীর একই মাধ্যম ভাগাভাগি (গতিশীল)।</p>
+<h3 id="switching-ও-টলফন-নটওযরক"><strong>১.৭ Switching ও টেলিফোন নেটওয়ার্ক</strong></h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>বিষয়</th>
+<th>Circuit switching</th>
+<th>Packet switching</th>
+</tr>
+<tr class="odd">
+<th>পথ</th>
+<th>কল চলাকালীন নির্দিষ্ট (dedicated)</th>
+<th>প্রতি packet আলাদা পথ নিতে পারে</th>
+</tr>
+<tr class="header">
+<th>Setup</th>
+<th>কলের আগে</th>
+<th>প্রয়োজন নেই (datagram)</th>
+</tr>
+<tr class="odd">
+<th>দক্ষতা</th>
+<th>কম</th>
+<th>বেশি</th>
+</tr>
+<tr class="header">
+<th>Delay</th>
+<th>স্থির</th>
+<th>পরিবর্তনশীল</th>
+</tr>
+<tr class="odd">
+<th>উদাহরণ</th>
+<th>PSTN, 2G voice</th>
+<th>Internet, 4G/5G</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>PSTN-এর স্তর:</strong> subscriber → local loop → <strong>local exchange (end office)</strong> → <strong>tandem/transit exchange</strong> → <strong>international gateway (ICX/IGW)</strong>। Local exchange-এর কাজ: লাইন পর্যবেক্ষণ, dial tone দেওয়া, নম্বর গ্রহণ, রাউটিং, ringing, বিলিং।</p>
+<p><strong>সংকেত ও নম্বর পরিকল্পনা:</strong> ITU-T E.164 অনুযায়ী আন্তর্জাতিক নম্বর সর্বোচ্চ 15 ডিজিট (country code সহ); বাংলাদেশের country code +880।</p>
+<h3 id="transmission-media-ও-attenuation"><strong>১.৮ Transmission Media ও Attenuation</strong></h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>মাধ্যম</th>
+<th>বৈশিষ্ট্য</th>
+</tr>
+<tr class="odd">
+<th>Twisted pair</th>
+<th>সস্তা, ছোট দূরত্ব, crosstalk-প্রবণ (Cat5e/6 LAN, DSL)</th>
+</tr>
+<tr class="header">
+<th>Coaxial</th>
+<th>বেশি bandwidth, কেবল টিভি</th>
+</tr>
+<tr class="odd">
+<th>Optical fiber</th>
+<th>সবচেয়ে বেশি bandwidth, কম loss, EMI-মুক্ত</th>
+</tr>
+<tr class="header">
+<th>Microwave</th>
+<th>LOS, 2–40+ GHz, দুর্গম এলাকায় backhaul</th>
+</tr>
+<tr class="odd">
+<th>Satellite</th>
+<th>বিশাল কভারেজ, বেশি latency (GEO ≈ 250 ms একমুখী)</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Fiber:</strong> Single-mode (SMF, কোর ≈ 9 µm, দূরপাল্লা) ও Multi-mode (MMF, কোর 50/62.5 µm, কম দূরত্ব)। কার্যকর window: 1310 nm (প্রায় 0.35 dB/km) ও 1550 nm (প্রায় 0.2 dB/km, সবচেয়ে কম loss)। আলো প্রতিফলিত হয় total internal reflection-এ (core-এর প্রতিসরাঙ্ক &gt; cladding-এর)।</p>
+<h3 id="ডসবল-noise-ও-capacity"><strong>১.৯ ডেসিবেল, Noise ও Capacity</strong></h3>
+<p>\mathrm{dB}=10\log_{10}\frac{P_2}{P_1},\qquad \mathrm{dBm}=10\log_{10}\frac{P}{1\,\mathrm{mW}},\qquad \mathrm{dBW}=10\log_{10}\frac{P}{1\,\mathrm{W}}</p>
+<ul>
+<li><blockquote>
+<p>0 dBm = 1 mW; 30 dBm = 1 W; dBm = dBW + 30। উদাহরণ: 20 W = 13.01 dBW = 43.01 dBm; 43 dBm = প্রায় 19.95 W; 46 dBm = প্রায় 39.81 W।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Gain/loss dB-তে সরাসরি যোগ-বিয়োগ হয়; তাই link budget সহজ।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Thermal noise:</strong> N = kTB। 290 K-এ noise density = −174 dBm/Hz। 20 MHz-এ noise floor = −174 + 10 log₁₀(20×10⁶) = <strong>−100.99 dBm</strong>; receiver noise figure 7 dB হলে প্রায় <strong>−94 dBm</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>SNR</strong> = Signal power / Noise power; dB-তে SNR(dB) = S(dBm) − N(dBm)।</p>
+</blockquote></li>
+</ul>
+<p><strong>Shannon capacity:</strong> C = B log₂(1 + SNR)। উদাহরণ: B = 10 MHz, SNR = 15 dB (≈ 31.62 গুণ) → C = 10 × log₂(32.62) ≈ <strong>50.3 Mbps</strong>।</p>
+<h3 id="traffic-engineering-erlang"><strong>১.১০ Traffic Engineering: Erlang</strong></h3>
+<p>A=\lambda\, h</p>
+<p>উদাহরণ: প্রতি ঘণ্টায় 1800 কল, গড় সময় 3 মিনিট (0.05 ঘণ্টা) → A = 1800 × 0.05 = <strong>90 Erlang</strong>।</p>
+<ul>
+<li><blockquote>
+<p><strong>Erlang-B:</strong> blocked calls cleared (ব্লক হলে কল হারিয়ে যায়); blocking probability নির্ণয়। উদাহরণ: A = 10 E, 15 channel → blocking ≈ <strong>3.65%</strong>; A = 5 E, 8 channel → ≈ 7.0%।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Erlang-C:</strong> blocked calls queued (অপেক্ষায় রাখা), কল সেন্টারে প্রযোজ্য।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Grade of Service (GoS):</strong> blocking-এর লক্ষ্য, সাধারণত 1–2%।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Trunking efficiency:</strong> বেশি channel ভাগাভাগি করলে একই GoS-এ প্রতি channel-এ বেশি লোড বহন সম্ভব। মোবাইল নেটওয়ার্কে এটাই মূল ধারণা।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Busy hour:</strong> দিনের সবচেয়ে ব্যস্ত ঘণ্টা; নেটওয়ার্ক এই ঘণ্টার ট্রাফিক ধরে ডিজাইন হয়।</p>
+</blockquote></li>
+</ul>
+<h3 id="সকষপত-অনশলন"><strong>১.১১ সংক্ষিপ্ত অনুশীলন</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p>8 kHz sampling ও 7 বিট কোডে ভয়েস চ্যানেলের রেট কত? → 56 kbps।</p>
+</blockquote></li>
+<li><blockquote>
+<p>E1-এ কতটি time slot, কতটি ভয়েস চ্যানেল? → 32, 30।</p>
+</blockquote></li>
+<li><blockquote>
+<p>2 গুণ power কত dB? → প্রায় +3 dB।</p>
+</blockquote></li>
+<li><blockquote>
+<p>100 W কত dBm? → 50 dBm।</p>
+</blockquote></li>
+<li><blockquote>
+<p>4 E1-কে মেলালে কোন স্তর? → E2 (8.448 Mbps)।</p>
+</blockquote></li>
+</ol>
+</div><div class="tools"><a class="btn" href="cell-index.html">← সূচি</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-02.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

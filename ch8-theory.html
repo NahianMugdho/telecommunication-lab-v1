@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 8: MCQ Concepts — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 8: MCQ Concepts</h1>
+<h2>Tutorial</h2>
+<div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>Digital কেন ভালো?</b> Digital signal-এ শুধু 0 আর 1; রাস্তায় noise ঢুকলেও repeater সেটা চিনে নতুন করে বানিয়ে দেয় (regeneration)। Analog-এ noise একবার ঢুকলে আর বের করা যায় না।</p>
+<p><b>ISI:</b> Channel-এর bandwidth ছোট হলে এক pulse ছড়িয়ে পরের pulse-এর ওপর পড়ে, ফলে ভুল পড়া হয়।</p>
+<p><b>Entropy:</b> তথ্যের "অনিশ্চয়তা"র মাপ, H = −Σ p·log₂p। দুটো সমান সম্ভাবনার message-এ H = 1 bit।</p>
+<p><b>Guard band:</b> পাশাপাশি channel যেন না মিশে, তাই মাঝে ফাঁকা জায়গা।</p>
+<p><b>মনে রাখার ট্রিক:</b> GSM = GMSK; EDGE = 8-PSK; 3G UMTS = QPSK; GSM 900 uplink 890–915, downlink 935–960 (নিচে uplink আগে)।</p></div>
+<div class="card"><b>কোন system কোন modulation?</b><table><tr><th>System</th><th>Modulation</th></tr>
+<tr><td>GSM (2G)</td><td>GMSK</td></tr><tr><td>EDGE</td><td>8-PSK</td></tr><tr><td>UMTS (3G)</td><td>QPSK</td></tr><tr><td>HSDPA</td><td>QPSK, 16-QAM (adaptive)</td></tr><tr><td>Wi-Fi</td><td>BPSK, QPSK, 16-QAM, 64-QAM</td></tr><tr><td>WiMAX</td><td>QPSK, 16-QAM, 64-QAM (adaptive)</td></tr></table></div>
+<div class="card"><b>GSM frequency band</b><table><tr><th>System</th><th>Uplink</th><th>Downlink</th></tr><tr><td>GSM 900</td><td>890–915 MHz</td><td>935–960 MHz</td></tr><tr><td>GSM 1800</td><td>1710–1785 MHz</td><td>1805–1880 MHz</td></tr><tr><td>UMTS 2100</td><td>1920–1980 MHz</td><td>2110–2170 MHz</td></tr></table></div>
+<div class="formula">Entropy: H = −Σ pᵢ log₂ pᵢ</div>
+<a class="btn" href="ch8-qa.html">MCQ কুইজ শুরু করো →</a></main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 13: Discrete Signals, IP Subnetting &amp; Protocols — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 13: Discrete Signals, IP Subnetting &amp; Protocols</h1>
+<h2>Tutorial</h2>
+<div class="card"><h3>সহজ ভাষায় বুঝি — Discrete Signal</h3>
+<p><b>Sampling করলে কী হয়?</b> x(t)-কে প্রতি 1/fs সেকেন্ডে মেপে x[n] = x(n/fs) পাই। cos(2πf·t) হয়ে যায় <b>cos(2π(f/fs)·n)</b>। এখানে f/fs হলো "প্রতি sample-এ কত চক্র"।</p>
+<p><b>Periodic কবে?</b> f/fs একটা ভগ্নাংশ p/q হলে (লঘিষ্ঠ আকারে) signal periodic এবং <b>period N = q samples</b>। নইলে aperiodic। উদাহরণ: x(t)=2cos(12000πt) মানে f=6000 Hz; fs=24000 হলে f/fs=1/4 ⇒ N=4 samples।</p>
+<p><b>Digital frequency:</b> ω₀ = 2πf/fs। cos(ω₀n)-এর period N = 2π/ω₀ (যদি পূর্ণসংখ্যা হয়)। দুটো tone যোগ হলে period = <b>LCM(N₁, N₂)</b>। মনে রাখো: একক "second" নয়, <b>sample</b>।</p></div>
+<div class="card"><canvas id="dc" width="780" height="250"></canvas><div class="tools">f (Hz) <input id="df" type="range" min="1" max="30" value="3"> fs (Hz) <input id="dfs" type="range" min="2" max="60" value="12"></div></div>
+<div class="card"><b>Period Calculator (দুই tone)</b><div class="tools">f1 <input id="p1" value="20"> f2 <input id="p2" value="30"> fs <input id="pfs" value="420"><button onclick="calcPeriod()">Calculate</button></div><b id="out"></b></div>
+<div class="card"><h3>সহজ ভাষায় বুঝি — IP Subnetting</h3>
+<p><b>IP address</b> = 32 bit, চার ভাগে। <b>/n (prefix)</b> মানে প্রথম n bit "network", বাকি (32−n) bit "host"। Subnet mask = প্রথম n bit সব 1, বাকি 0।</p>
+<p><b>/23 হলে:</b> host bit = 9 ⇒ মোট 2⁹ = 512 address, কিন্তু প্রথমটা (network) ও শেষটা (broadcast) ব্যবহার করা যায় না ⇒ <b>valid host = 2⁹−2 = 510</b>। Mask 255.255.<b>254</b>.0 (তৃতীয় octet-এ 7টি 1 + একটি 0 = 11111110 = 254)।</p>
+<p><b>দ্রুত নিয়ম (block size):</b> যে octet-এ prefix ভেঙেছে সেখানে block size = 256 − mask-এর মান। /23 ⇒ 256−254 = 2। তাই network 192.168.<b>10</b>.0 (10 জোড় ⇒ block শুরু), পরের network 192.168.12.0; এই block-এর broadcast = শেষ address = 192.168.<b>11</b>.255।</p>
+<p><b>সূত্র:</b> Network = IP AND Mask; Broadcast = network-এর host bit সব 1; First host = network+1; Last host = broadcast−1।</p></div>
+<div class="card"><b>Subnet Calculator + bit animation</b><div class="tools">IP <input id="ipin" value="192.168.10.0" style="width:140px"> /<input id="pfx" value="23" style="width:56px"><button onclick="subnetCalc()">Calculate</button></div><div id="subout"></div></div>
+<div class="card"><h3>Protocol — কে কী কাজ করে?</h3><table><tr><th>কাজ</th><th>Protocol</th></tr><tr><td>Email পাঠানো (sender → mail server)</td><td>SMTP</td></tr><tr><td>Email নামানো</td><td>POP3 / IMAP</td></tr><tr><td>IP address নিজে নিজে বরাদ্দ</td><td>DHCP</td></tr><tr><td>IP থেকে MAC address জানা</td><td>ARP</td></tr><tr><td>Error message (ping, delivery failure)</td><td>ICMP</td></tr><tr><td>Website name → IP</td><td>DNS</td></tr><tr><td>Web page</td><td>HTTP / HTTPS</td></tr><tr><td>File transfer</td><td>FTP</td></tr></table></div>
+<div class="formula">x[n]=cos(2π(f/fs)n) &nbsp;|&nbsp; N = q if f/fs = p/q (reduced) &nbsp;|&nbsp; period of sum = LCM(N₁,N₂)<br>Valid hosts = 2^(32−n) − 2 &nbsp;|&nbsp; Network = IP AND Mask &nbsp;|&nbsp; Broadcast = network OR (NOT mask)</div>
+<div class="card"><h3>🧪 আরও Subnetting practice — NetLab</h3><p>নিজে হাতে-কলমে subnetting অনুশীলনের জন্য আলাদা অনলাইন ল্যাব।</p><a class="btn" href="https://nahianmugdho.github.io/netlab-v1/index.html" target="_blank" rel="noopener">NetLab খুলুন ↗</a></div><a class="btn" href="ch13-qa.html">Practice Q &amp; A →</a></main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 2: SNR, BER &amp; Shannon capacity — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 2: SNR, BER &amp; Shannon capacity</h1>
+<h2>Tutorial</h2><p><span class="bn">চ্যানেলে noise থাকলে সর্বোচ্চ কত bit/s পাঠানো যায়, Shannon তা বলে দেন। SNR আগে রৈখিক অনুপাতে আনতে হবে।</span><span class="en">Shannon gives the maximum error-free bit rate of a noisy channel. Convert SNR from dB to a linear ratio first.</span></p><div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>SNR</b> = signal কতটা জোরালো, noise-এর তুলনায়। বেশি SNR মানে পরিষ্কার শব্দ। dB হলো ratio-র log scale: <b>SNR(dB)=10·log₁₀(S/N)</b>। 20 dB মানে 100 গুণ, 30 dB মানে 1000 গুণ, 3 dB মানে প্রায় 2 গুণ।</p>
+<p><b>Shannon:</b> রাস্তা (bandwidth B) যত চওড়া আর noise যত কম, তত বেশি bit/s পাঠানো যায়। Formula-তে dB নয়, <b>linear</b> SNR বসাও — এটা সবচেয়ে বেশি ভুল হয়!</p>
+<p><b>BER:</b> কয়টা bit ভুল হলো ÷ মোট কয়টা bit পাঠানো হলো। মোট bit = data rate × সময়।</p>
+<p><b>ADC resolution:</b> পুরো range-কে 2ⁿ ভাগ করলে এক ভাগের মান। 10 V ÷ 256 = 39.06 mV।</p>
+<p><b>FDM:</b> একই তারে প্রত্যেক channel আলাদা frequency band পায়, মাঝে guard band (খালি জায়গা) থাকে যাতে মিশে না যায়।</p></div>
+<div class="formula">C = B·log₂(1+SNR) &nbsp; | &nbsp; SNR = 10^(dB/10) &nbsp; | &nbsp; BER = errors / total bits<br>ADC resolution = Range / 2ⁿ</div>
+<div class="card"><b>Calculator</b><div class="tools">B Hz <input id="bw" value="3400"> SNR dB <input id="snr" value="30"><button onclick="calcShannon()">Calculate</button></div><b id="out"></b></div>
+<a class="btn" href="ch2-qa.html">Practice Q &amp; A →</a>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

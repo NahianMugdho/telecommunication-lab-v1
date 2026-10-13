@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 7: AM &amp; FM Calculations — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 7: AM &amp; FM Calculations</h1>
+<h2>Tutorial</h2>
+<div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>AM:</b> Carrier-এর উচ্চতা (amplitude) message অনুযায়ী ওঠানামা করে। Modulation index <b>m = Am/Ac</b>। m = 1 হলে 100% modulation; m &gt; 1 হলে over-modulation, signal বিকৃত হয়।</p>
+<p><b>Power:</b> মোট power = carrier power + দুই sideband power। Carrier কোনো তথ্য বহন করে না, তথ্য থাকে sideband-এ। তাই efficiency = sideband ÷ মোট।</p>
+<p><b>Bandwidth:</b> AM (DSB) = 2·fm। অর্থাৎ message 10 kHz হলে 20 kHz।</p>
+<p><b>FM:</b> Carrier-এর frequency message অনুযায়ী বদলায়, amplitude স্থির। Frequency deviation Δf = k<sub>f</sub> × message amplitude; index β = Δf/fm। Bandwidth বের করার নিয়ম <b>Carson's rule</b>।</p>
+<p><b>Peak-to-peak সতর্কতা:</b> প্রশ্নে "peak-to-peak deviation" দিলে অর্ধেক করে peak deviation নাও।</p></div>
+<div class="card"><b>AM animation</b> (m বাড়িয়ে 1-এর ওপরে নিয়ে যাও)<canvas id="amc" width="780" height="220"></canvas><div class="tools">m ×100 <input id="ami" type="range" min="0" max="150" value="60"></div></div>
+<div class="card"><b>FM animation</b><canvas id="fmc" width="780" height="220"></canvas><div class="tools">β ×10 <input id="fmb" type="range" min="0" max="100" value="30"></div></div>
+<div class="formula">AM: s(t)=Ac[1+m·cos ωm t]cos ωc t &nbsp;|&nbsp; Pt = Pc(1+m²/2) &nbsp;|&nbsp; Psb = Pc·m²/2 &nbsp;|&nbsp; η = m²/(2+m²) &nbsp;|&nbsp; BW = 2fm<br>FM: β = Δf/fm &nbsp;|&nbsp; Carson BW = 2(Δf + fm) = 2fm(β+1)</div>
+<div class="card"><b>AM Calculator</b><div class="tools">Pc W <input id="pc" value="1000"> m <input id="mi" value="0.6"><button onclick="calcAM()">Calculate</button></div><b id="out"></b></div>
+<div class="card"><b>FM Calculator</b><div class="tools">Δf <input id="df" value="75"> fm <input id="fm" value="15"><button onclick="calcFM()">Calculate</button></div><b id="out2"></b></div>
+<a class="btn" href="ch7-qa.html">Practice Q &amp; A →</a></main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

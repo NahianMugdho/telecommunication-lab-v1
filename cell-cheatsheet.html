@@ -1,0 +1,167 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>২১. শেষ মুহূর্তের চিটশিট — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>২১. শেষ মুহূর্তের চিটশিট</h1><div class="doc">
+<p>পরীক্ষার আগের রাতে শুধু এই পাতা দেখলেই মূল সংখ্যা, ইন্টারফেস ও নোডের কাজ মাথায় ঝালাই হয়ে যাবে।</p>
+<p><strong>নোড ও কাজ এক লাইনে</strong></p>
+<table>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>প্রজন্ম</th>
+<th>RAN</th>
+<th>Control</th>
+<th>User plane</th>
+<th>ডেটাবেস</th>
+</tr>
+<tr class="odd">
+<th>2G</th>
+<th>BTS, BSC</th>
+<th>MSC/VLR</th>
+<th>MSC (voice), SGSN/GGSN (data)</th>
+<th>HLR, AuC, EIR</th>
+</tr>
+<tr class="header">
+<th>3G</th>
+<th>NodeB, RNC</th>
+<th>MSC, SGSN</th>
+<th>MSC, GGSN</th>
+<th>HLR</th>
+</tr>
+<tr class="odd">
+<th>4G</th>
+<th>eNodeB</th>
+<th>MME</th>
+<th>S-GW, P-GW</th>
+<th>HSS, PCRF</th>
+</tr>
+<tr class="header">
+<th>5G</th>
+<th>gNB (CU/DU/RU)</th>
+<th>AMF, SMF</th>
+<th>UPF</th>
+<th>UDM, UDR, AUSF, PCF</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>ইন্টারফেস</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>প্রজন্ম</th>
+<th>ইন্টারফেস</th>
+</tr>
+<tr class="odd">
+<th>2G</th>
+<th>Abis (BTS–BSC), A (BSC–MSC)</th>
+</tr>
+<tr class="header">
+<th>3G</th>
+<th>Iub (NodeB–RNC), Iu (RNC–core)</th>
+</tr>
+<tr class="odd">
+<th>4G</th>
+<th>S1-MME, S1-U, X2, S11, S5/S8, S6a (MME–HSS), SGi</th>
+</tr>
+<tr class="header">
+<th>5G</th>
+<th>N1 (UE–AMF), N2 (gNB–AMF), N3 (gNB–UPF), N4 (SMF–UPF), N6 (UPF–DN), Xn</th>
+</tr>
+<tr class="odd">
+<th>IMS</th>
+<th>Gm, Mw, Cx, ISC, Mg, Rx</th>
+</tr>
+<tr class="header">
+<th>O-RAN</th>
+<th>E2, A1, O1, O2, Open Fronthaul</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>গুরুত্বপূর্ণ সংখ্যা</strong></p>
+<ul>
+<li><blockquote>
+<p>E1 = 2.048 Mbps (30 voice channel); T1 = 1.544 Mbps (24 channel); PCM voice = 64 kbps।</p>
+</blockquote></li>
+<li><blockquote>
+<p>GSM carrier 200 kHz, 8 slot; LTE spacing 15 kHz, সর্বোচ্চ 20 MHz; 5G NR FR1 সর্বোচ্চ 100 MHz, FR2 সর্বোচ্চ 400 MHz।</p>
+</blockquote></li>
+<li><blockquote>
+<p>GTP-U = UDP 2152; GTP-C = UDP 2123; SIP = 5060; NETCONF = 830।</p>
+</blockquote></li>
+<li><blockquote>
+<p>URLLC latency ≈ 1 ms; VoLTE QCI 1, IMS signalling QCI 5।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Telecom power: −48 V DC, 24 cell × 2 V, float প্রায় 54 V।</p>
+</blockquote></li>
+</ul>
+<p><strong>মূল সূত্র</strong></p>
+<p>C = B\log_2(1+\mathrm{SNR}),\quad \lambda=\frac{c}{f},\quad N=i^2+ij+j^2,\quad D=R\sqrt{3N},\quad T_{\mathrm{backup}}=\frac{C_{\mathrm{Ah}}\,\mathrm{DoD}}{I}</p>
+<ul>
+<li><blockquote>
+<p>FSPL(dB) = 32.45 + 20 log₁₀ d(km) + 20 log₁₀ f(MHz); ফ্রিকোয়েন্সি বা দূরত্ব দ্বিগুণে +6 dB।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Erlang A = কল/ঘণ্টা × গড় কল সময় (ঘণ্টা); dB = 10 log₁₀(P₂/P₁)।</p>
+</blockquote></li>
+</ul>
+<p><strong>ভুল করার সাধারণ জায়গা</strong></p>
+<ul>
+<li><blockquote>
+<p>Hard handoff = GSM/LTE, Soft handoff = CDMA/WCDMA।</p>
+</blockquote></li>
+<li><blockquote>
+<p>GSM authentication একমুখী, LTE/5G পারস্পরিক।</p>
+</blockquote></li>
+<li><blockquote>
+<p>5GC-তে NF-গুলো HTTP/2-এ কথা বলে, Diameter-এ নয় (Diameter 4G-তে S6a/Cx/Gx-এ)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Non-RT RIC ≥ 1 s (rApp), Near-RT RIC 10 ms–1 s (xApp)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Fronthaul = RU–DU, Midhaul = DU–CU, Backhaul = CU/RAN–Core।</p>
+</blockquote></li>
+</ul>
+<p><strong>শেষ রাতের তালিকা</strong></p>
+<ul>
+<li><blockquote>
+<p>☐ এই চিটশিট একবার পড়েছি</p>
+</blockquote></li>
+<li><blockquote>
+<p>☐ MCQ ব্যাংকের ৫০টি প্রশ্ন ঢেকে সমাধান করেছি, ভুলগুলো দাগ দিয়েছি</p>
+</blockquote></li>
+<li><blockquote>
+<p>☐ বাংলাদেশ টেলিকম অংশের সংখ্যা ও তারিখ ঝালিয়েছি</p>
+</blockquote></li>
+<li><blockquote>
+<p>☐ ১৫টি ভাইভা উত্তর মুখে বলে দেখেছি</p>
+</blockquote></li>
+<li><blockquote>
+<p>☐ প্রবেশপত্র, কলম, পরিচয়পত্র ও পরীক্ষাকেন্দ্রের রাস্তা ঠিক করেছি</p>
+</blockquote></li>
+<li><blockquote>
+<p>☐ ভালো ঘুম</p>
+</blockquote></li>
+</ul>
+</div><p><a class="btn" href="cell-index.html">← সূচি</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

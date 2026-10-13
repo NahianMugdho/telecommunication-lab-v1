@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellular Topic 7: Cloud RAN (C-RAN) ও Open RAN (O-RAN) — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Cellular Topic 7: Cloud RAN (C-RAN) ও Open RAN (O-RAN)</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
+<p>প্রচলিত RAN-এ প্রতিটি টাওয়ারে নিজস্ব baseband ইউনিট থাকে। C-RAN এই baseband প্রক্রিয়াকে কেন্দ্রীয় এক জায়গায় (pool) এনে ভাগাভাগি করে চালায়, আর O-RAN সেই RAN-কে খোলা ইন্টারফেস ও বুদ্ধিমান নিয়ন্ত্রণ দিয়ে multi-vendor করে তোলে।</p>
+<p><strong>RAN আর্কিটেকচারের তুলনা</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ধরন</th>
+<th>কাঠামো</th>
+<th>বৈশিষ্ট্য</th>
+</tr>
+<tr class="odd">
+<th>D-RAN (Distributed)</th>
+<th>প্রতি সাইটে BBU + RRH</th>
+<th>সহজ, কিন্তু প্রতি সাইটে খরচ ও রক্ষণাবেক্ষণ বেশি</th>
+</tr>
+<tr class="header">
+<th>C-RAN (Centralized/Cloud)</th>
+<th>BBU pool কেন্দ্রে, RRH টাওয়ারে</th>
+<th>রিসোর্স ভাগাভাগি, সমন্বয় সহজ, fronthaul-এ fiber লাগে</th>
+</tr>
+<tr class="odd">
+<th>Virtualized RAN (vRAN)</th>
+<th>BBU ফাংশন সাধারণ সার্ভারে সফটওয়্যার রূপে</th>
+<th>NFV ধারণা RAN-এ</th>
+</tr>
+<tr class="header">
+<th>Open RAN (O-RAN)</th>
+<th>খোলা ইন্টারফেসে multi-vendor RU/DU/CU</th>
+<th>Vendor lock-in কম, AI-চালিত অপ্টিমাইজেশন</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>C-RAN-এর অংশ</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>RRH/RU (Remote Radio Head/Unit):</strong> টাওয়ারে থাকা রেডিও অংশ (antenna, amplifier)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>BBU/DU:</strong> baseband প্রক্রিয়া; C-RAN-এ কেন্দ্রীভূত।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Fronthaul:</strong> RRH ও BBU-র সংযোগ, ঐতিহ্যগতভাবে CPRI, নতুনে eCPRI; বেশি bandwidth ও খুব কম latency লাগে।</p>
+</blockquote></li>
+<li><blockquote>
+<p>সুবিধা: কম বিদ্যুৎ ও জায়গা, cell-এর মধ্যে সমন্বয় (CoMP), সহজ upgrade। অসুবিধা: fronthaul fiber-এর খরচ ও latency সীমা।</p>
+</blockquote></li>
+</ul>
+<p><strong>5G RAN-এর বিভাজন:</strong> gNB ভাগ হয় তিন অংশে: <strong>RU</strong> (রেডিও), <strong>DU</strong> (রিয়েল-টাইম baseband), <strong>CU</strong> (উচ্চস্তরের প্রোটোকল, PDCP/RRC)। RU–DU-র মাঝে fronthaul, DU–CU-র মাঝে midhaul (F1 ইন্টারফেস), CU–core-এর মাঝে backhaul।</p>
+<p><strong>O-RAN</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>O-RAN Alliance:</strong> ২০১৮ সালে বড় অপারেটররা (AT&amp;T, China Mobile, Deutsche Telekom, NTT DOCOMO, Orange) মিলে শুরু করে। লক্ষ্য: খোলা, বুদ্ধিমান, virtualized RAN।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>মূল নীতি:</strong> Open interface, virtualization, intelligence (AI/ML)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>RIC (RAN Intelligent Controller):</strong></p>
+</blockquote>
+<ul>
+<li><blockquote>
+<p><strong>Non-RT RIC:</strong> 1 সেকেন্ডের বেশি সময়ের নিয়ন্ত্রণ; নীতি ও AI মডেল প্রশিক্ষণ; এর অ্যাপ <strong>rApp</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Near-RT RIC:</strong> 10 ms থেকে 1 s সময়ের নিয়ন্ত্রণ; এর অ্যাপ <strong>xApp</strong>।</p>
+</blockquote></li>
+</ul></li>
+<li><blockquote>
+<p><strong>SMO (Service Management and Orchestration):</strong> পুরো O-RAN পরিচালনার কেন্দ্র; Non-RT RIC এই SMO-র একটি অংশ।</p>
+</blockquote></li>
+</ul>
+<p><strong>O-RAN ইন্টারফেস</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ইন্টারফেস</th>
+<th>সংযোগ</th>
+</tr>
+<tr class="odd">
+<th>Open Fronthaul</th>
+<th>O-RU ↔︎ O-DU</th>
+</tr>
+<tr class="header">
+<th>E2</th>
+<th>Near-RT RIC ↔︎ O-CU/O-DU</th>
+</tr>
+<tr class="odd">
+<th>A1</th>
+<th>Non-RT RIC ↔︎ Near-RT RIC</th>
+</tr>
+<tr class="header">
+<th>O1</th>
+<th>SMO ↔︎ O-RAN নোড (ব্যবস্থাপনা)</th>
+</tr>
+<tr class="odd">
+<th>O2</th>
+<th>SMO ↔︎ O-Cloud</th>
+</tr>
+<tr class="header">
+<th>F1, E1</th>
+<th>3GPP-র CU–DU ও CU-CP–CU-UP ইন্টারফেস</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>সম্ভাব্য MCQ</strong></p>
+<ul>
+<li><blockquote>
+<p>C-RAN-এ BBU কোথায় থাকে? → কেন্দ্রীয় pool-এ</p>
+</blockquote></li>
+<li><blockquote>
+<p>Near-RT RIC-এর অ্যাপকে কী বলে? → xApp</p>
+</blockquote></li>
+<li><blockquote>
+<p>A1 ইন্টারফেস কাদের সংযোগ করে? → Non-RT RIC ও Near-RT RIC</p>
+</blockquote></li>
+<li><blockquote>
+<p>gNB-র তিন অংশ কী কী? → CU, DU, RU</p>
+</blockquote></li>
+<li><blockquote>
+<p>O-RAN-এর মূল সুবিধা কী? → Multi-vendor interoperability, vendor lock-in কমানো</p>
+</blockquote></li>
+</ul>
+<h2>বিস্তারিত নোট</h2>
+<h3 id="ran-এর-করমববরতন"><strong>৭.১ RAN-এর ক্রমবিবর্তন</strong></h3>
+<p><strong>D-RAN (Distributed RAN):</strong> প্রতিটি টাওয়ারের নিচে BBU (Baseband Unit) ও ওপরে RRH (Remote Radio Head)। প্রতি সাইটে আলাদা ঘর, এসি, ব্যাটারি, বিদ্যুৎ। সরল কিন্তু ব্যয়বহুল, প্রতিবেশী cell-এর মধ্যে সমন্বয় কঠিন, সব সাইটের ক্ষমতা সর্বোচ্চ ট্রাফিকের জন্য রাখতে হয় (অব্যবহৃত ক্ষমতা নষ্ট)।</p>
+<p><strong>C-RAN (Centralized/Cloud RAN):</strong> বহু সাইটের BBU একটি কেন্দ্রীয় জায়গায় (BBU hub বা pool) এনে রাখা; টাওয়ারে থাকে শুধু RRH ও antenna। ধারণাটি চীনের মোবাইল গবেষণা প্রতিষ্ঠান জনপ্রিয় করে।</p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>সুবিধা</th>
+<th>ব্যাখ্যা</th>
+</tr>
+<tr class="odd">
+<th>Statistical multiplexing gain</th>
+<th>সব এলাকায় একসাথে ব্যস্ত সময় নয় (অফিস এলাকা দিনে, আবাসিক রাতে), তাই pool মোট কম ক্ষমতায় চলে</th>
+</tr>
+<tr class="header">
+<th>কম খরচ</th>
+<th>কম ঘর, এসি ও বিদ্যুৎ; সাইট ভাড়া কম</th>
+</tr>
+<tr class="odd">
+<th>সমন্বয়</th>
+<th>CoMP, ICIC সহজ; handover দ্রুত (একই BBU-তে)</th>
+</tr>
+<tr class="header">
+<th>সহজ upgrade</th>
+<th>সফটওয়্যার/হার্ডওয়্যার আপগ্রেড কেন্দ্রে</th>
+</tr>
+<tr class="odd">
+<th>সবুজ</th>
+<th>শক্তি সাশ্রয়</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>চ্যালেঞ্জ:</strong> fronthaul ফাইবার (বিশাল bandwidth, কম latency), BBU hub-এ একক ব্যর্থতার ঝুঁকি, synchronization।</p>
+<p><strong>Fronthaul latency বাজেট:</strong> HARQ সময়সীমা ও রেডিও timing-এর কারণে RRH-BBU-র একমুখী delay কয়েকশো µs-এর মধ্যে রাখতে হয়। ফাইবারে সংকেতের গতি প্রায় 5 µs প্রতি km। প্রায় 100 µs বাজেট ধরলে সর্বোচ্চ দূরত্ব ≈ 100 / 5 = <strong>20 km</strong> (যন্ত্রের নিজস্ব delay আলাদা)।</p>
+<p><strong>Virtualized RAN (vRAN):</strong> BBU-র ফাংশন বিশেষ হার্ডওয়্যারের বদলে সাধারণ সার্ভারে সফটওয়্যার (NFV-র ধারণা); আর <strong>Cloud RAN</strong> মূলত কেন্দ্রীকরণ, vRAN মূলত virtualization। দুটি একসাথেও থাকে।</p>
+<h3 id="g-ran-cu-du-ru-ও-functional-split"><strong>৭.২ 5G RAN: CU, DU, RU ও Functional Split</strong></h3>
+<p>5G gNB তিন অংশে ভাগ:</p>
+<ul>
+<li><blockquote>
+<p><strong>RU (Radio Unit):</strong> RF ও কিছু low-PHY; antenna-র কাছে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>DU (Distributed Unit):</strong> real-time ফাংশন (RLC, MAC, high-PHY), সাধারণত edge-এ।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>CU (Centralized Unit):</strong> কম real-time ফাংশন (PDCP, RRC, SDAP); আরও কেন্দ্রীয়। CU আবার <strong>CU-CP</strong> (control plane) ও <strong>CU-UP</strong> (user plane) হতে পারে।</p>
+</blockquote></li>
+</ul>
+<p>3GPP TR 38.801-এ আটটি split option (প্রোটোকল স্ট্যাকের কোথায় ভাগ):</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Split</th>
+<th>কোথায় ভাগ</th>
+<th>ব্যবহার</th>
+</tr>
+<tr class="odd">
+<th>Option 2</th>
+<th>PDCP ও RLC-র মাঝে</th>
+<th><strong>F1 ইন্টারফেস (CU–DU, midhaul)</strong>; latency শিথিল (≈ 1–10 ms)</th>
+</tr>
+<tr class="header">
+<th>Option 6</th>
+<th>MAC ও PHY-র মাঝে</th>
+<th>small cell fronthaul (nFAPI)</th>
+</tr>
+<tr class="odd">
+<th>Option 7 (7.1, 7.2, 7.3)</th>
+<th>PHY-এর ভেতরে</th>
+<th><strong>7.2x = O-RAN Open Fronthaul (eCPRI)</strong>; কঠোর latency</th>
+</tr>
+<tr class="header">
+<th>Option 8</th>
+<th>PHY ও RF-এর মাঝে</th>
+<th><strong>CPRI</strong> (I/Q নমুনা)</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>কেন CPRI 5G-তে অচল?</strong> CPRI I/Q নমুনা বহন করে, তাই রেট antenna সংখ্যার সাথে বাড়ে। উদাহরণ: 100 MHz carrier ⇒ 122.88 Msps; প্রতি antenna 2 × 16 বিট ⇒ 3.93 Gbps; 64 antenna ⇒ ≈ <strong>251.7 Gbps</strong> (line coding ছাড়াই)। Split 7.2-এ ডেটা রেট antenna-র পরিবর্তে spatial layer-এর সংখ্যার উপর নির্ভর করে, তাই কয়েক গুণ কম (দশ Gbps-এর ক্রমে)।</p>
+<h3 id="o-ran-alliance"><strong>৭.৩ O-RAN Alliance</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>২০১৮ সালের ফেব্রুয়ারিতে</strong> AT&amp;T, China Mobile, Deutsche Telekom, NTT DOCOMO ও Orange গঠন করে (xRAN Forum ও C-RAN Alliance একীভূত হয়ে)। পরে বহু অপারেটর ও বিক্রেতা যুক্ত।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>লক্ষ্য:</strong> RAN-কে <strong>খোলা (open interfaces), বুদ্ধিমান (RIC ও AI/ML), virtualized ও multi-vendor (interoperable)</strong> করা, যাতে একটি বিক্রেতার RU, অন্যজনের DU ও CU, তৃতীয়জনের RIC একসাথে কাজ করে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>O-RAN ও Open RAN:</strong> Open RAN একটি সাধারণ ধারণা (খোলা ইন্টারফেস); O-RAN Alliance সুনির্দিষ্ট স্পেসিফিকেশন তৈরি করে, 3GPP-র সাথে মিলিয়ে।</p>
+</blockquote></li>
+</ul>
+<h3 id="o-ran-আরকটকচরর-উপদন"><strong>৭.৪ O-RAN আর্কিটেকচারের উপাদান</strong></h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>উপাদান</th>
+<th>কাজ</th>
+</tr>
+<tr class="odd">
+<th><strong>SMO</strong></th>
+<th>Service Management and Orchestration: পুরো ব্যবস্থার পরিচালনা, ডেটা সংগ্রহ; এর ভেতরে Non-RT RIC</th>
+</tr>
+<tr class="header">
+<th><strong>Non-RT RIC</strong></th>
+<th>নিয়ন্ত্রণ-চক্র 1 সেকেন্ডের বেশি; নীতি, AI/ML মডেল প্রশিক্ষণ; অ্যাপ <strong>rApp</strong></th>
+</tr>
+<tr class="odd">
+<th><strong>Near-RT RIC</strong></th>
+<th>নিয়ন্ত্রণ-চক্র 10 ms – 1 s; E2 দিয়ে RAN নোড নিয়ন্ত্রণ; অ্যাপ <strong>xApp</strong></th>
+</tr>
+<tr class="header">
+<th><strong>O-CU-CP / O-CU-UP</strong></th>
+<th>CU-এর control ও user অংশ</th>
+</tr>
+<tr class="odd">
+<th><strong>O-DU</strong></th>
+<th>real-time baseband (RLC/MAC/high-PHY)</th>
+</tr>
+<tr class="header">
+<th><strong>O-RU</strong></th>
+<th>রেডিও ইউনিট, low-PHY ও RF</th>
+</tr>
+<tr class="odd">
+<th><strong>O-Cloud</strong></th>
+<th>virtualized কম্পিউট প্ল্যাটফর্ম যেখানে O-RAN ফাংশন চলে</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>ইন্টারফেস:</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ইন্টারফেস</th>
+<th>সংযোগ</th>
+</tr>
+<tr class="odd">
+<th><strong>Open Fronthaul</strong> (split 7.2x)</th>
+<th>O-RU ↔︎ O-DU; CUS-plane (control, user, sync) + M-plane (management)</th>
+</tr>
+<tr class="header">
+<th><strong>E2</strong></th>
+<th>Near-RT RIC ↔︎ O-CU/O-DU</th>
+</tr>
+<tr class="odd">
+<th><strong>A1</strong></th>
+<th>Non-RT RIC ↔︎ Near-RT RIC (নীতি ও ML মডেল)</th>
+</tr>
+<tr class="header">
+<th><strong>O1</strong></th>
+<th>SMO ↔︎ O-RAN নোড (FCAPS ব্যবস্থাপনা)</th>
+</tr>
+<tr class="odd">
+<th><strong>O2</strong></th>
+<th>SMO ↔︎ O-Cloud (cloud রিসোর্স)</th>
+</tr>
+<tr class="header">
+<th><strong>F1-c/F1-u, E1, NG, Xn</strong></th>
+<th>3GPP-র মানক ইন্টারফেস (CU–DU, CU-CP–CU-UP, core, gNB–gNB)</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h3 id="ric-র-বযবহর-use-case"><strong>৭.৫ RIC-র ব্যবহার (Use case)</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>Traffic steering:</strong> ইউজারকে সবচেয়ে উপযুক্ত cell বা ব্যান্ডে পাঠানো।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Load balancing:</strong> ব্যস্ত cell থেকে কম ব্যস্ত cell-এ লোড সরানো।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Energy saving:</strong> কম ট্রাফিকে cell বা কম্পোনেন্ট ঘুম পাড়ানো (sleep mode)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>QoS/slice অপ্টিমাইজেশন:</strong> slice-ভিত্তিক রিসোর্স বরাদ্দ।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Anomaly detection ও ভবিষ্যদ্বাণী:</strong> AI/ML দিয়ে ব্যর্থতার আগে সতর্কতা।</p>
+</blockquote></li>
+</ul>
+<p><strong>কাজের ধারা:</strong> Non-RT RIC-এ ML মডেল প্রশিক্ষিত হয়, A1 দিয়ে নীতি/মডেল Near-RT RIC-তে যায়, xApp E2 দিয়ে বাস্তব সময়ে RAN নিয়ন্ত্রণ করে।</p>
+<h3 id="সবধ-ও-চযলঞজ"><strong>৭.৬ সুবিধা ও চ্যালেঞ্জ</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>সুবিধা:</strong> বিক্রেতা-নির্ভরতা কম, প্রতিযোগিতা বাড়ে ও খরচ কমে, নতুন ছোট বিক্রেতার সুযোগ, দ্রুত উদ্ভাবন (xApp/rApp), আরও স্বয়ংক্রিয় ও AI-চালিত নেটওয়ার্ক।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>চ্যালেঞ্জ:</strong> বহু বিক্রেতার সিস্টেম একসাথে বসানো (integration), পারফরম্যান্স তুলনায় প্রচলিত বিক্রেতার চেয়ে পিছিয়ে থাকার ঝুঁকি, নিরাপত্তা (উন্মুক্ত ইন্টারফেস আক্রমণের পথ), দায়িত্ব কার তা নির্ধারণ (support), পরিপক্ক মানদণ্ড।</p>
+</blockquote></li>
+<li><blockquote>
+<p>বাস্তবে জাপানের Rakuten Mobile সম্পূর্ণ virtualized ও open RAN-ভিত্তিক গ্রিনফিল্ড নেটওয়ার্ক চালু করে বিশ্বে পরিচিত হয়েছে।</p>
+</blockquote></li>
+</ul>
+<h3 id="অনশলন-5"><strong>৭.৭ অনুশীলন</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p>Near-RT RIC-এর নিয়ন্ত্রণ-চক্র? → 10 ms থেকে 1 s।</p>
+</blockquote></li>
+<li><blockquote>
+<p>O-RAN Open Fronthaul-এ কোন split? → 7.2x।</p>
+</blockquote></li>
+<li><blockquote>
+<p>F1 ইন্টারফেস কোন দুটি অংশ জোড়ে? → CU ও DU।</p>
+</blockquote></li>
+<li><blockquote>
+<p>A1 ইন্টারফেসে কী যায়? → নীতি ও AI/ML মডেল (Non-RT RIC থেকে Near-RT RIC-তে)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>CPRI কোন split? → Option 8 (PHY–RF)।</p>
+</blockquote></li>
+</ol>
+</div><div class="tools"><a class="btn" href="cell-06.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-08.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

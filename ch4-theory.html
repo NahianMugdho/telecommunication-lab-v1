@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 4: Multiplexing &amp; Modulation — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 4: Multiplexing &amp; Modulation</h1>
+<h2>Tutorial</h2>
+<div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>Modulation কেন?</b> Voice (low frequency) সরাসরি বাতাসে পাঠানো যায় না। তাই একটা high-frequency <b>carrier</b>-এর সাথে message "চড়িয়ে" দেওয়া হয়। ঠিক যেমন চিঠি (message) ডাকগাড়ির (carrier) ওপর চড়ে যায়।</p>
+<p><b>AM:</b> carrier-এর <i>amplitude</i> বদলায়। BW = 2×f<sub>m</sub> (DSB), SSB-তে BW = f<sub>m</sub> (অর্ধেক!)।</p>
+<p><b>FM / PM:</b> carrier-এর <i>frequency / phase</i> বদলায়। Noise-এর বিরুদ্ধে ভালো, কিন্তু BW বেশি লাগে।</p>
+<p><b>Pulse modulation:</b> PAM (height), PWM (width), PPM (position), PCM (binary code), DM (শুধু ১ bit: ওপরে না নিচে)।</p>
+<p><b>FDM হিসাব:</b> প্রতি channel-এর BW + guard band যোগ করে মোট bandwidth। DSB-SC = 2fm, SSB-SC = fm।</p></div>
+<div class="formula">Total BW (FDM) = N × channel BW + (N−1) × guard<br>DSB-SC BW = 2f<sub>m</sub> &nbsp;|&nbsp; SSB BW = f<sub>m</sub> &nbsp;|&nbsp; Channels = Total BW ÷ (BW + guard)</div>
+<a class="btn" href="ch4-qa.html">Practice Q &amp; A →</a></main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

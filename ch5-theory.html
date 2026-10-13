@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 5: Delta Modulation &amp; Telephone Traffic — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 5: Delta Modulation &amp; Telephone Traffic</h1>
+<h2>Tutorial</h2>
+<div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>Delta Modulation (DM):</b> PCM-এ প্রতি sample-এ অনেক bit লাগে। DM-এ শুধু <b>১ bit</b>: signal এখন আগের "সিঁড়ির ধাপ"-এর চেয়ে ওপরে হলে <b>1</b> (এক step ওঠো), নিচে হলে <b>0</b> (এক step নামো)। তাই bit rate = fs × 1।</p>
+<p><b>Slope overload:</b> Signal খুব দ্রুত বদলালে ছোট step-এর সিঁড়ি পিছিয়ে পড়ে — এটাই distortion। সমাধান: step বড় করো বা fs বাড়াও। নিচের animation-এ step কমিয়ে নিজে দেখো।</p>
+<p><b>Granular noise:</b> Step খুব বড় হলে signal সমান থাকলেও সিঁড়ি ওপর-নিচ কাঁপে — এটা granular noise।</p>
+<p><b>Erlang:</b> টেলিফোন লাইন কতটা ব্যস্ত তার একক। এক ঘণ্টায় মোট কত ঘণ্টা কথা হলো সেটাই Erlang। যেমন ১ ঘণ্টায় 30 call × 5 মিনিট = 150 মিনিট = 2.5 Erlang।</p></div>
+<div class="card"><canvas id="dm" width="780" height="260"></canvas><div class="tools">step Δ <input id="dstep" type="range" min="2" max="60" value="25"> tick rate <input id="dfs" type="range" min="10" max="120" value="50"></div></div>
+<div class="formula">No slope overload if: Δ·fs ≥ max|dm/dt| &nbsp;|&nbsp; DM bit rate = 1 × fs<br>Erlang = (calls × avg duration) ÷ period &nbsp;|&nbsp; Max calls = lines × period ÷ duration</div>
+<div class="card"><b>Erlang Calculator</b><div class="tools">calls <input id="calls" value="1000"> minutes/call <input id="mins" value="15"> period hours <input id="hrs" value="24"><button onclick="calcErlang()">Calculate</button></div><b id="out"></b></div>
+<a class="btn" href="ch5-qa.html">Practice Q &amp; A →</a></main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

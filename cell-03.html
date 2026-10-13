@@ -1,0 +1,407 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellular Topic 3: Basic Concept of Cellular Networks — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Cellular Topic 3: Basic Concept of Cellular Networks</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="card"><b>Frequency reuse animation</b> — cluster size N বদলে দেখো (একই রঙ = একই frequency; মোটা বর্ডার = co-channel cell)<canvas id="hx" width="780" height="330"></canvas><div class="tools">N <select id="hxN"><option>1</option><option>3</option><option selected>7</option><option>9</option><option>13</option></select> <span id="hxinfo"></span></div></div><div class="doc">
+<p>Cellular নেটওয়ার্কের মূল আইডিয়া: একটি বড় এলাকাকে অনেক ছোট ছোট cell-এ ভাগ করা, প্রতিটিতে একটি base station। একই ফ্রিকোয়েন্সি দূরের অন্য cell-এ আবার ব্যবহার করা হয়, একেই <strong>frequency reuse</strong> বলে। এতে সীমিত spectrum দিয়ে অসংখ্য ইউজার সামলানো যায়।</p>
+<p><strong>মূল শব্দ</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>Cell:</strong> একটি base station-এর কভারেজ এলাকা (আদর্শ আকার hexagon)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Cluster:</strong> যে cell-গুলো মিলে সব ফ্রিকোয়েন্সি একবার ব্যবহার করে; আকার N।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Co-channel interference:</strong> একই ফ্রিকোয়েন্সির দূরের cell-এর বাধা।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Handoff/Handover:</strong> কল চলাকালীন এক cell থেকে আরেক cell-এ সংযোগ সরানো।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Roaming:</strong> নিজের নেটওয়ার্কের বাইরে অন্য এলাকা/অপারেটরে সেবা পাওয়া।</p>
+</blockquote></li>
+</ul>
+<p><strong>গুরুত্বপূর্ণ সূত্র</strong></p>
+<p>N = i^2 + ij + j^2, \qquad D = R\sqrt{3N}, \qquad \text{Reuse factor} = \frac{1}{N}</p>
+<ul>
+<li><blockquote>
+<p>N-এর সম্ভাব্য মান: 1, 3, 4, 7, 9, 12 (7 সবচেয়ে বেশি আলোচিত)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>D = co-channel cell-এর মধ্যে দূরত্ব, R = cell radius। N বাড়লে D/R বাড়ে, interference কমে কিন্তু প্রতি cell-এ channel কমে।</p>
+</blockquote></li>
+<li><blockquote>
+<p>মোট channel S হলে প্রতি cell-এ k = S/N channel।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Hexagon cell-এর ক্ষেত্রফল = (3√3 / 2) R²।</p>
+</blockquote></li>
+</ul>
+<p><strong>Capacity বাড়ানোর কৌশল</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>কৌশল</th>
+<th>কাজ</th>
+</tr>
+<tr class="odd">
+<th>Cell splitting</th>
+<th>ব্যস্ত cell ছোট ছোট cell-এ ভাগ, power কমিয়ে</th>
+</tr>
+<tr class="header">
+<th>Sectoring</th>
+<th>Directional antenna দিয়ে cell-কে 3 বা 6 sector-এ ভাগ; interference কমে</th>
+</tr>
+<tr class="odd">
+<th>Microcell/Picocell/Femtocell</th>
+<th>ঘন এলাকায় ছোট কভারেজের cell</th>
+</tr>
+<tr class="header">
+<th>Frequency reuse 1 (LTE/5G)</th>
+<th>সব cell একই ফ্রিকোয়েন্সি, interference সামলায় ICIC ও scheduling</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Handoff-এর ধরন</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>Hard handoff:</strong> আগের সংযোগ কেটে নতুন সংযোগ (break-before-make); GSM, LTE।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Soft handoff:</strong> একসাথে একাধিক cell-এর সাথে যুক্ত (make-before-break); CDMA/WCDMA।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Intra-/Inter-system:</strong> একই প্রযুক্তির ভেতরে বা ভিন্ন প্রযুক্তির মধ্যে (যেমন 4G→3G)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Handover ঠিক করে সংকেত মান (RSRP/RSRQ) ও থ্রেশহোল্ড; অকারণ ping-pong এড়াতে hysteresis রাখা হয়।</p>
+</blockquote></li>
+</ul>
+<p><strong>GSM আর্কিটেকচার (পরীক্ষায় খুব আসে)</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>MS</strong> (মোবাইল + SIM) → <strong>BTS</strong> (রেডিও ট্রান্সসিভার) → <strong>BSC</strong> (BTS নিয়ন্ত্রণ, handover, channel বরাদ্দ) → <strong>MSC</strong> (কল সুইচিং)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>HLR:</strong> সাবস্ক্রাইবারের স্থায়ী ডেটাবেস। <strong>VLR:</strong> বর্তমান এলাকার অস্থায়ী ডেটা। <strong>AuC:</strong> authentication key। <strong>EIR:</strong> চুরি/অবৈধ ডিভাইসের IMEI তালিকা।</p>
+</blockquote></li>
+<li><blockquote>
+<p>BTS+BSC মিলে <strong>BSS</strong>; MSC, VLR, HLR, AuC, EIR মিলে <strong>NSS</strong>।</p>
+</blockquote></li>
+</ul>
+<p><strong>সম্ভাব্য MCQ</strong></p>
+<ul>
+<li><blockquote>
+<p>7-cell cluster-এ reuse factor কত? → 1/7</p>
+</blockquote></li>
+<li><blockquote>
+<p>Cell splitting-এর উদ্দেশ্য কী? → Capacity বাড়ানো</p>
+</blockquote></li>
+<li><blockquote>
+<p>Soft handoff কোথায় ব্যবহৃত? → CDMA/WCDMA</p>
+</blockquote></li>
+<li><blockquote>
+<p>GSM-এ চুরি হওয়া ফোন ব্লক করতে কোন ডেটাবেস? → EIR</p>
+</blockquote></li>
+<li><blockquote>
+<p>BSC-এর কাজ কী? → একাধিক BTS নিয়ন্ত্রণ ও handover পরিচালনা</p>
+</blockquote></li>
+</ul>
+<h2>বিস্তারিত নোট</h2>
+<h3 id="কন-cellular"><strong>৩.১ কেন cellular?</strong></h3>
+<p>পুরনো মোবাইল ব্যবস্থায় একটি উঁচু টাওয়ার ও বেশি শক্তির transmitter পুরো শহর কভার করত, ফলে মোট channel ছিল হাতে গোনা (কয়েক ডজন ইউজার)। Cellular ধারণায় এলাকাকে ছোট cell-এ ভাগ করা হয়, প্রতিটিতে কম শক্তির base station থাকে, আর একই ফ্রিকোয়েন্সি দূরের cell-এ আবার ব্যবহৃত হয় (frequency reuse)। ফলে একই spectrum দিয়ে লাখো ইউজার সামলানো যায়। মূল সুবিধা তিনটি: বেশি capacity, কম transmit power (ফোনের ব্যাটারি বাঁচে), এবং সহজে কভারেজ বাড়ানো।</p>
+<h3 id="hexagon-জযমত-ও-cluster"><strong>৩.২ Hexagon জ্যামিতি ও cluster</strong></h3>
+<p>বাস্তবে cell গোলাকার, কিন্তু ফাঁক বা overlap ছাড়া পুরো এলাকা ঢাকতে হেক্সাগন সবচেয়ে কাছের আদর্শ আকার। R ব্যাসার্ধের হেক্সাগনের ক্ষেত্রফল = (3√3/2)R² ≈ 2.598R²।</p>
+<p>N=i^2+ij+j^2,\qquad D=R\sqrt{3N},\qquad q=\frac{D}{R}=\sqrt{3N}</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>(i, j)</th>
+<th>N</th>
+<th>D/R</th>
+<th>বৈশিষ্ট্য</th>
+</tr>
+<tr class="odd">
+<th>(1,0)</th>
+<th>1</th>
+<th>1.73</th>
+<th>LTE/5G-তে reuse-1</th>
+</tr>
+<tr class="header">
+<th>(1,1)</th>
+<th>3</th>
+<th>3.00</th>
+<th>সাধারণ sector-ভিত্তিক</th>
+</tr>
+<tr class="odd">
+<th>(2,0)</th>
+<th>4</th>
+<th>3.46</th>
+<th>AMPS-এর ছোট cluster</th>
+</tr>
+<tr class="header">
+<th>(2,1)</th>
+<th>7</th>
+<th>4.58</th>
+<th>সবচেয়ে বেশি আলোচিত</th>
+</tr>
+<tr class="odd">
+<th>(3,0)</th>
+<th>9</th>
+<th>5.20</th>
+<th></th>
+</tr>
+<tr class="header">
+<th>(2,2)</th>
+<th>12</th>
+<th>6.00</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>চ্যানেল বণ্টন: মোট S টি duplex channel থাকলে প্রতি cell-এ k = S/N। N বাড়লে D/R বাড়ে (interference কমে) কিন্তু প্রতি cell-এ channel কমে (capacity কমে)। এটাই মূল trade-off। Cluster M বার পুনরাবৃত্তি হলে মোট capacity C = M × k × N = M × S।</p>
+<h3 id="co-channel-interference-ও-sir"><strong>৩.৩ Co-channel Interference ও SIR</strong></h3>
+<p>প্রথম স্তরে 6টি co-channel cell পরিবেষ্টন করে। Path loss exponent n হলে:</p>
+<p>\mathrm{SIR}=\frac{S}{I}\approx\frac{(D/R)^{n}}{6}=\frac{(3N)^{n/2}}{6}</p>
+<ul>
+<li><blockquote>
+<p>GSM-এ সাধারণত SIR ≥ 9–12 dB, AMPS-এ ≈ 18 dB লাগে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Adjacent channel interference:</strong> পাশের ফ্রিকোয়েন্সির leakage; guard band ও ভালো ফিল্টারে কমে।</p>
+</blockquote></li>
+</ul>
+<p><strong>সমাধানকৃত অঙ্ক ১ (SIR থেকে cluster size):</strong> প্রয়োজন 15 dB (= 31.62 গুণ), প্রথম স্তরে 6 interferer।</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>N</th>
+<th>n = 4-এ SIR</th>
+<th>n = 3-এ SIR</th>
+</tr>
+<tr class="odd">
+<th>3</th>
+<th>11.30 dB (ব্যর্থ)</th>
+<th>6.53 dB (ব্যর্থ)</th>
+</tr>
+<tr class="header">
+<th>4</th>
+<th>13.80 dB (ব্যর্থ)</th>
+<th>8.41 dB (ব্যর্থ)</th>
+</tr>
+<tr class="odd">
+<th>7</th>
+<th><strong>18.66 dB (পাস)</strong></th>
+<th>12.05 dB (ব্যর্থ)</th>
+</tr>
+<tr class="header">
+<th>9</th>
+<th>20.85 dB</th>
+<th>13.69 dB (ব্যর্থ)</th>
+</tr>
+<tr class="odd">
+<th>12</th>
+<th>23.34 dB</th>
+<th><strong>15.56 dB (পাস)</strong></th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>উত্তর: n = 4-এ ন্যূনতম <strong>N = 7</strong> (reuse factor 1/7); n = 3-এ ন্যূনতম <strong>N = 12</strong> (reuse factor 1/12)। শিক্ষা: path loss exponent কম (খোলা এলাকা) হলে interference বেশি বহুদূরে পৌঁছায়, তাই বড় cluster লাগে।</p>
+<h3 id="capacity-বডনর-কশল"><strong>৩.৪ Capacity বাড়ানোর কৌশল</strong></h3>
+<p><strong>Cell splitting:</strong> ব্যস্ত cell-কে ছোট cell-এ ভাগ। ব্যাসার্ধ অর্ধেক হলে ক্ষেত্রফল ¼ হয়, অর্থাৎ ওই জায়গায় cell সংখ্যা 4 গুণ। Path loss exponent n হলে প্রতি cell-এর transmit power কমাতে হয় প্রায় 2ⁿ গুণ; n = 4 হলে 1/16 (12 dB কম), যাতে SIR বজায় থাকে। অসুবিধা: নতুন সাইট ও handoff বেশি।</p>
+<p><strong>Sectoring:</strong> omni antenna-র বদলে directional antenna। Interferer 6 থেকে কমে 120° sector-এ 2, 60° sector-এ 1 হয়। উদাহরণ (n = 4, N = 7): omni SIR = 441/6 = 73.5 (<strong>18.66 dB</strong>); 120° sector = 441/2 = 220.5 (<strong>23.43 dB</strong>); 60° sector = 441/1 (<strong>26.44 dB</strong>)। এই SIR বাড়ার সুযোগে ছোট cluster ব্যবহার করে capacity বাড়ানো যায়। ক্ষতি: trunking efficiency কিছুটা কমে (channel ভাগ হয়ে যায়) ও handoff বাড়ে।</p>
+<p><strong>Microcell/Picocell/Femtocell:</strong> শহরের ঘন জায়গা, ভবনের ভেতরে ছোট কভারেজ। <strong>Repeater:</strong> কভারেজ বাড়ায়, capacity নয়। <strong>Frequency reuse-1 + ICIC:</strong> LTE/5G-তে সব cell একই ব্যান্ডে, interference সমন্বয় (ICIC/eICIC) ও scheduling দিয়ে সামলায়।</p>
+<h3 id="trunking-ও-grade-of-service"><strong>৩.৫ Trunking ও Grade of Service</strong></h3>
+<p>অনেক ইউজার অল্প channel ভাগাভাগি করে, কারণ সবাই একসাথে কল করে না। Erlang-B (blocked calls cleared) দিয়ে নির্ধারণ হয় কতজন ইউজার কত blocking-এ সামলানো যায়।</p>
+<p><strong>সমাধানকৃত অঙ্ক ২:</strong> blocking 0.5%, প্রতি ইউজারের লোড 0.1 Erlang।</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Channel</th>
+<th>সর্বোচ্চ লোড (Erlang)</th>
+<th>সমর্থিত ইউজার</th>
+<th>ইউজার/channel</th>
+</tr>
+<tr class="odd">
+<th>5</th>
+<th>1.132</th>
+<th>≈ 11</th>
+<th>2.3</th>
+</tr>
+<tr class="header">
+<th>10</th>
+<th>3.961</th>
+<th>≈ 39</th>
+<th>4.0</th>
+</tr>
+<tr class="odd">
+<th>20</th>
+<th>11.092</th>
+<th>≈ 110</th>
+<th>5.5</th>
+</tr>
+<tr class="header">
+<th>100</th>
+<th>80.910</th>
+<th>≈ 809</th>
+<th>8.1</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>শিক্ষা: channel বাড়ালে প্রতি channel-এ ইউজার বাড়ে। এটিই <strong>trunking efficiency</strong>; তাই বড় channel pool ছোট ছোট আলাদা pool-এর চেয়ে ভালো (sectoring-এ কেন সামান্য ক্ষতি, তার ব্যাখ্যাও এটাই)।</p>
+<p><strong>সমাধানকৃত অঙ্ক ৩ (spectrum থেকে channel):</strong> মোট 33 MHz, 25 kHz simplex channel → duplex channel প্রতিটি 50 kHz → 33 MHz / 50 kHz = <strong>660</strong> duplex channel। প্রতি cell-এ: N = 4 হলে <strong>165</strong>, N = 7 হলে প্রায় <strong>94</strong>, N = 12 হলে <strong>55</strong>।</p>
+<h3 id="handoff"><strong>৩.৬ Handoff</strong></h3>
+<p>কল চলাকালীন ইউজার cell ছাড়লে সংযোগ না কেটে নতুন cell-এ সরানো।</p>
+<ul>
+<li><blockquote>
+<p><strong>Handoff শুরুর মানদণ্ড:</strong> সংকেত শক্তি (RSSI/RSRP) একটি threshold-এর নিচে যাওয়া। threshold ও ন্যূনতম ব্যবহারযোগ্য সংকেতের পার্থক্য <strong>handoff margin Δ</strong>। Δ খুব ছোট হলে call drop (সময় থাকে না), খুব বড় হলে অযথা handoff।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Hysteresis:</strong> ping-pong (বারবার আসা-যাওয়া) এড়াতে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Dwell time:</strong> একটি cell-এ ইউজার যতক্ষণ থাকে; দ্রুত ইউজারের dwell time কম, তাই microcell-এ দ্রুত গতির ইউজারকে umbrella macro cell-এ রাখা হয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Prioritizing handoff:</strong> নতুন কলের চেয়ে চলমান কল বেশি মূল্যবান, তাই কিছু <strong>guard channel</strong> শুধু handoff-এর জন্য সংরক্ষিত (নতুন কল ব্লক হওয়ার সম্ভাবনা বাড়ে, কিন্তু কল drop কমে)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>ধরন:</strong> Hard (break-before-make; GSM, LTE), Soft (make-before-break; CDMA/WCDMA), Softer (একই সাইটের দুই sector-এর মধ্যে)। <strong>MAHO</strong> (Mobile Assisted Handoff): ফোন নিজে প্রতিবেশী cell মেপে রিপোর্ট করে; GSM-এ ব্যবহৃত।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Intra-/Inter-BSC, Inter-MSC, Inter-RAT</strong> (যেমন 4G→3G) handoff।</p>
+</blockquote></li>
+</ul>
+<h3 id="gsm-এর-বসতরত-পরকষয-পরযই-আস"><strong>৩.৭ GSM-এর বিস্তারিত (পরীক্ষায় প্রায়ই আসে)</strong></h3>
+<p><strong>স্থাপত্য:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>উপ-ব্যবস্থা</th>
+<th>নোড</th>
+<th>কাজ</th>
+</tr>
+<tr class="odd">
+<th>MS</th>
+<th>ME + SIM</th>
+<th>ফোন ও পরিচয় কার্ড</th>
+</tr>
+<tr class="header">
+<th>BSS</th>
+<th>BTS, BSC, TRAU</th>
+<th>রেডিও সংযোগ, channel ও handover ব্যবস্থাপনা</th>
+</tr>
+<tr class="odd">
+<th>NSS</th>
+<th>MSC, GMSC, VLR, HLR, AuC, EIR</th>
+<th>সুইচিং, mobility, নিরাপত্তা</th>
+</tr>
+<tr class="header">
+<th>OSS</th>
+<th>OMC</th>
+<th>অপারেশন ও রক্ষণাবেক্ষণ</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>রেডিও প্যারামিটার:</strong> carrier ব্যবধান 200 kHz; প্রতি carrier-এ 8 time slot; এক slot = 576.9 µs (প্রায় 0.577 ms); এক TDMA frame = 8 slot = 4.615 ms; প্রতি slot-এ 156.25 bit; carrier-এর মোট bit rate = 270.833 kbps; modulation GMSK (BT = 0.3); GSM 900-এ 124টি ARFCN; frequency hopping প্রায় 217 hop/s; speech coding full-rate 13 kbps (RPE-LTP), ফলে 8 user প্রতি carrier-এ।</p>
+<p><strong>Timing advance:</strong> দূরের ফোনের সংকেত দেরিতে পৌঁছায়, তাই BTS ফোনকে আগে পাঠাতে বলে। 1 step = 1 bit period = 3.69 µs ≈ 550 m; সর্বোচ্চ 63 step ⇒ প্রায় 35 km সর্বোচ্চ cell radius (GSM-এ)।</p>
+<p><strong>Logical channel:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>শ্রেণি</th>
+<th>চ্যানেল</th>
+<th>কাজ</th>
+</tr>
+<tr class="odd">
+<th>Traffic</th>
+<th>TCH</th>
+<th>ভয়েস/ডেটা</th>
+</tr>
+<tr class="header">
+<th>Broadcast</th>
+<th>BCCH, FCCH, SCH</th>
+<th>cell তথ্য, ফ্রিকোয়েন্সি ও সময় সিঙ্ক</th>
+</tr>
+<tr class="odd">
+<th>Common control</th>
+<th>PCH (paging), RACH (UL access), AGCH (access grant)</th>
+<th></th>
+</tr>
+<tr class="header">
+<th>Dedicated control</th>
+<th>SDCCH, SACCH, FACCH</th>
+<th>সিগন্যালিং, ধীর/দ্রুত সংশ্লিষ্ট সিগন্যালিং</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>শনাক্তকারী:</strong> IMSI = MCC (3) + MNC (2–3) + MSIN; বাংলাদেশের MCC = 470; LAI = MCC + MNC + LAC; CGI = LAI + CI (Cell Identity)। (অপারেটর MNC: GP 01, Robi 02, Banglalink 03, Teletalk 04, এটি আমার স্মৃতি থেকে, নিশ্চিত হয়ে নিও।)</p>
+<p><strong>Location Area:</strong> একসাথে paging যাওয়া cell-গুচ্ছ। ফোন LA বদলালে <strong>Location Update</strong>; বড় LA-তে paging ভার বেশি, ছোট LA-তে update ভার বেশি।</p>
+<h3 id="অনশলন-1"><strong>৩.৮ অনুশীলন</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p>N = 9 হলে D/R? → √27 ≈ 5.20।</p>
+</blockquote></li>
+<li><blockquote>
+<p>60° sectoring-এ প্রথম স্তরে কতটি interferer? → 1।</p>
+</blockquote></li>
+<li><blockquote>
+<p>GSM carrier-এর মোট bit rate? → 270.833 kbps।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Timing advance সর্বোচ্চ কত step? → 63।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Cell ব্যাসার্ধ অর্ধেক করলে cell সংখ্যা কত গুণ? → 4 গুণ।</p>
+</blockquote></li>
+</ol>
+</div><div class="tools"><a class="btn" href="cell-02.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-04.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

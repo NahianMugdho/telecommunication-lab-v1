@@ -1,0 +1,304 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellular Topic 13: Mobile User Data Management ও Authentication — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Cellular Topic 13: Mobile User Data Management ও Authentication</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
+<p>মোবাইল নেটওয়ার্ক প্রতিটি সাবস্ক্রাইবারের তথ্য নিরাপদে রাখে এবং সংযোগের আগে তার পরিচয় যাচাই করে। পরিচয়ের ভিত্তি SIM/USIM কার্ডে থাকা গোপন কী <strong>Ki</strong> (বা LTE/5G-তে <strong>K</strong>), যেটি কার্ড ও নেটওয়ার্কের ডেটাবেস (AuC/HSS/UDM) ছাড়া আর কোথাও যায় না।</p>
+<p><strong>সাবস্ক্রাইবার ডেটা (profile)-তে যা থাকে</strong></p>
+<ul>
+<li><blockquote>
+<p>পরিচয়: IMSI, MSISDN, secret key Ki/K।</p>
+</blockquote></li>
+<li><blockquote>
+<p>সেবা: অনুমোদিত সেবার তালিকা (voice, SMS, data, roaming অনুমতি)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>ডেটা সেশন: অনুমোদিত APN/DNN, QoS প্রোফাইল (AMBR, QCI/5QI)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>অবস্থান: বর্তমান MME/VLR/AMF-এর ঠিকানা।</p>
+</blockquote></li>
+<li><blockquote>
+<p>চার্জিং: প্রিপেইড/পোস্টপেইড, অনলাইন চার্জিং (OCS) ও CDR (Call Detail Record) তৈরির তথ্য।</p>
+</blockquote></li>
+</ul>
+<p><strong>GSM Authentication (একমুখী)</strong></p>
+<ol type="1">
+<li><blockquote>
+<p>নেটওয়ার্ক একটি র‍্যান্ডম সংখ্যা <strong>RAND</strong> পাঠায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>SIM Ki ও RAND দিয়ে <strong>A3</strong> অ্যালগরিদমে <strong>SRES</strong> বানিয়ে ফেরত দেয়; নেটওয়ার্কও একই গণনা করে মেলায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>A8</strong> দিয়ে সিফার কী <strong>Kc</strong> তৈরি, <strong>A5</strong> (A5/1, A5/3) দিয়ে রেডিও এনক্রিপশন।</p>
+</blockquote></li>
+</ol>
+<ul>
+<li><blockquote>
+<p>নেটওয়ার্ক ইউজারকে যাচাই করে, কিন্তু ইউজার নেটওয়ার্ককে নয়, ফলে নকল base station (IMSI catcher) ঝুঁকি থাকে। এক সেট (RAND, SRES, Kc) = <strong>triplet</strong>।</p>
+</blockquote></li>
+</ul>
+<p><strong>3G/4G Authentication (পারস্পরিক, AKA)</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>Authentication vector</strong> (4G-তে): RAND, AUTN, XRES, KASME।</p>
+</blockquote></li>
+<li><blockquote>
+<p>UE <strong>AUTN</strong> যাচাই করে নেটওয়ার্ককে বিশ্বাস করে, তারপর <strong>RES</strong> পাঠায়; নেটওয়ার্ক RES-কে XRES-এর সাথে মেলায়। দুই পক্ষই একে অপরকে যাচাই করে (<strong>mutual authentication</strong>)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>অ্যালগরিদম সেট: <strong>Milenage</strong> (বা TUAK)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>কী হায়ারার্কি: <strong>K → CK, IK → KASME → NAS কী ও KeNB → রেডিও কী</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p>4G এনক্রিপশন/ইন্টিগ্রিটি: <strong>EEA/EIA</strong> (SNOW 3G, AES, ZUC); প্রতিটি সিগন্যালিংয়ে ইন্টিগ্রিটি সুরক্ষা বাধ্যতামূলক।</p>
+</blockquote></li>
+</ul>
+<p><strong>5G Authentication</strong></p>
+<ul>
+<li><blockquote>
+<p>দুটি পদ্ধতি: <strong>5G-AKA</strong> ও <strong>EAP-AKA'</strong>। নোড: UE, <strong>AMF/SEAF</strong>, <strong>AUSF</strong>, <strong>UDM/ARPF</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>SUCI:</strong> স্থায়ী পরিচয় SUPI/IMSI এনক্রিপ্ট করে (ইউজারের কাছে থাকা হোম নেটওয়ার্কের public key দিয়ে) পাঠানো হয়, তাই IMSI catcher আর IMSI পড়তে পারে না।</p>
+</blockquote></li>
+<li><blockquote>
+<p>5G এনক্রিপশন/ইন্টিগ্রিটি: <strong>NEA/NIA</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Home নেটওয়ার্ক roaming-এও চূড়ান্ত authentication ফলাফল নিশ্চিত করে।</p>
+</blockquote></li>
+</ul>
+<p><strong>তিন প্রজন্মের তুলনা</strong></p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>বিষয়</th>
+<th>GSM</th>
+<th>LTE</th>
+<th>5G</th>
+</tr>
+<tr class="odd">
+<th>Authentication</th>
+<th>একমুখী</th>
+<th>পারস্পরিক (EPS-AKA)</th>
+<th>পারস্পরিক (5G-AKA/EAP-AKA')</th>
+</tr>
+<tr class="header">
+<th>ডেটাবেস</th>
+<th>AuC + HLR</th>
+<th>HSS</th>
+<th>UDM + AUSF + UDR</th>
+</tr>
+<tr class="odd">
+<th>ভেক্টর</th>
+<th>Triplet</th>
+<th>Quintet/KASME</th>
+<th>Authentication vector (KAUSF/KSEAF/KAMF)</th>
+</tr>
+<tr class="header">
+<th>আইডি সুরক্ষা</th>
+<th>TMSI</th>
+<th>GUTI</th>
+<th>SUCI (এনক্রিপ্টেড)</th>
+</tr>
+<tr class="odd">
+<th>এনক্রিপশন</th>
+<th>A5/1, A5/3</th>
+<th>EEA</th>
+<th>NEA</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>সম্ভাব্য MCQ</strong></p>
+<ul>
+<li><blockquote>
+<p>GSM-এ authentication-এ নেটওয়ার্ক যে র‍্যান্ডম সংখ্যা পাঠায়? → RAND</p>
+</blockquote></li>
+<li><blockquote>
+<p>SIM-এর গোপন কী কী নামে পরিচিত? → Ki (K)</p>
+</blockquote></li>
+<li><blockquote>
+<p>GSM-এ authentication কোন অ্যালগরিদমে হয়? → A3</p>
+</blockquote></li>
+<li><blockquote>
+<p>5G-তে IMSI গোপন রাখার ব্যবস্থা? → SUCI</p>
+</blockquote></li>
+<li><blockquote>
+<p>4G AKA-তে ইউজার নেটওয়ার্ককে যাচাই করে কোন প্যারামিটার দিয়ে? → AUTN</p>
+</blockquote></li>
+</ul>
+<h2>বিস্তারিত নোট</h2>
+<h3 id="ইউজর-পরচয-ও-ডটর-ধরন"><strong>১৩.১ ইউজার পরিচয় ও ডেটার ধরন</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>IMSI:</strong> সর্বোচ্চ 15 ডিজিট = <strong>MCC (3) + MNC (2–3) + MSIN</strong>। বাংলাদেশের MCC = <strong>470</strong>। (MNC-এর নির্দিষ্ট মান অপারেটর অনুযায়ী; ব্যক্তিগতভাবে মিলিয়ে নেবেন।)</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>MSISDN:</strong> ফোন নম্বর (E.164, যেমন +880 1X XXXX XXXX)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>IMEI:</strong> ডিভাইসের পরিচয়, 15 ডিজিট (TAC + সিরিয়াল + check digit)। IMEISV-তে 16 ডিজিট।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>TMSI / P-TMSI / GUTI / 5G-GUTI:</strong> IMSI গোপন রাখতে অস্থায়ী পরিচয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>SUPI / SUCI (5G):</strong> SUPI স্থায়ী পরিচয় (IMSI-এর মতো); <strong>SUCI</strong> হলো SUPI-কে হোম নেটওয়ার্কের public key দিয়ে এনক্রিপ্ট করা রূপ, যাতে IMSI-catcher ধরতে না পারে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>SIM/USIM-এ থাকে:</strong> IMSI, গোপন কী <strong>Ki</strong> (K), অ্যালগরিদম (MILENAGE ইত্যাদি), PIN/PUK। <strong>Ki কখনো SIM-এর বাইরে যায় না</strong>; অপারেটরের <strong>AuC</strong>-তেও একই Ki থাকে।</p>
+</blockquote></li>
+</ul>
+<h3 id="gsm-authentication-triplet"><strong>১৩.২ GSM Authentication (Triplet)</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p>VLR/MSC HLR/AuC-র কাছ থেকে <strong>triplet (RAND, SRES, Kc)</strong> নেয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>নেটওয়ার্ক UE-কে <strong>RAND</strong> (128 বিট র‍্যান্ডম) পাঠায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>SIM <strong>A3 অ্যালগরিদম</strong> দিয়ে (Ki, RAND) থেকে <strong>SRES</strong> (32 বিট) এবং <strong>A8</strong> দিয়ে <strong>Kc</strong> (64 বিট সেশন কী) বের করে।</p>
+</blockquote></li>
+<li><blockquote>
+<p>UE SRES ফেরত পাঠায়; নেটওয়ার্ক নিজের SRES-এর সাথে মেলায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>রেডিওতে <strong>A5 অ্যালগরিদম</strong> (A5/1, A5/2, A5/3) Kc দিয়ে এনক্রিপশন।</p>
+</blockquote></li>
+</ol>
+<p><strong>GSM-এর দুর্বলতা:</strong> শুধু <strong>ইউজার নেটওয়ার্ককে</strong> যাচাই করায়, নেটওয়ার্ক ইউজারের কাছে নিজেকে প্রমাণ করে না ⇒ <strong>ভুয়া base station (IMSI catcher)</strong> সম্ভব। A5/1 ভাঙা গেছে, A5/2 দুর্বল। ইন্টেগ্রিটি সুরক্ষা নেই।</p>
+<h3 id="umtslte-aka-পরসপরক-authentication"><strong>১৩.৩ UMTS/LTE AKA (পারস্পরিক authentication)</strong></h3>
+<ul>
+<li><blockquote>
+<p>HSS/AuC <strong>authentication vector</strong> তৈরি করে: <strong>RAND, AUTN, XRES, CK, IK</strong> (LTE-তে CK, IK থেকে <strong>KASME</strong>)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>AUTN</strong> (SQN, AMF, MAC) থাকায় UE নেটওয়ার্ককে <strong>যাচাই</strong> করে (পারস্পরিক authentication) এবং <strong>SQN</strong> দিয়ে replay ঠেকায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>UE <strong>RES</strong> পাঠায়; নেটওয়ার্ক XRES-এর সাথে মেলায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>LTE কী-ক্রম (hierarchy): <strong>K → CK, IK → KASME → KNASenc, KNASint, KeNB → KRRCenc, KRRCint, KUPenc</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p>LTE এনক্রিপশন অ্যালগরিদম: <strong>EEA1 (SNOW 3G), EEA2 (AES), EEA3 (ZUC)</strong>; ইন্টেগ্রিটি: <strong>EIA1/2/3</strong>। সিগন্যালিং-এ এনক্রিপশন ও ইন্টেগ্রিটি দুটোই, ইউজার ডেটায় এনক্রিপশন।</p>
+</blockquote></li>
+</ul>
+<h3 id="g-authentication"><strong>১৩.৪ 5G Authentication</strong></h3>
+<p>উপাদান: <strong>AMF/SEAF</strong> (anchor), <strong>AUSF</strong>, <strong>UDM/ARPF</strong>, <strong>SIDF</strong> (SUCI→SUPI ডিক্রিপশন)।</p>
+<ul>
+<li><blockquote>
+<p><strong>5G-AKA</strong> ও <strong>EAP-AKA'</strong> দুই পদ্ধতি।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Home Network Control:</strong> হোম নেটওয়ার্ক (AUSF) চূড়ান্ত নিশ্চিত করে ইউজার সত্যিই authenticate হয়েছে (ভিজিটেড নেটওয়ার্কের ওপর নির্ভর না করে)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>কী-ক্রম: <strong>K → CK/IK → KAUSF → KSEAF → KAMF → KNASenc/int, KgNB → KRRC, KUP</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>NEA1/2/3, NIA1/2/3</strong> অ্যালগরিদম (128-বিট; NEA2/NIA2 = AES)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>নতুন:</strong> SUCI দিয়ে পরিচয় সুরক্ষা; ইউজার প্লেনেও ইন্টেগ্রিটি সুরক্ষা (ঐচ্ছিক); আরও শক্ত রোমিং নিরাপত্তা (SEPP)।</p>
+</blockquote></li>
+</ul>
+<h3 id="তলন"><strong>১৩.৫ তুলনা</strong></h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>বিষয়</th>
+<th>GSM</th>
+<th>UMTS/LTE</th>
+<th>5G</th>
+</tr>
+<tr class="odd">
+<th>Authentication</th>
+<th>একমুখী</th>
+<th>পারস্পরিক (AKA)</th>
+<th>পারস্পরিক (5G-AKA/EAP-AKA')</th>
+</tr>
+<tr class="header">
+<th>Vector</th>
+<th>Triplet (RAND, SRES, Kc)</th>
+<th>Quintet/AV (RAND, AUTN, XRES, CK, IK)</th>
+<th>HE AV (+ KAUSF)</th>
+</tr>
+<tr class="odd">
+<th>ইন্টেগ্রিটি</th>
+<th>নেই</th>
+<th>আছে (সিগন্যালিং)</th>
+<th>আছে (সিগন্যালিং + ঐচ্ছিক UP)</th>
+</tr>
+<tr class="header">
+<th>পরিচয় সুরক্ষা</th>
+<th>TMSI</th>
+<th>TMSI/GUTI</th>
+<th>SUCI (এনক্রিপ্টেড)</th>
+</tr>
+<tr class="odd">
+<th>এনক্রিপশন</th>
+<th>A5/1,2,3</th>
+<th>UEA/EEA</th>
+<th>NEA</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<h3 id="অনযনয-নরপতত-ধরণ"><strong>১৩.৬ অন্যান্য নিরাপত্তা ধারণা</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>SIM swap, SS7 হামলা, IMSI catcher, DoS</strong> — সাধারণ হুমকি।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>IPsec</strong> (S1/X2/N2/N3 সুরক্ষা), <strong>SEPP</strong> (5G রোমিং সীমানায়), <strong>Firewall/SBC</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>CEIR/EIR:</strong> চুরি যাওয়া/অবৈধ IMEI ব্লক। বাংলাদেশে BTRC-র মোবাইল ডিভাইস নিবন্ধন (এই তথ্য স্মৃতি-নির্ভর; হালনাগাদ যাচাই করুন)।</p>
+</blockquote></li>
+</ul>
+<h3 id="অনশলন-11"><strong>১৩.৭ অনুশীলন</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p>GSM-এ RAND কত বিট? → 128; SRES 32; Kc 64।</p>
+</blockquote></li>
+<li><blockquote>
+<p>UE নেটওয়ার্ককে যাচাই করে কোন উপাদান দিয়ে? → AUTN।</p>
+</blockquote></li>
+<li><blockquote>
+<p>SUCI কী? → SUPI-র এনক্রিপ্টেড রূপ (হোম নেটওয়ার্কের public key দিয়ে)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>LTE-তে AES-ভিত্তিক এনক্রিপশন? → EEA2।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Ki কোথায় থাকে? → SIM ও AuC-তে; বাইরে যায় না।</p>
+</blockquote></li>
+</ol>
+</div><div class="tools"><a class="btn" href="cell-12.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-14.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

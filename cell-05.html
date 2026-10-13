@@ -1,0 +1,449 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellular Topic 5: Packet-Switched Mobile Networks — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Cellular Topic 5: Packet-Switched Mobile Networks</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
+<p>Packet-switched (PS) নেটওয়ার্কে ডেটা ছোট ছোট IP packet হয়ে যায়, কল চলাকালীন কোনো সার্কিট দখল করে রাখতে হয় না, ফলে resource ভাগাভাগি হয় এবং ইন্টারনেট ব্যবহার সহজ হয়। মোবাইল নেটওয়ার্কে PS-এর যাত্রা শুরু GPRS দিয়ে।</p>
+<p><strong>PS ক্রমবিবর্তন</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>প্রযুক্তি</th>
+<th>PS নোড</th>
+<th>বৈশিষ্ট্য</th>
+</tr>
+<tr class="odd">
+<th>GPRS (2.5G)</th>
+<th>SGSN, GGSN</th>
+<th>GSM-এর উপর packet ডেটা, ~115 kbps পর্যন্ত তাত্ত্বিক</th>
+</tr>
+<tr class="header">
+<th>EDGE (2.75G)</th>
+<th>SGSN, GGSN</th>
+<th>8-PSK modulation, ~384 kbps পর্যন্ত</th>
+</tr>
+<tr class="odd">
+<th>UMTS/HSPA (3G)</th>
+<th>SGSN, GGSN</th>
+<th>HSPA-তে কয়েক Mbps থেকে দশ Mbps+</th>
+</tr>
+<tr class="header">
+<th>LTE (4G)</th>
+<th>S-GW, P-GW, MME</th>
+<th>All-IP, voice-ও packet (VoLTE)</th>
+</tr>
+<tr class="odd">
+<th>5G NR</th>
+<th>UPF, SMF, AMF</th>
+<th>Service-based, ultra-low latency</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>GPRS-এর নোড</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>SGSN:</strong> ইউজারের mobility ও session পরিচালনা, packet routing, authentication (LTE-তে MME ও S-GW-র কাজের পূর্বসূরি)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>GGSN:</strong> বাইরের IP নেটওয়ার্কের (ইন্টারনেট) গেটওয়ে, IP ঠিকানা বরাদ্দ (LTE-তে P-GW)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>PDP context:</strong> ডেটা সেশনের তথ্য (IP address, QoS, APN)। LTE-তে এর সমতুল্য <strong>EPS bearer</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>APN (Access Point Name):</strong> ফোন কোন নেটওয়ার্কে (যেমন internet, MMS) সংযুক্ত হবে তা নির্ধারণ করে।</p>
+</blockquote></li>
+</ul>
+<p><strong>GTP (GPRS Tunnelling Protocol)</strong></p>
+<ul>
+<li><blockquote>
+<p>ইউজারের packet কোর নেটওয়ার্কের ভেতর tunnel করে বহন করে। <strong>GTP-U</strong> (user data, UDP port 2152) ও <strong>GTP-C</strong> (control, UDP port 2123)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Tunnel চিহ্নিত হয় <strong>TEID</strong> (Tunnel Endpoint ID) দিয়ে। ইউজার এক cell থেকে আরেকটিতে গেলে IP ঠিকানা বদলায় না, শুধু tunnel-এর প্রান্ত বদলায়।</p>
+</blockquote></li>
+</ul>
+<p><strong>LTE-তে QoS ও Bearer</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>Default bearer:</strong> Attach-এর সময় স্বয়ংক্রিয় তৈরি, best-effort (non-GBR), IP ঠিকানা এই bearer-এর সাথে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Dedicated bearer:</strong> নির্দিষ্ট সেবার (যেমন VoLTE) জন্য অতিরিক্ত bearer।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>QCI (QoS Class Identifier):</strong> সেবার ধরন ও অগ্রাধিকার নির্ধারণ; GBR (Guaranteed Bit Rate) বনাম Non-GBR। VoLTE voice সাধারণত QCI 1, IMS signalling QCI 5।</p>
+</blockquote></li>
+<li><blockquote>
+<p>5G-তে এর সমতুল্য <strong>QoS Flow</strong> ও <strong>5QI</strong>।</p>
+</blockquote></li>
+</ul>
+<p><strong>PS বনাম CS তুলনা</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>বিষয়</th>
+<th>Circuit Switched</th>
+<th>Packet Switched</th>
+</tr>
+<tr class="odd">
+<th>Resource</th>
+<th>কল চলাকালীন নির্দিষ্ট</th>
+<th>চাহিদা অনুযায়ী ভাগ</th>
+</tr>
+<tr class="header">
+<th>Delay</th>
+<th>স্থির, কম</th>
+<th>পরিবর্তনশীল</th>
+</tr>
+<tr class="odd">
+<th>দক্ষতা</th>
+<th>কম (নীরবতাতেও দখল)</th>
+<th>বেশি</th>
+</tr>
+<tr class="header">
+<th>বিলিং</th>
+<th>সময়ভিত্তিক</th>
+<th>ডেটা/প্যাকেজভিত্তিক</th>
+</tr>
+<tr class="odd">
+<th>উদাহরণ</th>
+<th>2G/3G voice</th>
+<th>LTE/5G data, VoLTE</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>সম্ভাব্য MCQ</strong></p>
+<ul>
+<li><blockquote>
+<p>GPRS-এ ইন্টারনেট গেটওয়ে নোড কোনটি? → GGSN</p>
+</blockquote></li>
+<li><blockquote>
+<p>LTE-তে GGSN-এর সমতুল্য নোড? → P-GW</p>
+</blockquote></li>
+<li><blockquote>
+<p>GTP-U কোন UDP port ব্যবহার করে? → 2152</p>
+</blockquote></li>
+<li><blockquote>
+<p>LTE-তে Attach-এর সময় তৈরি হওয়া bearer-কে কী বলে? → Default bearer</p>
+</blockquote></li>
+<li><blockquote>
+<p>EDGE-এ কোন modulation ব্যবহৃত হয়? → 8-PSK</p>
+</blockquote></li>
+</ul>
+<h2>বিস্তারিত নোট</h2>
+<h3 id="কন-packet-switching"><strong>৫.১ কেন packet switching?</strong></h3>
+<p>ভয়েস কলে নীরবতা ঘটে, কিন্তু circuit তবু দখলে থাকে। ডেটা ট্রাফিক আকস্মিক (bursty): কিছুক্ষণ বিশাল, তারপর নীরব। Packet switching-এ রিসোর্স শুধু যখন ডেটা পাঠানো হয় তখন ব্যবহার হয়, ফলে অনেক ইউজার একই রেডিও ও লিংক ভাগ করতে পারে। ইন্টারনেট (IP) এই কারণেই মোবাইলের মূল ডেটা পথ।</p>
+<h3 id="gprs-ও-edge"><strong>৫.২ GPRS ও EDGE</strong></h3>
+<p><strong>GPRS আর্কিটেকচার:</strong> GSM-এর BSS-এ যোগ হয় <strong>PCU (Packet Control Unit)</strong>, আর core-এ <strong>SGSN</strong> ও <strong>GGSN</strong>।</p>
+<ul>
+<li><blockquote>
+<p><strong>SGSN:</strong> attach, authentication, mobility (routing area update), session ব্যবস্থাপনা, ডেটা packet-কে tunnel করে GGSN-এ পাঠানো, charging তথ্য।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>GGSN:</strong> বাইরের নেটওয়ার্কের (internet, corporate) গেটওয়ে; ইউজারকে IP ঠিকানা দেয়; সাবস্ক্রাইবারের APN অনুযায়ী নেটওয়ার্ক বাছে।</p>
+</blockquote></li>
+<li><blockquote>
+<p>ইন্টারফেস: <strong>Gb</strong> (PCU–SGSN), <strong>Gn</strong> (SGSN–GGSN, GTP), <strong>Gi</strong> (GGSN–বাহ্যিক IP নেটওয়ার্ক)।</p>
+</blockquote></li>
+</ul>
+<p><strong>GPRS coding scheme (প্রতি time slot-এ):</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Scheme</th>
+<th>ডেটা রেট (kbps)</th>
+<th>নির্ভরযোগ্যতা</th>
+</tr>
+<tr class="odd">
+<th>CS-1</th>
+<th>9.05</th>
+<th>সবচেয়ে বেশি</th>
+</tr>
+<tr class="header">
+<th>CS-2</th>
+<th>13.4</th>
+<th></th>
+</tr>
+<tr class="odd">
+<th>CS-3</th>
+<th>15.6</th>
+<th></th>
+</tr>
+<tr class="header">
+<th>CS-4</th>
+<th>21.4</th>
+<th>কম, ভালো সংকেত লাগে</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>সর্বোচ্চ 8 slot একসাথে হলে তাত্ত্বিক রেট = 8 × 21.4 = <strong>171.2 kbps</strong>। বাস্তবে ফোনের multislot class-এর সীমা ও চ্যানেলের মান অনুযায়ী 40–80 kbps পাওয়া যায়।</p>
+<p><strong>EDGE (Enhanced Data rates for GSM Evolution):</strong> 8-PSK modulation (প্রতি symbol-এ 3 বিট, GMSK-এর 1 বিট-এর তিনগুণ)। 9টি coding scheme (MCS-1 থেকে MCS-9); সর্বোচ্চ প্রতি slot 59.2 kbps; 8 slot-এ তাত্ত্বিক <strong>473.6 kbps</strong> (অনেক সময় "384 kbps" ধরা হয়)।</p>
+<p><strong>GPRS অবস্থা (MM states):</strong> IDLE (নিবন্ধিত নয়), STANDBY (নিবন্ধিত, routing area জানা), READY (সক্রিয়, cell জানা; timer শেষে STANDBY-তে নামে)।</p>
+<h3 id="pdp-context-ও-apn"><strong>৫.৩ PDP Context ও APN</strong></h3>
+<p>ইউজার ডেটা সেশন চালু করলে (<strong>PDP Context Activation</strong>):</p>
+<ol type="1">
+<li><blockquote>
+<p>ফোন SGSN-এ Activate PDP Context Request পাঠায় (APN, QoS অনুরোধ)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>SGSN APN থেকে DNS দিয়ে GGSN খুঁজে নেয়, GTP-C-তে Create PDP Context Request পাঠায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>GGSN IP ঠিকানা (ডায়নামিক) ও QoS নির্ধারণ করে উত্তর দেয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>ফোনে Activate PDP Context Accept; GTP tunnel (TEID) চালু।</p>
+</blockquote></li>
+</ol>
+<p>একাধিক PDP context একসাথে থাকতে পারে (যেমন ইন্টারনেট ও MMS)। <strong>APN</strong> দুই অংশ: Network Identifier (যেমন internet) ও Operator Identifier (mncXXX.mccYYY.gprs)।</p>
+<h3 id="umtshspa"><strong>৫.৪ UMTS/HSPA</strong></h3>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>প্রযুক্তি</th>
+<th>ডাউনলিংক</th>
+<th>আপলিংক</th>
+<th>মূল কৌশল</th>
+</tr>
+<tr class="odd">
+<th>UMTS R99</th>
+<th>384 kbps</th>
+<th>384 kbps</th>
+<th>WCDMA, 5 MHz</th>
+</tr>
+<tr class="header">
+<th>HSDPA</th>
+<th>14.4 Mbps</th>
+<th>384 kbps</th>
+<th>16-QAM, HARQ, fast scheduling, 15 code</th>
+</tr>
+<tr class="odd">
+<th>HSUPA</th>
+<th>14.4 Mbps</th>
+<th>5.76 Mbps</th>
+<th>ছোট TTI, HARQ</th>
+</tr>
+<tr class="header">
+<th>HSPA+</th>
+<th>21 / 42 / 84 Mbps</th>
+<th>11.5 / 23 Mbps</th>
+<th>64-QAM, MIMO, dual-carrier</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>HSPA-তে নতুন ধারণা: scheduling NodeB-তে নামানো হয় (RNC থেকে) যাতে প্রতিক্রিয়া দ্রুত হয় (2 ms TTI), আর HARQ (hybrid ARQ) দ্রুত পুনঃপ্রেরণ করে। এই নকশা LTE-তে আরও পরিপক্ক।</p>
+<h3 id="lte-র-packet-network-bearer-ধরণ"><strong>৫.৫ LTE-র packet network: Bearer ধারণা</strong></h3>
+<p>LTE-তে ইউজারের ডেটা প্রবাহ বহন করে <strong>EPS Bearer</strong>: UE ↔︎ P-GW পর্যন্ত লজিক্যাল পথ, তিন অংশ: <strong>Radio bearer</strong> (UE–eNodeB), <strong>S1 bearer</strong> (eNodeB–S-GW), <strong>S5/S8 bearer</strong> (S-GW–P-GW)।</p>
+<ul>
+<li><blockquote>
+<p><strong>Default bearer:</strong> attach-এর সময় তৈরি হয়, ডিফল্ট IP ঠিকানা এর সাথে, non-GBR; সংযোগ থাকলে সবসময় আছে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Dedicated bearer:</strong> নির্দিষ্ট সেবার জন্য (VoLTE, ভিডিও কল); আলাদা QoS; <strong>TFT (Traffic Flow Template)</strong> দিয়ে কোন packet কোন bearer-এ যাবে ঠিক হয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>GBR</strong> (Guaranteed Bit Rate, রিসোর্স বরাদ্দ করা) বনাম <strong>Non-GBR</strong> (best effort)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>QoS প্যারামিটার: <strong>QCI, ARP</strong> (allocation/retention priority), <strong>GBR/MBR</strong> (GBR bearer-এ), <strong>AMBR</strong> (non-GBR-এর মোট সীমা; APN-AMBR ও UE-AMBR)।</p>
+</blockquote></li>
+</ul>
+<p><strong>QCI সারণি:</strong></p>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>QCI</th>
+<th>ধরন</th>
+<th>অগ্রাধিকার</th>
+<th>Delay budget</th>
+<th>Loss rate</th>
+<th>উদাহরণ</th>
+</tr>
+<tr class="odd">
+<th>1</th>
+<th>GBR</th>
+<th>2</th>
+<th>100 ms</th>
+<th>10⁻²</th>
+<th>VoLTE voice</th>
+</tr>
+<tr class="header">
+<th>2</th>
+<th>GBR</th>
+<th>4</th>
+<th>150 ms</th>
+<th>10⁻³</th>
+<th>ভিডিও কল</th>
+</tr>
+<tr class="odd">
+<th>3</th>
+<th>GBR</th>
+<th>3</th>
+<th>50 ms</th>
+<th>10⁻³</th>
+<th>রিয়েল-টাইম গেম</th>
+</tr>
+<tr class="header">
+<th>4</th>
+<th>GBR</th>
+<th>5</th>
+<th>300 ms</th>
+<th>10⁻⁶</th>
+<th>বাফারড ভিডিও</th>
+</tr>
+<tr class="odd">
+<th>5</th>
+<th>Non-GBR</th>
+<th>1</th>
+<th>100 ms</th>
+<th>10⁻⁶</th>
+<th>IMS signalling</th>
+</tr>
+<tr class="header">
+<th>6</th>
+<th>Non-GBR</th>
+<th>6</th>
+<th>300 ms</th>
+<th>10⁻⁶</th>
+<th>ভিডিও, TCP (প্রিমিয়াম)</th>
+</tr>
+<tr class="odd">
+<th>7</th>
+<th>Non-GBR</th>
+<th>7</th>
+<th>100 ms</th>
+<th>10⁻³</th>
+<th>লাইভ ভিডিও, গেম</th>
+</tr>
+<tr class="header">
+<th>8</th>
+<th>Non-GBR</th>
+<th>8</th>
+<th>300 ms</th>
+<th>10⁻⁶</th>
+<th>TCP (প্রিমিয়াম ইউজার)</th>
+</tr>
+<tr class="odd">
+<th>9</th>
+<th>Non-GBR</th>
+<th>9</th>
+<th>300 ms</th>
+<th>10⁻⁶</th>
+<th>ডিফল্ট ইন্টারনেট</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>মনে রাখার সূত্র: QCI 1–4 GBR, 5–9 non-GBR; QCI 1 voice; QCI 5 IMS signalling (সর্বোচ্চ অগ্রাধিকার 1); QCI 9 ডিফল্ট।</p>
+<p><strong>5G তুলনা:</strong> bearer-এর বদলে <strong>QoS Flow</strong> (5QI দিয়ে চিহ্নিত); এক PDU session-এ একাধিক flow; রেডিওতে flow থেকে Data Radio Bearer-এ মেলায় নতুন <strong>SDAP</strong> স্তর।</p>
+<h3 id="gtp-ও-ip-ঠকন"><strong>৫.৬ GTP ও IP ঠিকানা</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>GTP-U</strong> ইউজার ডেটা বহন করে (UDP port <strong>2152</strong>); <strong>GTP-C</strong> নিয়ন্ত্রণ (GTPv2-C, UDP <strong>2123</strong>)। প্রতিটি tunnel 32-বিটের <strong>TEID</strong> দিয়ে চেনা যায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>মূল IP packet GTP header ও আউটার UDP/IP-তে মোড়ানো (encapsulation), তাই core-এর ভেতরের রাউটিং ইউজারের IP-র উপর নির্ভর করে না। ইউজার সরলেও IP ঠিকানা বদলায় না, শুধু tunnel-এর প্রান্ত বদলায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>IP ঠিকানা P-GW/GGSN দেয় (DHCP/RADIUS-এর সাহায্যে বা নিজের pool থেকে)। PDN type: IPv4, IPv6, IPv4v6। IPv4 ঠিকানার সংকটে অপারেটররা <strong>CGNAT</strong> ব্যবহার করে (বহু ইউজার একটি public IP ভাগ করে) এবং IPv6 চালু করছে।</p>
+</blockquote></li>
+</ul>
+<h3 id="lte-রডও-পরটকল-সতর"><strong>৫.৭ LTE রেডিও প্রোটোকল স্তর</strong></h3>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>স্তর</th>
+<th>কাজ</th>
+</tr>
+<tr class="odd">
+<th>PDCP</th>
+<th>IP header compression (ROHC), ciphering, integrity (control)</th>
+</tr>
+<tr class="header">
+<th>RLC</th>
+<th>segmentation, ARQ (AM mode), ক্রম ঠিক রাখা</th>
+</tr>
+<tr class="odd">
+<th>MAC</th>
+<th>scheduling, HARQ, multiplexing</th>
+</tr>
+<tr class="header">
+<th>PHY</th>
+<th>modulation, coding, OFDMA/SC-FDMA, MIMO</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Scheduling:</strong> Round Robin (সবাই সমান সুযোগ, ন্যায্য কিন্তু অদক্ষ), Max C/I (সবচেয়ে ভালো channel আগে, দক্ষ কিন্তু কিনারার ইউজার বঞ্চিত), <strong>Proportional Fair</strong> (দুইয়ের ভারসাম্য, বাস্তবে সবচেয়ে প্রচলিত)।</p>
+<p><strong>TCP ও ওয়্যারলেস:</strong> TCP packet loss-কে congestion ধরে গতি কমায়, অথচ ওয়্যারলেসে loss fading-এর কারণে হয়। এর প্রতিকার: link-layer HARQ ও RLC ARQ (লুকিয়ে পুনঃপ্রেরণ), বড় ও সঠিক buffer, নতুন congestion control।</p>
+<h3 id="lte-গত-ও-ue-category"><strong>৫.৮ LTE গতি ও UE category</strong></h3>
+<p>20 MHz LTE: 100 resource block × 12 subcarrier = 1200 subcarrier; প্রতি ms-এ 14 OFDM symbol; 64-QAM = 6 বিট ⇒ কাঁচা হার ≈ 1200 × 14 × 1000 × 6 = <strong>100.8 Mbps প্রতি spatial layer</strong> (overhead ও coding-এর আগে)। বাস্তবে প্রতি layer-এ প্রায় 75 Mbps, 2×2 MIMO-তে ≈ <strong>150 Mbps</strong> (UE Category 4), 4×4-এ ≈ 300 Mbps (Category 6), carrier aggregation-এ আরও বেশি।</p>
+<p><strong>Latency:</strong> LTE user-plane প্রায় 10–20 ms, 3G প্রায় 50–100 ms, 5G URLLC লক্ষ্য প্রায় 1 ms। কম latency মূলত ছোট TTI (1 ms), flat architecture (কম নোড) ও দ্রুত HARQ-এর কারণে।</p>
+<h3 id="অনশলন-3"><strong>৫.৯ অনুশীলন</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p>GPRS CS-4-এ 4 slot-এ তাত্ত্বিক রেট কত? → 4 × 21.4 = 85.6 kbps।</p>
+</blockquote></li>
+<li><blockquote>
+<p>EDGE কোন modulation ব্যবহার করে? → 8-PSK।</p>
+</blockquote></li>
+<li><blockquote>
+<p>LTE-তে voice bearer-এর QCI? → 1।</p>
+</blockquote></li>
+<li><blockquote>
+<p>GTP-U port? → UDP 2152।</p>
+</blockquote></li>
+<li><blockquote>
+<p>LTE-তে সবচেয়ে প্রচলিত scheduler? → Proportional Fair।</p>
+</blockquote></li>
+</ol>
+</div><div class="tools"><a class="btn" href="cell-04.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-06.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

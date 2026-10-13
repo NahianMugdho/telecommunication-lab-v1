@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellular Topic 2: Radio Communication Basics — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Cellular Topic 2: Radio Communication Basics</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="card"><b>Free-space path loss (FSPL)</b><div class="tools">d (km) <input id="fd" value="1"> f (MHz) <input id="ff" value="2100"><button onclick="calcFSPL()">Calculate</button></div><b id="out"></b></div><div class="doc">
+<p>রেডিও যোগাযোগে তথ্য electromagnetic তরঙ্গে চড়ে বাতাসে ছড়ায়। তরঙ্গ আলোর গতিতে চলে (c = 3 × 10^8 m/s), আর ফ্রিকোয়েন্সি বাড়লে তরঙ্গদৈর্ঘ্য কমে।</p>
+<p>\lambda = \frac{c}{f}</p>
+<p><strong>ফ্রিকোয়েন্সি ব্যান্ড</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ব্যান্ড</th>
+<th>রেঞ্জ</th>
+<th>ব্যবহার</th>
+</tr>
+<tr class="odd">
+<th>MF</th>
+<th>300 kHz – 3 MHz</th>
+<th>AM রেডিও</th>
+</tr>
+<tr class="header">
+<th>HF</th>
+<th>3 – 30 MHz</th>
+<th>Shortwave, sky wave</th>
+</tr>
+<tr class="odd">
+<th>VHF</th>
+<th>30 – 300 MHz</th>
+<th>FM রেডিও, TV</th>
+</tr>
+<tr class="header">
+<th>UHF</th>
+<th>300 MHz – 3 GHz</th>
+<th>মোবাইল (GSM/LTE), TV, WiFi 2.4 GHz</th>
+</tr>
+<tr class="odd">
+<th>SHF</th>
+<th>3 – 30 GHz</th>
+<th>Satellite, Microwave link, 5G mid-band</th>
+</tr>
+<tr class="header">
+<th>EHF</th>
+<th>30 – 300 GHz</th>
+<th>5G mmWave, radar</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Propagation (তরঙ্গ চলার ধরন)</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>Ground wave:</strong> ভূপৃষ্ঠ ঘেঁষে, কম ফ্রিকোয়েন্সিতে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Sky wave:</strong> Ionosphere-এ প্রতিফলিত হয়ে, HF-এ দূরপাল্লা।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Line-of-Sight (LOS):</strong> VHF-এর উপরে, মোবাইল ও microwave এই ধরনের; সরাসরি দৃষ্টিসীমা লাগে।</p>
+</blockquote></li>
+</ul>
+<p><strong>Antenna</strong></p>
+<ul>
+<li><blockquote>
+<p>Gain মাপা হয় dBi (isotropic antenna-র তুলনায়); dBd হলে dipole-এর তুলনায় (dBi = dBd + 2.15)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Directional antenna একদিকে শক্তি কেন্দ্রীভূত করে; Omni সব দিকে সমান; Sector antenna cell-কে ভাগ করে (সাধারণত 3 sector, প্রতিটি 120°)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Polarization: vertical, horizontal, cross-polar (±45° MIMO-তে)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>EIRP = Transmit power + Antenna gain − Cable loss।</p>
+</blockquote></li>
+</ul>
+<p><strong>Path loss ও Fading</strong></p>
+<p>\mathrm{FSPL(dB)} = 32.45 + 20\log_{10} d_{\mathrm{km}} + 20\log_{10} f_{\mathrm{MHz}}</p>
+<ul>
+<li><blockquote>
+<p>দূরত্ব দ্বিগুণ বা ফ্রিকোয়েন্সি দ্বিগুণ করলে loss 6 dB বাড়ে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Large-scale fading:</strong> দূরত্ব ও Shadowing (বাধা) থেকে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Small-scale fading:</strong> Multipath থেকে দ্রুত ওঠানামা। LOS থাকলে Rician, না থাকলে Rayleigh।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Doppler shift:</strong> চলন্ত ইউজারের কারণে ফ্রিকোয়েন্সি সরে যায়, f_d = v·f / c।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Delay spread / ISI:</strong> Multipath-এর কারণে symbol একে অপরের উপর পড়ে; OFDM এটি cyclic prefix দিয়ে সামলায়।</p>
+</blockquote></li>
+</ul>
+<p><strong>Duplexing ও Multiple Access</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>FDD:</strong> Uplink ও downlink আলাদা ফ্রিকোয়েন্সিতে (জোড়া spectrum)। <strong>TDD:</strong> একই ফ্রিকোয়েন্সিতে সময় ভাগ করে; 5G mid-band-এ জনপ্রিয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>FDMA</strong> (1G), <strong>TDMA</strong> (GSM), <strong>CDMA</strong> (IS-95, WCDMA), <strong>OFDMA</strong> (LTE downlink, 5G NR), <strong>SC-FDMA</strong> (LTE uplink)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>OFDM:</strong> অনেক সরু orthogonal subcarrier-এ ডেটা ভাগ; spectrum দক্ষ, multipath সহনশীল।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>MIMO:</strong> একাধিক transmit ও receive antenna; spatial multiplexing-এ speed, diversity-তে নির্ভরযোগ্যতা বাড়ে। 5G-তে Massive MIMO ও beamforming।</p>
+</blockquote></li>
+</ul>
+<p><strong>Link budget সংক্ষেপে:</strong> Received power = Tx power + Tx gain − Path loss − Other losses + Rx gain। এটি receiver sensitivity-র চেয়ে বেশি হলে লিংক কাজ করে।</p>
+<p><strong>সম্ভাব্য MCQ</strong></p>
+<ul>
+<li><blockquote>
+<p>GSM কোন multiple access ব্যবহার করে? → TDMA (সাথে FDMA)</p>
+</blockquote></li>
+<li><blockquote>
+<p>4G LTE downlink-এ কোন access? → OFDMA</p>
+</blockquote></li>
+<li><blockquote>
+<p>Free space-এ ফ্রিকোয়েন্সি দ্বিগুণ হলে path loss কত বাড়ে? → 6 dB</p>
+</blockquote></li>
+<li><blockquote>
+<p>LOS ছাড়া multipath fading কোন বিতরণ মেনে চলে? → Rayleigh</p>
+</blockquote></li>
+<li><blockquote>
+<p>TDD-এর সুবিধা কী? → জোড়া spectrum লাগে না, uplink/downlink অনুপাত বদলানো যায়</p>
+</blockquote></li>
+</ul>
+<h2>বিস্তারিত নোট</h2>
+<h3 id="তরঙগ-ফরকযনস-ও-তরঙগদরঘয"><strong>২.১ তরঙ্গ, ফ্রিকোয়েন্সি ও তরঙ্গদৈর্ঘ্য</strong></h3>
+<p>তড়িৎচৌম্বকীয় তরঙ্গ শূন্যস্থানে আলোর গতিতে চলে। ফ্রিকোয়েন্সি f আর তরঙ্গদৈর্ঘ্য λ-এর সম্পর্ক λ = c / f।</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ফ্রিকোয়েন্সি</th>
+<th>তরঙ্গদৈর্ঘ্য λ</th>
+<th>¼ λ antenna দৈর্ঘ্য</th>
+<th>ব্যবহার</th>
+</tr>
+<tr class="odd">
+<th>900 MHz</th>
+<th>33.3 cm</th>
+<th>8.33 cm</th>
+<th>GSM, LTE (ভালো কভারেজ)</th>
+</tr>
+<tr class="header">
+<th>1800 MHz</th>
+<th>16.7 cm</th>
+<th>4.17 cm</th>
+<th>GSM/LTE (ক্যাপাসিটি)</th>
+</tr>
+<tr class="odd">
+<th>2600 MHz</th>
+<th>11.5 cm</th>
+<th>2.88 cm</th>
+<th>LTE/5G (বাংলাদেশের নিলামকৃত ব্যান্ড)</th>
+</tr>
+<tr class="header">
+<th>3500 MHz</th>
+<th>8.6 cm</th>
+<th>2.14 cm</th>
+<th>5G mid-band</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p>নিয়ম: ফ্রিকোয়েন্সি কম হলে তরঙ্গ দূরে যায় ও দেয়াল ভেদ করে ভালো (কভারেজ বেশি), কিন্তু bandwidth কম। ফ্রিকোয়েন্সি বেশি হলে bandwidth বেশি (গতি বেশি), কিন্তু দূরত্ব কম ও বাধায় দুর্বল। 5G-তে তাই low-band (কভারেজ), mid-band (ভারসাম্য), mmWave (গতি) তিন স্তরে spectrum ব্যবহার হয়।</p>
+<h3 id="propagation-এর-ধরন-ও-পরকরয"><strong>২.২ Propagation-এর ধরন ও প্রক্রিয়া</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>Ground wave</strong> (VLF–MF): পৃথিবীর বক্রতা অনুসরণ করে; AM রেডিও।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Sky wave</strong> (HF, 3–30 MHz): ionosphere থেকে প্রতিফলিত হয়ে হাজার হাজার km, শর্টওয়েভ রেডিও।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Space wave / Line-of-Sight (LOS)</strong> (VHF ও তার ওপরে): সরাসরি দৃষ্টিসীমায়; মোবাইল ও microwave। Horizon দূরত্ব ≈ 4.12(√h_t + √h_r) km (h মিটারে)।</p>
+</blockquote></li>
+</ul>
+<p>সিগন্যালের পথে চারটি মূল ঘটনা ঘটে:</p>
+<ol type="1">
+<li><blockquote>
+<p><strong>Reflection:</strong> মসৃণ বড় বস্তুতে (দালান, মাটি) প্রতিফলন।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Diffraction:</strong> ধারালো কিনারায় বেঁকে ছায়া অঞ্চলে ঢোকা।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Scattering:</strong> ছোট অসম বস্তুতে (গাছ, সাইনবোর্ড) ছড়িয়ে পড়া।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Absorption:</strong> বৃষ্টি, গাছ ও দেয়ালে শক্তি শোষণ (mmWave-এ বৃষ্টি বেশি ক্ষতি করে)।</p>
+</blockquote></li>
+</ol>
+<h3 id="antenna-র-বসতরত"><strong>২.৩ Antenna-র বিস্তারিত</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>Isotropic antenna:</strong> তাত্ত্বিক, সব দিকে সমান; gain = 0 dBi। বাস্তবে dipole-এর gain 2.15 dBi।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Gain ও directivity:</strong> একদিকে শক্তি কেন্দ্রীভূত করলে সেই দিকে gain বাড়ে, অন্য দিকে কমে। শক্তি সৃষ্টি হয় না, শুধু পুনর্বণ্টন হয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Beamwidth:</strong> −3 dB পয়েন্টের মধ্যবর্তী কোণ। Gain বাড়লে beamwidth কমে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Sector antenna:</strong> সাধারণত 65° horizontal beamwidth, প্রতি সাইটে 3 sector (3 × 120° কভার)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Downtilt:</strong> antenna সামান্য নিচে হেলানো যাতে নিজের cell কভার হয় ও পাশের cell-এ interference কমে (মেকানিক্যাল ও ইলেকট্রিক্যাল tilt)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Polarization:</strong> vertical, horizontal, ±45° cross-polar (MIMO ও diversity-তে)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>VSWR, return loss:</strong> antenna ও feeder-এর মিলের মান; VSWR 1.5-এর নিচে ভালো।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>EIRP</strong> = Tx power (dBm) + Antenna gain (dBi) − Cable/connector loss (dB)।</p>
+</blockquote></li>
+</ul>
+<h3 id="path-loss-মডল"><strong>২.৪ Path Loss মডেল</strong></h3>
+<p><strong>Free Space Path Loss (FSPL):</strong></p>
+<p>\mathrm{FSPL(dB)} = 32.45 + 20\log_{10} d_{\mathrm{km}} + 20\log_{10} f_{\mathrm{MHz}}</p>
+<ul>
+<li><blockquote>
+<p>1 km-এ 900 MHz-এর FSPL = 91.53 dB; 3500 MHz-এর = 103.33 dB, অর্থাৎ ফ্রিকোয়েন্সি প্রায় 3.9 গুণ হলে loss প্রায় 11.8 dB বেশি।</p>
+</blockquote></li>
+<li><blockquote>
+<p>2 km, 1800 MHz = 103.58 dB (আগের স্ক্রিপ্টে যাচাই করা)।</p>
+</blockquote></li>
+</ul>
+<p><strong>Log-distance model:</strong> PL(d) = PL(d₀) + 10 n log₁₀(d/d₀)। n = path loss exponent: free space 2, শহর 2.7–3.5, ঘন শহর/ভেতরে 3–5। উদাহরণ: n = 3.5 হলে দূরত্ব 10 গুণ হলে loss <strong>35 dB</strong> বাড়ে।</p>
+<p><strong>Okumura-Hata (শহর, 150–1500 MHz, h_b 30–200 m):</strong></p>
+<p>L = 69.55 + 26.16\log f - 13.82\log h_b - a(h_m) + (44.9 - 6.55\log h_b)\log d</p>
+<p>উদাহরণ: f = 900 MHz, h_b = 50 m, h_m = 1.5 m, d = 2 km (ছোট-মাঝারি শহর) → a(h_m) = 0.016, <strong>L ≈ 133.5 dB</strong>। একই দূরত্বে FSPL-এর চেয়ে অনেক বেশি, কারণ বাধা ও ভবন।</p>
+<p><strong>Two-ray মডেল:</strong> নির্দিষ্ট দূরত্বের পরে loss d⁴-এ বাড়ে (n = 4), অর্থাৎ দূরত্ব দ্বিগুণে প্রায় 12 dB।</p>
+<h3 id="fading"><strong>২.৫ Fading</strong></h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ধরন</th>
+<th>কারণ</th>
+<th>প্রভাব</th>
+</tr>
+<tr class="odd">
+<th>Large-scale (path loss, shadowing)</th>
+<th>দূরত্ব ও বড় বাধা</th>
+<th>ধীরে বদলায়; log-normal বিতরণ</th>
+</tr>
+<tr class="header">
+<th>Small-scale (multipath)</th>
+<th>বহু পথে সংকেত পৌঁছানো</th>
+<th>কয়েক মিলিমিটার সরলেই ওঠানামা; Rayleigh (NLOS) / Rician (LOS)</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<ul>
+<li><blockquote>
+<p><strong>Doppler shift:</strong> f_d = v f / c। উদাহরণ: 100 km/h (27.8 m/s), 1800 MHz → <strong>166.7 Hz</strong>; 350 km/h ট্রেনে 2.6 GHz-এ প্রায় 843 Hz। Coherence time প্রায় 1/f_d-এর ক্রমের, অর্থাৎ দ্রুত ইউজারের channel দ্রুত বদলায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Delay spread (σ):</strong> multipath-এর সময়-ছড়ানো। <strong>Coherence bandwidth</strong> ≈ 1/(5σ); σ = 1 µs হলে ≈ 200 kHz। Signal bandwidth এর চেয়ে বেশি হলে frequency-selective fading ও ISI।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Fading মোকাবিলা:</strong> Diversity (space, frequency, time, polarization), equalizer, RAKE receiver (CDMA), OFDM + cyclic prefix, interleaving ও channel coding, power control।</p>
+</blockquote></li>
+</ul>
+<h3 id="link-budget"><strong>২.৬ Link Budget</strong></h3>
+<p>উদাহরণ (downlink): Tx power 43 dBm, antenna gain 17 dBi, cable loss 3 dB → EIRP = 57 dBm। Path loss 120 dB, handset gain 0 dBi, body loss 3 dB।</p>
+<p>P_{\mathrm{rx}} = 57 - 120 - 3 = -66\ \mathrm{dBm}</p>
+<p>Receiver sensitivity −100 dBm হলে <strong>fade margin = 34 dB</strong>। মার্জিন রাখা হয় shadowing ও fading-এর জন্য। এভাবে সর্বোচ্চ সহনীয় path loss (MAPL) বের করে cell radius নির্ধারণ হয়।</p>
+<h3 id="duplexing-access-ও-উননত-রডও-পরযকত"><strong>২.৭ Duplexing, Access ও উন্নত রেডিও প্রযুক্তি</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>FDD:</strong> জোড়া ব্যান্ড (যেমন GSM 900: uplink 890–915, downlink 935–960 MHz, duplex gap 45 MHz); উভয় দিকে একসাথে চলে; voice-এ ভালো।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>TDD:</strong> একই ব্যান্ডে সময় ভাগ; asymmetric ডেটায় নমনীয় (downlink বেশি), channel reciprocity থাকায় beamforming সহজ, কিন্তু guard period ও কঠোর synchronization লাগে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>OFDM:</strong> ডেটা অনেক সরু subcarrier-এ ভাগ (LTE-তে 15 kHz); subcarrier পরস্পর orthogonal; <strong>cyclic prefix</strong> multipath ISI সরায়; FFT/IFFT দিয়ে বাস্তবায়ন। অসুবিধা: উচ্চ PAPR (তাই LTE uplink-এ SC-FDMA)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>MIMO:</strong> N_t × N_r antenna। <strong>Spatial multiplexing</strong> (গতি বাড়ায়), <strong>diversity</strong> (নির্ভরযোগ্যতা), <strong>beamforming</strong> (শক্তি নির্দিষ্ট দিকে)। 2×2 MIMO-তে তাত্ত্বিক throughput প্রায় দ্বিগুণ; <strong>Massive MIMO</strong> (64–256 antenna element) multi-user MIMO-তে একসাথে বহু ইউজার সেবা দেয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Adaptive modulation ও coding (AMC):</strong> channel ভালো হলে 256-QAM, খারাপ হলে QPSK; CQI রিপোর্টের ভিত্তিতে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Power control:</strong> CDMA-তে near-far সমস্যা এড়াতে অপরিহার্য; LTE/5G-তে interference ও ব্যাটারি নিয়ন্ত্রণ।</p>
+</blockquote></li>
+</ul>
+<h3 id="অনশলন"><strong>২.৮ অনুশীলন</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p>1800 MHz-এ ¼ λ antenna কত? → 4.17 cm।</p>
+</blockquote></li>
+<li><blockquote>
+<p>43 dBm Tx, 17 dBi gain, 3 dB loss হলে EIRP? → 57 dBm।</p>
+</blockquote></li>
+<li><blockquote>
+<p>FSPL-এ দূরত্ব 4 গুণ হলে loss কত dB বাড়ে? → 20 log 4 ≈ 12 dB।</p>
+</blockquote></li>
+<li><blockquote>
+<p>LOS ছাড়া multipath fading কোন বিতরণ? → Rayleigh।</p>
+</blockquote></li>
+<li><blockquote>
+<p>TDD-এর প্রধান শর্ত? → কঠোর time synchronization ও guard period।</p>
+</blockquote></li>
+</ol>
+</div><div class="tools"><a class="btn" href="cell-01.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-03.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

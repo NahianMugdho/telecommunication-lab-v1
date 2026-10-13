@@ -1,0 +1,18 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 3: Fiber-optic link loss — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 3: Fiber-optic link loss</h1>
+<h2>Tutorial</h2><p><span class="bn">আলো total internal reflection-এ ফাইবারে চলে। মোট loss = ফাইবার loss + splice loss; তারপর রিসিভার power থেকে launch power বের করা হয়।</span><span class="en">Light travels by total internal reflection. Total loss = fiber loss + splice loss; use it to find the launch power.</span></p><div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>Fiber কীভাবে কাজ করে:</b> কাচের সরু তারের ভেতরে আলো দেয়ালে বারবার প্রতিফলিত (total internal reflection) হয়ে এগিয়ে যায়। Core-এর refractive index বেশি, cladding-এর কম।</p>
+<p><b>Step-index vs Graded-index:</b> Step-index-এ index হঠাৎ বদলায়; Graded-index-এ ধীরে ধীরে, তাই আলোর ray গুলো প্রায় একসাথে পৌঁছায় (distortion কম)।</p>
+<p><b>Loss budget:</b> আলো যত দূরে যায় তত দুর্বল হয়। Loss যোগ করো dB-তে: (km × dB/km) + প্রতিটা splice/connector-এর loss। তারপর receiver-এর দরকারি power থেকে উল্টো হিসাব করে transmitter power বের করো।</p>
+<p><b>dB ↔ গুণ:</b> 10 dB = 10 গুণ, 20 dB = 100 গুণ, 22 dB ≈ 158 গুণ। <b>Splice সংখ্যা</b> = (মোট দৈর্ঘ্য ÷ gap) − 1।</p></div>
+<div class="formula">Loss(dB) = (dB/km × km) + (splices × dB each)<br>P<sub>tx</sub> = P<sub>rx</sub> × 10^(Loss/10)</div>
+<div class="card"><b>Calculator</b><div class="tools">km <input id="len" value="50"> dB/km <input id="att" value="0.2"> splice every km <input id="gapkm" value="2"> splice dB <input id="spl" value="0.5"> Prx µW <input id="prx" value="10"><button onclick="calcFiber()">Calculate</button></div><b id="out"></b></div>
+<a class="btn" href="ch3-qa.html">Practice Q &amp; A →</a>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

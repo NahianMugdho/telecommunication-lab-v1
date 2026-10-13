@@ -1,0 +1,315 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellular Topic 15: Power System for Telecom — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Cellular Topic 15: Power System for Telecom</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="card"><b>Battery backup ক্যালকুলেটর</b> — (Ah × DoD) ÷ load<div class="tools">Ah <input id="bAh" value="400"> DoD % <input id="bD" value="80"> load (A) <input id="bI" value="40"><button onclick="calcBattery()">Calculate</button></div><b id="out"></b></div><div class="doc">
+<p>টেলিকম সাইটে বিদ্যুৎ এক সেকেন্ডের জন্যও বন্ধ হলে সেবা থেমে যায়, তাই পাওয়ার সিস্টেম ডিজাইনের মূলমন্ত্র <strong>নির্ভরযোগ্যতা ও ব্যাকআপ</strong>। অধিকাংশ টেলিকম যন্ত্র <strong>−48 V DC</strong>-তে চলে।</p>
+<p><strong>সাধারণ ব্যবস্থার প্রবাহ</strong></p>
+<p>AC mains → <strong>Rectifier (SMPS)</strong> → <strong>−48 V DC bus</strong> ← <strong>ব্যাটারি ব্যাংক</strong> → টেলিকম লোড (BTS, ট্রান্সমিশন, রাউটার)। মেইন চলে গেলে ব্যাটারি লোডের শক্তি জোগায়, আর <strong>Diesel Generator (DG)</strong> বা সোলার ব্যাকআপ হিসেবে চালু হয়।</p>
+<p><strong>কেন −48 V DC?</strong></p>
+<ul>
+<li><blockquote>
+<p>ব্যাটারি সরাসরি DC bus-এ যুক্ত থাকে, ফলে বিদ্যুৎ গেলে কোনো বিচ্ছেদ (switchover) ঘটে না।</p>
+</blockquote></li>
+<li><blockquote>
+<p>50 V-এর নিচে হওয়ায় ইলেকট্রিক শকের ঝুঁকি কম (SELV)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Positive টার্মিনাল earth করা থাকে, এতে তামার তারের ক্ষয় (electrolytic corrosion) কমে।</p>
+</blockquote></li>
+<li><blockquote>
+<p>AC UPS-এর চেয়ে সরল ও দক্ষ (ইনভার্টার ছাড়া)।</p>
+</blockquote></li>
+</ul>
+<p><strong>মূল উপাদান</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>উপাদান</th>
+<th>কাজ</th>
+</tr>
+<tr class="odd">
+<th>Rectifier (SMPS)</th>
+<th>AC-কে DC-তে রূপান্তর; মডুলার, N+1 redundancy (একটি খারাপ হলেও লোড চলে)</th>
+</tr>
+<tr class="header">
+<th>Battery bank</th>
+<th>ব্যাকআপ শক্তি; VRLA (সিল করা লেড-অ্যাসিড) প্রচলিত, Li-ion জনপ্রিয় হচ্ছে</th>
+</tr>
+<tr class="odd">
+<th>DG set</th>
+<th>দীর্ঘ বিদ্যুৎ বিভ্রাটে ব্যাকআপ; ATS/AMF প্যানেল স্বয়ংক্রিয়ভাবে চালু করে</th>
+</tr>
+<tr class="header">
+<th>UPS/Inverter</th>
+<th>AC লোডের জন্য (সার্ভার, নেটওয়ার্ক রুম)</th>
+</tr>
+<tr class="odd">
+<th>Solar/Hybrid</th>
+<th>অফ-গ্রিড বা দুর্বল-গ্রিড সাইটে, ডিজেল খরচ কমায়</th>
+</tr>
+<tr class="header">
+<th>ACDB/DCDB, MCB</th>
+<th>বিতরণ ও সুরক্ষা</th>
+</tr>
+<tr class="odd">
+<th>Earthing ও Lightning protection</th>
+<th>ঝড়-বজ্র ও surge থেকে সুরক্ষা, ভালো earth resistance</th>
+</tr>
+<tr class="header">
+<th>Cooling (AC/HVAC)</th>
+<th>যন্ত্রের তাপমাত্রা নিয়ন্ত্রণ; বিদ্যুতের বড় অংশ এখানে যায়</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>ব্যাটারি ও ভোল্টেজ</strong></p>
+<ul>
+<li><blockquote>
+<p>48 V ব্যাংক = 24টি 2 V cell সিরিজে। Float voltage প্রতি cell প্রায় 2.25 V, সুতরাং bus প্রায় 54 V।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Low Voltage Disconnect (LVD):</strong> ব্যাটারি অতিরিক্ত ডিসচার্জ হয়ে নষ্ট হওয়া ঠেকাতে নির্দিষ্ট ভোল্টেজে (প্রায় 43–44 V) লোড বিচ্ছিন্ন করে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>DoD (Depth of Discharge):</strong> ব্যাটারির কতটুকু ব্যবহার করা হয়েছে; বেশি DoD-তে আয়ু কমে।</p>
+</blockquote></li>
+</ul>
+<p><strong>ব্যাকআপ সময়ের হিসাব</strong></p>
+<p>T_{\mathrm{backup}} = \frac{C_{\mathrm{Ah}} \times \mathrm{DoD}}{I_{\mathrm{load}}}</p>
+<p>উদাহরণ: লোড 40 A, ব্যাটারি 400 Ah, ব্যবহারযোগ্য DoD 80% হলে ব্যাকআপ = (400 × 0.8) / 40 = <strong>8 ঘণ্টা</strong>।</p>
+<p>পাওয়ার: P = V × I; 48 V-এ 40 A = 1920 W। শক্তি = ঘণ্টা × ওয়াট (Wh)।</p>
+<p><strong>দক্ষতা ও সবুজ টেলিকম</strong></p>
+<ul>
+<li><blockquote>
+<p>আধুনিক rectifier দক্ষতা প্রায় 95–97%।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>PUE (Power Usage Effectiveness)</strong> = মোট সুবিধার বিদ্যুৎ / IT যন্ত্রের বিদ্যুৎ; 1-এর যত কাছে তত ভালো (ডেটা সেন্টারে)।</p>
+</blockquote></li>
+<li><blockquote>
+<p>ডিজেল কমাতে সোলার-ব্যাটারি হাইব্রিড, Li-ion ব্যাটারি, free cooling, শক্তিসাশ্রয়ী 5G যন্ত্র (sleep mode) ব্যবহার হয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p>নিয়মিত রক্ষণাবেক্ষণ: ব্যাটারি টার্মিনাল পরিষ্কার, load test, DG-র জ্বালানি ও তেল পরীক্ষা।</p>
+</blockquote></li>
+</ul>
+<p><strong>সম্ভাব্য MCQ</strong></p>
+<ul>
+<li><blockquote>
+<p>টেলিকম সাইটে সাধারণ DC ভোল্টেজ কত? → −48 V</p>
+</blockquote></li>
+<li><blockquote>
+<p>−48 V ব্যবস্থায় কোন প্রান্ত earth করা থাকে? → Positive</p>
+</blockquote></li>
+<li><blockquote>
+<p>Rectifier-এর কাজ কী? → AC থেকে DC রূপান্তর</p>
+</blockquote></li>
+<li><blockquote>
+<p>বিদ্যুৎ বিভ্রাটে স্বয়ংক্রিয়ভাবে জেনারেটর চালু করে কোনটি? → ATS/AMF প্যানেল</p>
+</blockquote></li>
+<li><blockquote>
+<p>LVD কেন ব্যবহার হয়? → ব্যাটারির অতিরিক্ত ডিসচার্জ রোধে</p>
+</blockquote></li>
+</ul>
+<h2>বিস্তারিত নোট</h2>
+<h3 id="কন-টলকম-সইটর-পওযর-আলদ-বষয"><strong>১৫.১ কেন টেলিকম সাইটের পাওয়ার আলাদা বিষয়</strong></h3>
+<p>একটি BTS বা ট্রান্সমিশন সাইট দিনে ২৪ ঘণ্টা, বছরে ৩৬৫ দিন চালু থাকতে হয়। গ্রিডের বিদ্যুৎ গেলেও সেবা বন্ধ হলে সেটি সরাসরি আয় ও গ্রাহকের ক্ষতি। তাই লক্ষ্য থাকে 99.999% ("পাঁচ নাইন") availability, অর্থাৎ বছরে সর্বোচ্চ প্রায় 5.26 মিনিট বন্ধ। এই লক্ষ্য ধরেই ডিজাইনের তিনটি নীতি: (১) প্রতিটি গুরুত্বপূর্ণ অংশের redundancy, (২) বিদ্যুৎ গেলে বিচ্ছেদহীন ব্যাকআপ, (৩) দুর্গম ও unattended সাইটে কম রক্ষণাবেক্ষণ।</p>
+<h3 id="পর-বযবসথর-বলক-পরবহ"><strong>১৫.২ পুরো ব্যবস্থার ব্লক-প্রবাহ</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p><strong>উৎস:</strong> গ্রিড (AC 220 V single-phase বা 380 V three-phase), ব্যাকআপ হিসেবে ডিজেল জেনারেটর (DG) এবং কখনও সোলার।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Transfer ব্যবস্থা:</strong> গ্রিড গেলে ATS/AMF প্যানেল স্বয়ংক্রিয়ভাবে DG চালু করে ও লোড সরায়। AMF মানে Auto Mains Failure।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Rectifier (SMPS):</strong> AC থেকে নিয়ন্ত্রিত −48 V DC বানায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>DC bus:</strong> rectifier, ব্যাটারি ব্যাংক ও লোড এখানে সমান্তরালে যুক্ত। ব্যাটারি সবসময় bus-এ থাকে বলে গ্রিড গেলে voltage-এ কোনো লাফ হয় না।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>DCDB (DC Distribution Board):</strong> MCB/fuse দিয়ে আলাদা আলাদা লোডে (BTS, microwave radio, router, সুইচ) শক্তি ভাগ করে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>সুরক্ষা:</strong> earthing, SPD (surge protection device) ও lightning protection।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>পরিবেশ:</strong> শেল্টারের কুলিং (AC বা free cooling), যা সাইটের বিদ্যুৎ-খরচের বড় অংশ নেয়।</p>
+</blockquote></li>
+</ol>
+<h3 id="কন-48-v-dc-আর-কন-negative"><strong>১৫.৩ কেন −48 V DC, আর কেন negative</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>বিচ্ছেদহীনতা:</strong> ব্যাটারি DC bus-এ সরাসরি যুক্ত, তাই AC UPS-এর মতো inverter বা static switch লাগে না। AC UPS-এ AC→DC→AC দুই ধাপ রূপান্তর, আর DC সিস্টেমে মাত্র এক ধাপ (AC→DC)। কম ধাপে দক্ষতা বেশি ও ব্যর্থতার সম্ভাবনা কম।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>নিরাপত্তা:</strong> 50 V DC-র নিচের voltage-কে সাধারণত নিরাপদ বা SELV ধরা হয়, তাই কর্মী হাতে কাজ করতে পারে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>ব্যাটারি সংযোগ সহজ:</strong> 24টি 2 V cell সিরিজে জুড়লেই 48 V।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Positive earth (negative voltage) কেন:</strong> তামার তারের তড়িৎবিশ্লেষণজনিত ক্ষয় (electrolytic corrosion) এবং earth leakage-এর ক্ষতি কমে। তাই bus-এর positive প্রান্ত earth করা হয় এবং লোড পায় −48 V।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>ETSI মান (EN 300 132-2):</strong> −48 V নামমাত্র; যন্ত্রকে সাধারণত −40.5 V থেকে −57 V পর্যন্ত চলতে হয়।</p>
+</blockquote></li>
+</ul>
+<h3 id="rectifier"><strong>১৫.৪ Rectifier</strong></h3>
+<p>আধুনিক rectifier মডুলার (যেমন প্রতিটি 50 A), shelf-এ বসানো ও hot-swappable, মানে চালু অবস্থায় বদলানো যায়। সব module সমান্তরালে লোড ভাগ করে (load sharing)।</p>
+<ul>
+<li><blockquote>
+<p><strong>N+1 redundancy:</strong> প্রয়োজনের চেয়ে একটি বেশি module রাখা, যাতে একটি নষ্ট হলেও লোড চলে।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>কাজ:</strong> voltage regulation, current limiting, ব্যাটারি charging, ও alarm পাঠানো।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>দক্ষতা:</strong> সাধারণত 95–97%।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Controller:</strong> ব্যাটারির তাপমাত্রা অনুযায়ী charging voltage সামান্য বদলায় (temperature compensation)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Alarm:</strong> AC fail, low battery, rectifier fail, high temperature; এগুলো SNMP বা dry contact দিয়ে NOC-তে পৌঁছায়, যেখান থেকে দূর থেকে সাইট পর্যবেক্ষণ হয়।</p>
+</blockquote></li>
+</ul>
+<h3 id="বযটর-বযক"><strong>১৫.৫ ব্যাটারি ব্যাংক</strong></h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>ধরন</th>
+<th>বৈশিষ্ট্য</th>
+<th>ব্যবহার</th>
+</tr>
+<tr class="odd">
+<th>VRLA (AGM/Gel)</th>
+<th>সিল করা লেড-অ্যাসিড, রক্ষণাবেক্ষণহীন, সস্তা, ভারী; আয়ু সাধারণত 3–5 বছর (তাপে কমে)</th>
+<th>সবচেয়ে প্রচলিত</th>
+</tr>
+<tr class="header">
+<th>Flooded/OPzS</th>
+<th>তরল ইলেক্ট্রোলাইট, দীর্ঘ আয়ু, জায়গা বেশি</th>
+<th>বড় সাইট, এক্সচেঞ্জ</th>
+</tr>
+<tr class="odd">
+<th>Li-ion (LiFePO4)</th>
+<th>হালকা, বেশি deep-discharge সহনশীল, দীর্ঘ cycle-life, দাম বেশি</th>
+<th>নতুন সাইট, সোলার হাইব্রিড</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>ভোল্টেজ হিসাব (VRLA, 24 cell):</strong></p>
+<ul>
+<li><blockquote>
+<p>Float: প্রতি cell প্রায় 2.25–2.27 V, সুতরাং 24 × 2.25 = <strong>54.0 V</strong> থেকে 24 × 2.27 ≈ <strong>54.5 V</strong>।</p>
+</blockquote></li>
+<li><blockquote>
+<p>Equalization (ডিসচার্জের পর দ্রুত ভরা): প্রতি cell প্রায় 2.30–2.35 V।</p>
+</blockquote></li>
+<li><blockquote>
+<p>LVD (Low Voltage Disconnect): প্রতি cell প্রায় 1.8 V ধরলে 24 × 1.8 = <strong>43.2 V</strong>; এই ভোল্টেজে লোড কেটে দিয়ে ব্যাটারিকে অতিরিক্ত ডিসচার্জ থেকে বাঁচানো হয়। অগুরুত্বপূর্ণ লোড আগে কেটে গুরুত্বপূর্ণটি পরে কাটা হয় (load shedding / priority LVD)।</p>
+</blockquote></li>
+</ul>
+<p><strong>শব্দ:</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>Capacity (Ah):</strong> সাধারণত C10 রেটিং, অর্থাৎ 10 ঘণ্টায় ডিসচার্জের ভিত্তিতে। দ্রুত ডিসচার্জ করলে প্রাপ্ত Ah কমে যায় (Peukert প্রভাব)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>DoD (Depth of Discharge):</strong> কত শতাংশ ব্যবহৃত হয়েছে। গভীর ডিসচার্জে আয়ু কমে, তাই সাধারণত VRLA-তে 50–80% সীমা রাখা হয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>তাপমাত্রা:</strong> প্রতি 8–10°C বাড়লে VRLA-র আয়ু প্রায় অর্ধেক হওয়ার প্রবণতা, তাই শেল্টার ঠান্ডা রাখা জরুরি।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>ঝুঁকি:</strong> চার্জের সময় হাইড্রোজেন তৈরি হয়, তাই ব্যাটারি রুমে বাতাস চলাচল ও আগুন-স্ফুলিঙ্গ এড়ানো দরকার।</p>
+</blockquote></li>
+</ul>
+<h3 id="ডজল-জনরটর-dg-ও-হইবরড"><strong>১৫.৬ ডিজেল জেনারেটর (DG) ও হাইব্রিড</strong></h3>
+<ul>
+<li><blockquote>
+<p>DG চালু হয় ATS/AMF-এর সংকেতে। চালুর সময় ব্যাটারি লোড চালায়, তাই DG ওঠার ফাঁকেও সাইট চলে।</p>
+</blockquote></li>
+<li><blockquote>
+<p>বিদ্যুৎ-বিভ্রাট লম্বা হলে ব্যাটারি ফুরানোর আগে DG-ই ভরসা। নিয়মিত পরীক্ষা, তেল-জ্বালানি ও ফিল্টার দেখা দরকার।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>সোলার হাইব্রিড:</strong> PV প্যানেল থেকে MPPT কন্ট্রোলার হয়ে DC bus-এ শক্তি আসে। গ্রিডহীন বা দুর্বল-গ্রিড এলাকায় ডিজেল খরচ ও কার্বন কমায়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Peak shaving ও লোড-ব্যবস্থাপনা:</strong> আধুনিক ব্যবস্থায় গ্রিড, DG, সোলার ও ব্যাটারির মধ্যে স্মার্ট কন্ট্রোলার বিদ্যুৎ ভাগ করে।</p>
+</blockquote></li>
+</ul>
+<h3 id="earthing-ও-lightning-সরকষ"><strong>১৫.৭ Earthing ও Lightning সুরক্ষা</strong></h3>
+<ul>
+<li><blockquote>
+<p><strong>Earthing:</strong> আলাদা আলাদা earth (টাওয়ার, পাওয়ার, যন্ত্র) একটি equipotential ব্যবস্থায় জোড়া দেওয়া হয়। earth resistance যত কম তত ভালো; টেলিকম সাইটে সাধারণত 5 Ω-এর নিচে, গুরুত্বপূর্ণ সাইটে আরও কম লক্ষ্য রাখা হয় (সংখ্যাটি অপারেটর ও মানভেদে বদলায়)।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Lightning protection:</strong> air terminal (lightning rod) → down conductor → earth electrode। বাংলাদেশের বর্ষা-ঝড়ে বজ্রপাত বড় ঝুঁকি।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>SPD:</strong> AC প্যানেলে ও DC bus-এ surge শোষণ করে যন্ত্র বাঁচায়। শ্রেণি অনুযায়ী প্রবেশ-মুখে (Class I) থেকে যন্ত্রের কাছে (Class III) বসানো হয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>কুলিং:</strong> শেল্টার সাধারণত 25–30°C-র আশেপাশে রাখার চেষ্টা; আধুনিক সাইটে free cooling (বাইরের ঠান্ডা বাতাস) ও উচ্চ-তাপসহনশীল যন্ত্র ব্যবহার বাড়ছে।</p>
+</blockquote></li>
+</ul>
+<h3 id="হসবর-ধরন-সমধনসহ"><strong>১৫.৮ হিসাবের ধরন (সমাধানসহ)</strong></h3>
+<p><strong>সমস্যা ১ (ব্যাকআপ সময়):</strong> লোড 40 A, ব্যাটারি 400 Ah, ব্যবহারযোগ্য DoD 80%। ব্যাকআপ কত?</p>
+<p>T = \frac{400 \times 0.8}{40} = 8\ \text{ঘণ্টা}</p>
+<p><strong>সমস্যা ২ (পাওয়ার ও শক্তি):</strong> একই লোডে ক্ষমতা P = V × I = 48 × 40 = <strong>1920 W</strong>। দিনে শক্তি = 1.92 kW × 24 h = <strong>46.08 kWh</strong>। Rectifier দক্ষতা 95% হলে AC থেকে নেওয়া পাওয়ার প্রায় 1920 / 0.95 ≈ <strong>2021 W</strong>।</p>
+<p><strong>সমস্যা ৩ (rectifier সাইজ):</strong> ব্যাটারি চার্জ-কারেন্ট সাধারণত 0.1C ধরা হয়, অর্থাৎ 400 Ah-এর জন্য 40 A। মোট rectifier কারেন্ট = লোড + চার্জ = 40 + 40 = <strong>80 A</strong>। প্রতিটি module 50 A হলে 80/50 = 1.6, মানে 2টি লাগে, আর N+1 redundancy ধরলে <strong>3টি</strong>।</p>
+<p><strong>সমস্যা ৪ (ভোল্টেজ):</strong> 24 cell, প্রতি cell 2.25 V float হলে bus voltage = 54.0 V। LVD প্রতি cell 1.8 V হলে 43.2 V।</p>
+<p><strong>সমস্যা ৫ (availability):</strong> 99.999% availability মানে বছরে 365 × 24 × 60 × (1 − 0.99999) ≈ 5.26 মিনিট downtime।</p>
+<h3 id="বলদশ-পরকষপট-ও-রকষণবকষণ"><strong>১৫.৯ বাংলাদেশ প্রেক্ষাপট ও রক্ষণাবেক্ষণ</strong></h3>
+<ul>
+<li><blockquote>
+<p>গ্রামীণ ও দুর্গম এলাকায় গ্রিড অনিয়মিত হওয়ায় ব্যাটারি ও DG/সোলারের ভূমিকা বেশি। বন্যা-প্রবণ ও উপকূলীয় সাইটে ঝড়-জলোচ্ছ্বাসের ঝুঁকি আলাদা বিবেচনা দরকার।</p>
+</blockquote></li>
+<li><blockquote>
+<p>নিয়মিত কাজ: ব্যাটারি টার্মিনাল পরিষ্কার ও টাইট করা, cell voltage ও তাপমাত্রা মাপা, load test, DG চালিয়ে পরীক্ষা, earth resistance পরিমাপ, rectifier alarm পরীক্ষা, কুলিং ফিল্টার পরিষ্কার।</p>
+</blockquote></li>
+<li><blockquote>
+<p>প্রযুক্তির ধারা: Li-ion ব্যাটারি, সোলার-হাইব্রিড, রিমোট পর্যবেক্ষণ (IoT-ভিত্তিক), শক্তিসাশ্রয়ী 5G যন্ত্র (sleep mode)।</p>
+</blockquote></li>
+</ul>
+<h3 id="অনশলন-13"><strong>১৫.১০ অনুশীলন</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p>টেলিকম সাইটে −48 V DC কেন বেছে নেওয়া হয়, তিনটি কারণ বলো।</p>
+</blockquote></li>
+<li><blockquote>
+<p>VRLA 24 cell ব্যাংকের float ও LVD ভোল্টেজ কত?</p>
+</blockquote></li>
+<li><blockquote>
+<p>600 Ah ব্যাটারি, 60 A লোড, 70% DoD হলে ব্যাকআপ কত? (উত্তর: 600 × 0.7 / 60 = 7 ঘণ্টা)</p>
+</blockquote></li>
+<li><blockquote>
+<p>ATS/AMF প্যানেলের কাজ কী?</p>
+</blockquote></li>
+<li><blockquote>
+<p>N+1 redundancy বলতে কী বোঝো এবং কেন দরকার?</p>
+</blockquote></li>
+</ol>
+</div><div class="tools"><a class="btn" href="cell-14.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-16.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

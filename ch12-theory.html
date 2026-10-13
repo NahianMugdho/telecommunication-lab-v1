@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 12: Signals &amp; Systems — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 12: Signals &amp; Systems</h1>
+<h2>Tutorial</h2>
+<div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>Signal-এর তিন রূপান্তর:</b> <b>Shift</b> x(t−t₀): t₀ &gt; 0 হলে signal ডানে সরে (দেরি হয়)। <b>Mirror</b> x(−t): বাম-ডান উল্টে যায়। <b>Scale</b> x(2t): সময়ে সংকুচিত (দ্রুত), x(t/2): প্রসারিত। Amplitude-এর গুণ (2x) শুধু উচ্চতা বদলায়। <b>ক্রম মনে রাখো:</b> x(−t+3) আঁকতে আগে x(−t), তারপর 3 দিয়ে shift (x(−(t−3)))।</p>
+<p><b>Unit step u(t):</b> t ≥ 0-তে 1, নইলে 0। u(−t) ঠিক উল্টো (t ≤ 0-তে 1)। এদের দিয়ে গুণ করলে signal-এর একটা অংশ "কেটে" নেওয়া যায়।</p>
+<p><b>Impulse δ(t):</b> একটি বিন্দুতে "অসীম" উচ্চতার ধারালো দাগ, মোট ক্ষেত্রফল 1। <b>Sifting:</b> x(t)*δ(t−t₀)=x(t−t₀) — মানে convolution-এ impulse signal-কে শুধু সরিয়ে দেয়। δ(at)=δ(t)/|a|।</p>
+<p><b>System-এর তিন প্রশ্ন:</b> <b>Linear?</b> দুটো input-এর যোগফলের output কি আলাদা output-এর যোগফল? <b>Time-invariant?</b> input দেরি করালে output কি শুধু দেরি হয়? <b>Causal?</b> output কি ভবিষ্যৎ input দেখে? (h(t)=0 for t&lt;0 হলে causal)।</p>
+<p><b>Correlation:</b> দুটো signal কতটা মেলে তার মাপ: y(τ)=∫a(t)b(t−τ)dt। Zero lag-এ শুধু a(t)·b(t)-এর ক্ষেত্রফল।</p>
+<p><b>Sampling = impulse train দিয়ে গুণ:</b> spectrum-এর কপি হয় fs-এর গুণিতকে (ছোট ছোট ত্রিভুজ বারবার)।</p></div>
+<div class="card"><b>Signal transformation animation</b> — A, a (বাঁ-ডান উল্টাতে ঋণাত্মক করো), b ঘুরিয়ে দেখো<canvas id="tr" width="780" height="260"></canvas>
+<div class="tools">A ×10 <input id="tA" type="range" min="-20" max="30" value="10"> a ×10 <input id="ta" type="range" min="-30" max="30" value="10"> b ×10 <input id="tb" type="range" min="-40" max="40" value="0"></div></div>
+<div class="formula">x(t−t₀): shift right by t₀ &nbsp;|&nbsp; x(−t): mirror &nbsp;|&nbsp; x(at): compress if |a|&gt;1<br>x(t)*δ(t−t₀)=x(t−t₀) &nbsp;|&nbsp; δ(at)=δ(t)/|a| &nbsp;|&nbsp; Causal ⇔ h(t)=0 for t&lt;0<br>Autocorrelation: R(τ)=∫x(t)x(t−τ)dt</div>
+<a class="btn" href="ch12-qa.html">Practice Q &amp; A →</a></main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

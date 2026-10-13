@@ -1,0 +1,56 @@
+/* ===== Telecommunication Tutorial — shared stylesheet (all pages use this) ===== */
+:root{--bg:#f2f6f5;--ink:#10243b;--acc:#0b7285;--hot:#e8590c;--card:#fff;--line:#c9d8d6;--sub:#2b4a63;--fbg:#e7f5f7;--hd:#10243b;--btn:#0b7285}
+/* DARK THEME: colours are swapped here. Applied when body has data-theme="dark" (toggle button in header) */
+body[data-theme=dark]{--bg:#0e1a26;--ink:#e6eef5;--acc:#3bc9db;--hot:#ff922b;--card:#16283a;--line:#27405a;--sub:#a9c4d8;--fbg:#12354a;--hd:#06101a}
+*{box-sizing:border-box}
+body{margin:0;font:17px/1.7 'Hind Siliguri',system-ui,sans-serif;color:var(--ink);
+ background:var(--bg) linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 28px}
+/* language switch: body[data-lang] = bn | en | both */
+body[data-lang=bn] .en,body[data-lang=en] .bn{display:none}
+.en{color:var(--sub)}.bn+.en{display:block}
+header{background:var(--hd);color:#fff;padding:12px 20px;display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+header a{color:#fff;text-decoration:none;font-weight:600}header .brand{font-size:1.2rem;margin-right:auto}
+button,.btn{font:inherit;background:var(--btn);color:#fff;border:0;padding:6px 14px;border-radius:6px;cursor:pointer;text-decoration:none;display:inline-block}
+button:focus-visible,a:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+main{max-width:860px;margin:0 auto;padding:24px 16px}
+h1{font-size:2rem;margin:.2em 0}h2{border-left:6px solid var(--acc);padding-left:10px;margin-top:2em}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 18px;margin:16px 0}
+.formula{background:var(--fbg);border-left:5px solid var(--hot);padding:10px 16px;font-family:Georgia,serif;font-size:1.1rem;margin:12px 0;overflow-x:auto}
+.src{font-size:.85rem;color:var(--acc);font-weight:600}
+.ans{display:none;border-top:2px dashed var(--line);margin-top:10px;padding-top:8px}.ans.open{display:block}
+.tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:10px 0}
+input{font:inherit;background:var(--card);color:var(--ink);width:90px;padding:4px 6px;border:1px solid var(--line);border-radius:5px}
+canvas,svg.q{max-width:100%;background:#fff;border:1px solid var(--line);border-radius:8px}
+.chapters{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+footer{text-align:center;padding:22px;background:var(--hd);color:#cfe3e6;margin-top:40px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* MOBILE: phones (<= 600px) — smaller text, stacked controls, big tap targets */
+canvas{height:auto}input[type=range]{width:120px}
+@media (max-width:600px){
+ body{font-size:16px}main{padding:14px 10px}h1{font-size:1.5rem}header{padding:10px 12px;gap:8px}
+ header .brand{width:100%;font-size:1.05rem}.card{padding:12px}
+ button,.btn{min-height:44px;padding:8px 14px}.tools{gap:8px}input{width:76px}input[type=range]{width:100%}
+ .formula{font-size:1rem}.chapters{grid-template-columns:1fr}}
+
+/* MCQ quiz (chapter 8): option buttons turn green/red after you click; wrong answer shakes once */
+.opts{display:grid;gap:8px;margin:10px 0}
+.opt{background:var(--card);color:var(--ink);border:2px solid var(--line);text-align:left;min-height:44px}
+.opt:hover{border-color:var(--acc)}
+.opt.good{background:#2f9e44;border-color:#2f9e44;color:#fff}
+.opt.bad{background:#e03131;border-color:#e03131;color:#fff;animation:shake .3s}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.score{position:sticky;top:0;background:var(--hd);color:#fff;padding:8px 14px;border-radius:6px;font-weight:600;z-index:5}
+table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}td,th{border:1px solid var(--line);padding:6px 10px}
+
+/* Converted guide pages (class .doc): comfortable reading, long tables scroll sideways on phones */
+.doc h2{margin-top:1.6em}.doc h3{color:var(--acc);margin-top:1.3em}.doc blockquote{margin:8px 0;padding:6px 14px;border-left:4px solid var(--line);background:var(--card)}
+.doc li{margin:3px 0}.doc code{background:var(--fbg);padding:1px 5px;border-radius:4px;font-size:.92em}.doc th{background:var(--fbg)}
+.doc img{max-width:100%}.doc td,.doc th{vertical-align:top}select{font:inherit;background:var(--card);color:var(--ink);padding:4px;border:1px solid var(--line);border-radius:5px}
+
+/* Subnet calculator (chapter 13): bits pop in one by one. Network bits = accent colour, host bits = orange */
+.bits{overflow-x:auto;margin:10px 0}.bitrow{font-family:ui-monospace,Consolas,monospace;white-space:nowrap;margin:4px 0}
+.bitrow .bl{display:inline-block;width:70px;font:600 .85rem 'Hind Siliguri',sans-serif;color:var(--sub)}
+.bit{display:inline-block;width:1.15em;text-align:center;border-radius:3px;margin:0 1px;color:#fff;animation:bitpop .35s both}
+.bit.net{background:var(--acc)}.bit.host{background:var(--hot)}.dotsep{margin:0 3px;color:var(--sub)}
+@keyframes bitpop{from{transform:scale(.3);opacity:0}to{transform:scale(1);opacity:1}}

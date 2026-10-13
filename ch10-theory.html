@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 10: Signaling, Attenuation, Antenna &amp; Digital Modulation — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 10: Signaling, Attenuation, Antenna &amp; Digital Modulation</h1>
+<h2>Tutorial</h2>
+<div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>Line coding:</b> 0 আর 1-কে তারে কীভাবে voltage হিসেবে পাঠানো হবে তার নিয়ম। <b>Unipolar:</b> 1=+V, 0=0। <b>Polar:</b> 1=+V, 0=−V। <b>RZ:</b> bit-এর মাঝখানে 0-তে ফিরে আসে। <b>AMI (Bipolar):</b> 0=0 আর 1 পালা করে +V, −V — এতে ভুল ধরা সহজ (দুটো পরপর একই polarity মানে error)। <b>Manchester:</b> প্রতি bit-এর মাঝে transition, তাই clock পাওয়া যায়।</p>
+<p><b>Attenuation:</b> তারে signal দুর্বল হয়। dB-তে loss = dB/km × km; তারপর P2 = P1 × 10^(dB/10)। যেমন −3 dB মানে power অর্ধেক।</p>
+<p><b>Antenna:</b> কার্যকরভাবে radiate করতে antenna ≈ λ/4, আর λ = c/f = 300/f(MHz) মিটার।</p>
+<p><b>FDM bandwidth:</b> N channel হলে guard band লাগে (N−1)টা।</p>
+<p><b>Digital modulation:</b> <b>OOK/ASK</b> = 1-এ carrier আছে, 0-তে নেই। <b>FSK</b> = 1 ও 0 আলাদা frequency। <b>PSK</b> = 1 ও 0 আলাদা phase (180° তফাত)।</p>
+<p><b>Envelope detector:</b> diode + RC দিয়ে AM-এর envelope বের করে; RC এমন হতে হবে যাতে carrier-এর ripple মোছে কিন্তু message-কে ধরতে পারে।</p></div>
+<div class="card"><b>Line-coding animation</b> — নিজের bit লিখে দেখো<div class="tools">bits <input id="bitsIn" value="01101001" style="width:180px"></div><canvas id="lc" width="780" height="300"></canvas></div>
+<div class="formula">P2 = P1·10^(dB/10) &nbsp;|&nbsp; λ = c/f &nbsp;|&nbsp; L = λ/4<br>FDM BW = N·(channel BW) + (N−1)·guard &nbsp;|&nbsp; Envelope detector: 1/ωc ≪ RC ≪ 1/(2πB)</div>
+<div class="card"><b>Attenuation Calculator</b><div class="tools">P1 <input id="pin" value="2"> dB/km <input id="dbkm" value="-0.3"> km <input id="km" value="5"><button onclick="calcAtt()">Calculate</button></div><b id="out"></b></div>
+<div class="card"><b>Antenna Calculator</b><div class="tools">f (MHz) <input id="mhz" value="100"><button onclick="calcAnt()">Calculate</button></div><b id="out2"></b></div>
+<a class="btn" href="ch10-qa.html">Practice Q &amp; A →</a></main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

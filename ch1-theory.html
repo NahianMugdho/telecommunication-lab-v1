@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 1: PCM &amp; TDM — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 1: PCM &amp; TDM</h1>
+<h2>Tutorial</h2><p><span class="bn">অ্যানালগ সিগনাল → স্যাম্পলিং → কোয়ান্টাইজেশন → বাইনারি কোড। নিচের অ্যানিমেশনে স্লাইডার বদলে দেখো।</span><span class="en">Analog → sampling → quantizing → binary code. Move the sliders below.</span></p><div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>Sampling:</b> একটা smooth wave-কে প্রতি সেকেন্ডে অনেকবার "ছবি তোলা" মানে sample নেওয়া। যত বেশি ছবি, তত ভালো reconstruction। নিয়ম: অন্তত <b>দ্বিগুণ</b> বার (fs ≥ 2f) — একে বলে Nyquist rate।</p>
+<p><b>Quantization:</b> প্রতিটা sample-এর মান ঠিক ঠিক রাখা যায় না, তাই কাছের একটা "step"-এ round করা হয়। Step যত বেশি (L), error তত কম। L = 2ⁿ, মানে n bit দিয়ে L টা step।</p>
+<p><b>Encoding:</b> প্রতিটা step-কে n bit-এর binary number বানানো হয়। তাই প্রতি সেকেন্ডে <b>fs টা sample × n bit = bit rate</b>। এটাই PCM।</p>
+<p><b>TDM:</b> একটা তারে অনেক channel পাঠাতে হলে প্রত্যেকে পালা করে (time slot) পায়। তাই channel বাড়লে bit rate যোগ হয়: ২০ voice channel × ৬৪ kbps = ১২৮০ kbps।</p>
+<p><b>Voice standard:</b> voice 4 kHz → fs=8 kHz → 8 bit → 64 kbps প্রতি channel (এটা মুখস্থ রাখো)।</p>
+<p><b>Trick:</b> "x% বেশি" মানে ×(1+x/100)। Multiple tone থাকলে সবচেয়ে বড় frequency ধরো। Level সংখ্যা 25 হলে n=⌈log₂25⌉=5 (সবসময় উপরে round)।</p></div>
+<div class="card"><canvas id="cv" width="780" height="260"></canvas><div class="tools">
+f <input id="f" type="range" min="1" max="10" value="2"> fs <input id="fs" type="range" min="1" max="60" value="12"> bits n <input id="n" type="range" min="1" max="6" value="3"></div></div>
+<h2>Formulas</h2><div class="formula">Nyquist: fs ≥ 2·f<sub>max</sub> &nbsp; | &nbsp; L = 2ⁿ &nbsp; | &nbsp; Bit rate = fs·n<br>Δ = 2mp/L, max error = Δ/2 &nbsp; | &nbsp; SQNR ≈ 6.02n + 1.76 dB<br>NRZ min BW = Rb/2 &nbsp; | &nbsp; Voice fs = 8 kHz</div>
+<div class="card"><b>Calculator</b><div class="tools">f<sub>max</sub> Hz <input id="fmax" value="4000"> extra % <input id="pct" value="12.5"> bits <input id="bits" value="8"> channels <input id="chn" value="1"><button onclick="calcPCM()">Calculate</button></div><b id="out"></b></div>
+<a class="btn" href="ch1-qa.html">Practice Q &amp; A →</a>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

@@ -1,0 +1,377 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellular Topic 16: Scripting: Simulation, Modeling ও Configuration — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Cellular Topic 16: Scripting: Simulation, Modeling ও Configuration</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
+<p>এই অংশে সাধারণত দুই ধরনের প্রশ্ন আসে: (১) Python/MATLAB দিয়ে ছোট গণনা বা সিমুলেশন, (২) নেটওয়ার্ক যন্ত্র স্বয়ংক্রিয়ভাবে কনফিগার করা। প্রোগ্রামার হিসেবে তুমি এখানে সুবিধায় আছো, তাই নিচের কোডগুলো নিজে একবার চালিয়ে দেখো।</p>
+<p><strong>১. Modeling স্ক্রিপ্ট (Python)</strong></p>
+<p>নিচের কোড Path loss, Shannon capacity, Erlang-B ও cluster size হিসাব করে। আমি এটি চালিয়ে যাচাই করেছি: ফলাফল যথাক্রমে 103.58 dB, 133.2 Mbps, 0.0365, 7।</p>
+<p>import math<br />
+<br />
+def fspl_db(d_km, f_mhz):<br />
+return 32.45 + 20*math.log10(d_km) + 20*math.log10(f_mhz)<br />
+<br />
+def shannon(bw_hz, snr_db):<br />
+snr = 10**(snr_db/10)<br />
+return bw_hz * math.log2(1 + snr)<br />
+<br />
+def erlang_b(traffic, channels):<br />
+b = 1.0<br />
+for n in range(1, channels + 1):<br />
+b = (traffic * b) / (n + traffic * b)<br />
+return b<br />
+<br />
+print(fspl_db(2, 1800)) # 2 km, 1800 MHz -&gt; 103.58 dB<br />
+print(shannon(20e6, 20)) # 20 MHz, 20 dB -&gt; 133.2 Mbps<br />
+print(erlang_b(10, 15)) # 10 Erlang, 15 ch -&gt; 0.0365 (3.65% blocking)<br />
+print(2*2 + 2*1 + 1*1) # cluster N, i=2 j=1 -&gt; 7</p>
+<ul>
+<li><blockquote>
+<p><strong>Erlang-B</strong> বলে, A Erlang ট্রাফিকে N channel থাকলে কত শতাংশ কল ব্লক হবে (grade of service)। রিকার্সিভ সূত্র: B(A, n) = A·B(A, n−1) / (n + A·B(A, n−1)), শুরুতে B(A, 0) = 1।</p>
+</blockquote></li>
+<li><blockquote>
+<p>ফ্রিকোয়েন্সি দ্বিগুণ করলে FSPL ঠিক 6.02 dB বাড়ে (কোডে দেখো)।</p>
+</blockquote></li>
+</ul>
+<p><strong>২. Simulation টুল</strong></p>
+<table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>টুল</th>
+<th>কিসের জন্য</th>
+</tr>
+<tr class="odd">
+<th>MATLAB (5G/LTE Toolbox)</th>
+<th>Physical layer, modulation, channel মডেল, BER কার্ভ</th>
+</tr>
+<tr class="header">
+<th>ns-3 (C++/Python)</th>
+<th>নেটওয়ার্ক প্রোটোকল সিমুলেশন, LTE/5G মডিউল</th>
+</tr>
+<tr class="odd">
+<th>OMNeT++ / Simu5G</th>
+<th>Discrete-event সিমুলেশন, 5G NR</th>
+</tr>
+<tr class="header">
+<th>Open5GS, free5GC</th>
+<th>ওপেন-সোর্স 4G/5G core</th>
+</tr>
+<tr class="odd">
+<th>srsRAN, UERANSIM</th>
+<th>ওপেন-সোর্স RAN ও UE সিমুলেটর</th>
+</tr>
+<tr class="header">
+<th>Wireshark</th>
+<th>Packet ও প্রোটোকল (SIP, GTP, Diameter) বিশ্লেষণ</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>ধারণা:</strong> Monte Carlo সিমুলেশনে র‍্যান্ডম ঘটনা (কল আগমন, fading) বহুবার চালিয়ে গড় ফল নেওয়া হয়। Discrete-event সিমুলেশনে সময়ের সাথে ঘটনা (event) ক্রমানুসারে প্রক্রিয়া হয়। BER বনাম SNR কার্ভ মডুলেশন তুলনার সবচেয়ে সাধারণ সিমুলেশন।</p>
+<p><strong>৩. Configuration ও Automation</strong></p>
+<ul>
+<li><blockquote>
+<p><strong>CLI ও SSH:</strong> Python-এর Netmiko/Paramiko দিয়ে রাউটার/সুইচে কমান্ড পাঠানো। বহু যন্ত্রে একই কনফিগ বসাতে লুপ ব্যবহার।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>NETCONF/YANG:</strong> XML ও YANG মডেলভিত্তিক মানসম্মত কনফিগ প্রোটোকল (port 830); <strong>RESTCONF</strong> একই জিনিস HTTP/JSON-এ।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>SNMP:</strong> যন্ত্রের অবস্থা পর্যবেক্ষণ (monitoring), যেমন CPU, interface ট্রাফিক।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Ansible:</strong> এজেন্ট ছাড়া, YAML playbook-ভিত্তিক স্বয়ংক্রিয় কনফিগ।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Open5GS-এর মতো core কনফিগ:</strong> YAML ফাইলে PLMN (MCC/MNC), TAC, DNN, UPF ঠিকানা ইত্যাদি বসানো হয়।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Infrastructure as Code:</strong> Docker Compose, Helm/Kubernetes দিয়ে core সার্ভিস স্থাপন।</p>
+</blockquote></li>
+<li><blockquote>
+<p><strong>Bash:</strong> লগ ফিল্টার (grep, awk), সার্ভিস রিস্টার্ট, ব্যাকআপ, cron দিয়ে নির্ধারিত কাজ।</p>
+</blockquote></li>
+</ul>
+<p><strong>সম্ভাব্য MCQ ও ভাইভা</strong></p>
+<ul>
+<li><blockquote>
+<p>Erlang-B ফর্মুলা কী নির্ধারণ করে? → কল ব্লক হওয়ার সম্ভাবনা</p>
+</blockquote></li>
+<li><blockquote>
+<p>NETCONF ডিফল্টে কোন port-এ চলে? → 830</p>
+</blockquote></li>
+<li><blockquote>
+<p>Monte Carlo সিমুলেশন কী? → র‍্যান্ডম নমুনা বারবার চালিয়ে গড় ফল বের করা</p>
+</blockquote></li>
+<li><blockquote>
+<p>ওপেন-সোর্স 5G core-এর দুটি নাম বলো। → Open5GS, free5GC</p>
+</blockquote></li>
+<li><blockquote>
+<p>ভাইভা: একসাথে ১০০টি রাউটারে কনফিগ বসাবে কীভাবে? → Python (Netmiko) বা Ansible দিয়ে ইনভেন্টরি থেকে লুপ চালিয়ে</p>
+</blockquote></li>
+</ul>
+<h2>বিস্তারিত নোট</h2>
+<h3 id="কন-scripting-শখত-হয"><strong>১৬.১ কেন scripting শিখতে হয়</strong></h3>
+<p>টেলিকমে তিন ধরনের কাজ script দিয়ে হয়: (ক) <strong>Modeling</strong>: সূত্র বসিয়ে সিস্টেমের আচরণ হিসাব করা (path loss, Erlang, SIR), (খ) <strong>Simulation</strong>: র্‌যান্ডম ঘটনা বারবার চালিয়ে ফলাফল দেখা (BER, call blocking, handover), (গ) <strong>Configuration/Automation</strong>: শত শত যন্ত্রে একই সেটিং বসানো ও লগ পড়া। তুমি Python-এ অভ্যস্ত বলে নিচের সব উদাহরণ Python-এ; MATLAB-এ সমান ধারণা।</p>
+<h3 id="modeling-ও-simulation-চলয-যচই-কর-কড"><strong>১৬.২ Modeling ও Simulation: চালিয়ে যাচাই করা কোড</strong></h3>
+<p>নিচের সব ফলাফল আমি কোডটি চালিয়ে পেয়েছি।</p>
+<p>import math, random<br />
+<br />
+def erlang_b(a, n): # a = Erlang, n = channel<br />
+b = 1.0<br />
+for k in range(1, n + 1):<br />
+b = a * b / (k + a * b)<br />
+return b<br />
+<br />
+def channels_needed(a, gos): # নির্দিষ্ট blocking-এর জন্য কত channel<br />
+n = 1<br />
+while erlang_b(a, n) &gt; gos:<br />
+n += 1<br />
+return n<br />
+<br />
+def sir_db(n_cluster, exponent=4, interferers=6):<br />
+q = math.sqrt(3 * n_cluster) # q = D/R<br />
+return 10 * math.log10(q ** exponent / interferers)<br />
+<br />
+def q_func(x):<br />
+return 0.5 * math.erfc(x / math.sqrt(2))<br />
+<br />
+def bpsk_ber_mc(ebn0_db, nbits=400000, seed=1):<br />
+random.seed(seed)<br />
+ebn0 = 10 ** (ebn0_db / 10)<br />
+sigma = math.sqrt(1 / (2 * ebn0))<br />
+err = 0<br />
+for _ in range(nbits):<br />
+bit = random.getrandbits(1)<br />
+s = 1 if bit else -1<br />
+r = s + random.gauss(0, sigma)<br />
+if (r &gt; 0) != bool(bit):<br />
+err += 1<br />
+return err / nbits<br />
+<br />
+print(channels_needed(10, 0.02)) # 17<br />
+print(round(erlang_b(10, 18), 4)) # 0.0071<br />
+for n in (3, 4, 7, 12):<br />
+print(n, round(sir_db(n), 2)) # 11.30, 13.80, 18.66, 23.34 dB<br />
+for e in (4, 6):<br />
+th = q_func(math.sqrt(2 * 10 ** (e / 10)))<br />
+print(e, round(th, 5), round(bpsk_ber_mc(e), 5))</p>
+<p><strong>ফলাফল ও ব্যাখ্যা:</strong></p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>পরিমাপ</th>
+<th>ফলাফল</th>
+<th>বোঝার বিষয়</th>
+</tr>
+<tr class="odd">
+<th>10 Erlang ট্রাফিক, 2% blocking</th>
+<th>17 channel</th>
+<th>স্থির কলে প্রয়োজনীয় channel-সংখ্যা (বেশি গেলে blocking কমে)</th>
+</tr>
+<tr class="header">
+<th>10 Erlang, 18 channel</th>
+<th>0.0071 (0.71%)</th>
+<th>channel একটি বাড়লে blocking অনেক কমে যায়</th>
+</tr>
+<tr class="odd">
+<th>SIR, N = 3, 4, 7, 12 (পথ সূচক 4)</th>
+<th>11.30, 13.80, 18.66, 23.34 dB</th>
+<th>cluster বড় হলে SIR বাড়ে</th>
+</tr>
+<tr class="header">
+<th>BPSK BER, Eb/N0 = 4 dB</th>
+<th>তত্ত্ব 0.01250, simulation 0.01249</th>
+<th>দুটো সর্বদা মিলে যায়, বেশি bit নিলে আরও মিলে</th>
+</tr>
+<tr class="odd">
+<th>BPSK BER, Eb/N0 = 6 dB</th>
+<th>তত্ত্ব 0.00239, simulation 0.00232</th>
+<th>উচ্চ SNR-এ BER অনেক কম</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Monte Carlo-র ধারণা:</strong> তত্ত্বীয় সূত্র না থাকলে সম্ভাব্য সবকিছু র্‌যান্ডমভাবে নিয়ে বহুবার চালিয়ে গড় নেওয়া হয়। পরীক্ষায় জিজ্ঞাসা আসতে পারে: <em>"কেন বেশি bit সিমুলেট করলে ফল ভালো হয়?"</em> → কারণ নমুনা বাড়লে গড় তত্ত্বের কাছাকাছি যায় (law of large numbers)।</p>
+<h3 id="link-budget-script"><strong>১৬.৩ Link budget script</strong></h3>
+<p>import math<br />
+def fspl(d_km, f_mhz):<br />
+return 32.45 + 20*math.log10(d_km) + 20*math.log10(f_mhz)<br />
+<br />
+loss = fspl(1.0, 2100) # 98.89 dB<br />
+prx = 43 + 17 + 0 - 2 - loss # Ptx 43 dBm, Gtx 17 dBi, Grx 0, cable 2 dB<br />
+print(round(loss, 2), round(prx, 2), round(prx + 100, 2))<br />
+# 98.89 dB, -40.89 dBm, fade margin (vs -100 dBm sensitivity) 59.11 dB</p>
+<p>অর্থাৎ 1 km দূরত্বে free-space-এ সিগন্যাল খুব শক্তিশালী। বাস্তবে বাধা, বাড়ির ভেতরের loss ও fading থাকায় এত বেশি margin পাওয়া যায় না (এখানে free-space ধরা হয়েছে)।</p>
+<h3 id="নরমণগত-simulator-ও-ওপন-সরস-টল"><strong>১৬.৪ নির্মাণগত simulator ও ওপেন-সোর্স টুল</strong></h3>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>টুল</th>
+<th>স্তর</th>
+<th>কোনটি দিয়ে কী হয়</th>
+</tr>
+<tr class="odd">
+<th>MATLAB (5G/LTE Toolbox)</th>
+<th>PHY</th>
+<th>modulation, channel মডেল, BER/throughput কার্ভ</th>
+</tr>
+<tr class="header">
+<th>ns-3</th>
+<th>নেটওয়ার্ক</th>
+<th>discrete-event, LTE/5G-LENA মডিউল</th>
+</tr>
+<tr class="odd">
+<th>OMNeT++ / Simu5G</th>
+<th>নেটওয়ার্ক</th>
+<th>5G NR সিমুলেশন</th>
+</tr>
+<tr class="header">
+<th>Open5GS, free5GC</th>
+<th>Core</th>
+<th>ওপেন-সোর্স 4G/5G core (পুরো চালানো যায়)</th>
+</tr>
+<tr class="odd">
+<th>srsRAN, OpenAirInterface</th>
+<th>RAN</th>
+<th>ওপেন-সোর্স eNB/gNB, UE</th>
+</tr>
+<tr class="header">
+<th>UERANSIM</th>
+<th>UE/gNB সিমুলেটর</th>
+<th>core পরীক্ষায়</th>
+</tr>
+<tr class="odd">
+<th>Wireshark</th>
+<th>বিশ্লেষণ</th>
+<th>SIP, GTP, Diameter, NGAP packet দেখা</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Discrete-event vs Monte Carlo:</strong> discrete-event-এ সময়ের সাথে ঘটনা (কল আসা, কল শেষ) একটি event queue-এ রেখে ক্রমানুসারে চালানো হয় (যেমন call blocking সিমুলেশন, ns-3); Monte Carlo-তে সময়ের ক্রম না থাকলেও চলে (যেমন BER সিমুলেশন)।</p>
+<h3 id="configuration-ও-automation"><strong>১৬.৫ Configuration ও automation</strong></h3>
+<p><strong>কেন:</strong> ১০০টি router-এ হাতে একই কনফিগ বসানো সময়সাপেক্ষ ও ভুলপ্রবণ। script দিয়ে template থেকে কনফিগ বানিয়ে সব যন্ত্রে পাঠানো হয়।</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>প্রোটোকল/টুল</th>
+<th>কাজ</th>
+<th>বৈশিষ্ট্য</th>
+</tr>
+<tr class="odd">
+<th>SSH + CLI (Netmiko/Paramiko)</th>
+<th>কমান্ড পাঠানো</th>
+<th>সহজ, পুরনো যন্ত্রেও চলে, কিন্তু আউটপুট text পার্স করতে হয়</th>
+</tr>
+<tr class="header">
+<th>SNMP</th>
+<th>পর্যবেক্ষণ (CPU, interface counter)</th>
+<th>UDP 161/162</th>
+</tr>
+<tr class="odd">
+<th>NETCONF + YANG</th>
+<th>মানসম্মত কনফিগ</th>
+<th>XML, port 830, transaction/rollback সমর্থন</th>
+</tr>
+<tr class="header">
+<th>RESTCONF</th>
+<th>NETCONF-এর HTTP/JSON রূপ</th>
+<th>REST API</th>
+</tr>
+<tr class="odd">
+<th>gNMI</th>
+<th>streaming telemetry</th>
+<th>gRPC, আধুনিক পর্যবেক্ষণ</th>
+</tr>
+<tr class="header">
+<th>Ansible</th>
+<th>স্বয়ংক্রিয় কনফিগ</th>
+<th>এজেন্টবিহীন, YAML playbook, idempotent</th>
+</tr>
+<tr class="odd">
+<th>Docker Compose / Helm (Kubernetes)</th>
+<th>core সার্ভিস স্থাপন</th>
+<th>IaC, 5GC ডিপ্লয়মেন্ট</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+<p><strong>Idempotent মানে:</strong> একই script বারবার চালালেও শেষ অবস্থা একই থাকে, ডাবল কনফিগ হয় না।</p>
+<p><strong>কনফিগ template থেকে সব যন্ত্রের কনফিগ বানানো (আমি চালিয়ে দেখিনি, শুধু কাঠামোর ধারণা):</strong></p>
+<p>devices = [<br />
+{"name": "bts-mirpur-01", "ip": "10.10.1.11", "vlan": 110},<br />
+{"name": "bts-uttara-02", "ip": "10.10.1.12", "vlan": 120},<br />
+]<br />
+template = """hostname {name}<br />
+interface vlan {vlan}<br />
+ip address {ip} 255.255.255.0<br />
+"""<br />
+for d in devices:<br />
+print(template.format(**d)) # প্রতিটি যন্ত্রের আলাদা কনফিগ তৈরি</p>
+<p><strong>Netmiko দিয়ে পাঠানোর কাঠামো (যন্ত্র লাগে বলে এখানে চালাইনি):</strong></p>
+<p>from netmiko import ConnectHandler<br />
+conn = ConnectHandler(device_type="cisco_ios", host="10.10.1.11",<br />
+username="admin", password="***")<br />
+output = conn.send_config_set(["interface vlan 110", "ip address 10.10.1.11 255.255.255.0"])<br />
+conn.disconnect()</p>
+<p><strong>5G core কনফিগ (Open5GS-এর মতো, YAML):</strong> PLMN (MCC=470 বাংলাদেশের জন্য MCC), MNC, TAC, DNN, UPF-এর ঠিকানা, slice-এর SST/SD ইত্যাদি লেখা হয়। পরীক্ষায় জিজ্ঞাসা আসতে পারে কোন প্রোটোকল/টুল কোন কাজে।</p>
+<p><strong>Bash লগ ও মেইনটেন্স:</strong></p>
+<ul>
+<li><blockquote>
+<p>grep -i "error" /var/log/messages | tail — শেষ ত্রুটিগুলো দেখা</p>
+</blockquote></li>
+<li><blockquote>
+<p>awk '{print $1}' file | sort | uniq -c | sort -nr — কোন মান কতবার আসে গননা</p>
+</blockquote></li>
+<li><blockquote>
+<p>cron — নির্দিষ্ট সময়ে ব্যাকআপ/রিপোর্টের কাজ চালানো</p>
+</blockquote></li>
+</ul>
+<h3 id="অনশলন-14"><strong>১৬.৬ অনুশীলন</strong></h3>
+<ol type="1">
+<li><blockquote>
+<p>Erlang-B কী নির্ণয় করে? রিকার্সিভ সূত্রটি লেখো।</p>
+</blockquote></li>
+<li><blockquote>
+<p>NETCONF ও SNMP-এর পার্থক্য কী? (কনফিগ বনাম পর্যবেক্ষণ, XML/YANG বনাম MIB)</p>
+</blockquote></li>
+<li><blockquote>
+<p>Idempotent কনফিগারেশন বলতে কী বোঝো?</p>
+</blockquote></li>
+<li><blockquote>
+<p>Monte Carlo সিমুলেশন-এ BER বের করার ধাস্তার সহজ বর্ণনা দাও।</p>
+</blockquote></li>
+<li><blockquote>
+<p>১০০টি রাউটারে একই সেটিং কীভাবে বসাবে?</p>
+</blockquote></li>
+</ol>
+</div><div class="tools"><a class="btn" href="cell-15.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-17.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

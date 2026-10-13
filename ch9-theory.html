@@ -1,0 +1,21 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chapter 9: Fiber-Optic Communication — Telecommunication Tutorial</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Tutorial</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Chapter 9: Fiber-Optic Communication</h1>
+<h2>Tutorial</h2>
+<div class="card"><h3>সহজ ভাষায় বুঝি (Simple Explanation)</h3>
+<p><b>Fiber কী?</b> চুলের মতো সরু কাচের তার। মাঝখানে <b>core</b> (বেশি refractive index n1), বাইরে <b>cladding</b> (কম index n2), তার বাইরে সুরক্ষার <b>coating</b>।</p>
+<p><b>Light কীভাবে চলে?</b> আলো core-এর দেয়ালে ঠিক কোণে পড়লে পুরো ফিরে আসে — <b>Total Internal Reflection (TIR)</b>। শর্ত: n1 &gt; n2 এবং incident angle ≥ critical angle। নিচের animation-এ কোণ বাড়িয়ে-কমিয়ে দেখো।</p>
+<p><b>Step-index vs Graded-index:</b> Step-index-এ core থেকে cladding-এ index হঠাৎ কমে (ray সোজা জিগজ্যাগ)। Graded-index-এ index ধীরে ধীরে কমে (ray বাঁকা পথে চলে), তাই সব ray প্রায় একসাথে পৌঁছায় — distortion কম।</p>
+<p><b>Low-loss window:</b> সিলিকা fiber-এ কম loss দুই জায়গায়: <b>1300 nm</b> আর <b>1550 nm</b>। 1550 nm সবচেয়ে জনপ্রিয়, কারণ loss সবচেয়ে কম (প্রায় 0.2 dB/km)।</p>
+<p><b>WDM:</b> একই fiber-এ আলাদা আলাদা রঙের (wavelength) আলো একসাথে পাঠানো — অনেক লেন-ওয়ালা হাইওয়ের মতো।</p>
+<p><b>System-এর অংশ:</b> Information source → Electrical transmitter → Optical source (LED/Laser) → Fiber → Optical detector (photodiode/APD) → Electrical receiver → Destination।</p></div>
+<div class="card"><canvas id="fo" width="780" height="230"></canvas><div class="tools">ray angle from axis (°) <input id="fang" type="range" min="2" max="40" value="10"></div></div>
+<div class="formula">Critical angle θc = sin⁻¹(n2/n1) &nbsp;|&nbsp; NA = √(n1² − n2²) &nbsp;|&nbsp; Acceptance angle = sin⁻¹(NA)</div>
+<div class="card"><b>Calculator</b><div class="tools">n1 <input id="n1" value="1.48"> n2 <input id="n2" value="1.46"><button onclick="calcOptic()">Calculate</button></div><b id="out"></b></div>
+<a class="btn" href="ch9-qa.html">Practice Q &amp; A →</a></main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
