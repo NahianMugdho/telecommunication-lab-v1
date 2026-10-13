@@ -1,4 +1,4 @@
-/* ===== Telecommunication Tutorial — shared stylesheet (all pages use this) ===== */
+/* ===== Telecommunication Lab — shared stylesheet (all pages use this) ===== */
 :root{--bg:#f2f6f5;--ink:#10243b;--acc:#0b7285;--hot:#e8590c;--card:#fff;--line:#c9d8d6;--sub:#2b4a63;--fbg:#e7f5f7;--hd:#10243b;--btn:#0b7285}
 /* DARK THEME: colours are swapped here. Applied when body has data-theme="dark" (toggle button in header) */
 body[data-theme=dark]{--bg:#0e1a26;--ink:#e6eef5;--acc:#3bc9db;--hot:#ff922b;--card:#16283a;--line:#27405a;--sub:#a9c4d8;--fbg:#12354a;--hd:#06101a}
