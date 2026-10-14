@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cellular Topic 21: GSM-এর নীতি ও ব্লক ডায়াগ্রাম — Telecommunication Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<h1>Cellular Topic 21: GSM-এর নীতি ও ব্লক ডায়াগ্রাম</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট • সূত্র: BEC Module-6, GSM নোট</p><div class="doc">
+<h2>সহজ সারাংশ</h2>
+<div class="callout b"><p><strong>GSM</strong> = Global System for Mobile Communication। এর চারটি মূল অংশ: <strong>Mobile Station (MS)</strong>, <strong>Base Station Subsystem (BSS)</strong>, <strong>Network Subsystem (NSS)</strong> ও <strong>Public Networks</strong>। ফোন (MS) রেডিওতে BTS-এর সাথে যুক্ত হয়, BSC অনেকগুলো BTS সামলায়, MSC কল সুইচ করে এবং HLR/VLR/EIR/AuC ডাটাবেস দিয়ে রাউটিং, roaming ও নিরাপত্তা দেয়।</p></div>
+<table><thead><tr><th>অংশ</th><th>কী কী আছে</th><th>মূল কাজ</th></tr></thead><tbody><tr><td>Mobile Station (MS)</td><td>ME + SIM</td><td>ইউজারের ডিভাইস; SIM নিরাপত্তা ও অথেনটিকেশন দেয়</td></tr><tr><td>Base Station Subsystem (BSS)</td><td>BTS, BSC</td><td>MS ও সুইচিং যন্ত্রের মধ্যে রেডিও সংযোগ</td></tr><tr><td>Network Subsystem (NSS)</td><td>MSC, HLR, VLR, EIR, AuC</td><td>কল সুইচিং, ডাটাবেস নিয়ন্ত্রণ, PSTN-এর সাথে সংযোগ</td></tr><tr><td>Public Networks</td><td>PSTN, ISDN, PSPDN, CSPDN</td><td>circuit-switched ভয়েস যোগাযোগ সমর্থন</td></tr></tbody></table>
+<h2>বিস্তারিত নোট</h2>
+<h3 id="gsm-block"><strong>২১.১ GSM ব্লক ডায়াগ্রাম</strong></h3>
+<div class="card"><svg class="q" viewBox="0 0 900 330" role="img" aria-label="GSM block diagram" style="width:100%;height:auto" font-family="Hind Siliguri,system-ui,sans-serif">
+<g fill="none" stroke="#0b7285" stroke-width="1.5" stroke-dasharray="5 4"><rect x="15" y="10" width="150" height="280" rx="8"/><rect x="195" y="10" width="250" height="280" rx="8"/><rect x="475" y="10" width="290" height="280" rx="8"/></g>
+<g stroke="#14284b" stroke-width="2" fill="none"><path d="M85 100V125"/><path d="M115 140L235 76"/><path d="M115 140L235 221"/><path d="M295 76L355 135"/><path d="M295 221L355 152"/><path d="M425 143H560"/><path d="M595 125L555 60"/><path d="M595 125L665 60"/><path d="M595 161L555 235"/><path d="M595 161L665 235"/><path d="M630 143L775 150"/></g>
+<g fill="#e8f0ff" stroke="#14284b" stroke-width="2"><rect x="55" y="70" width="60" height="30" rx="6"/><rect x="55" y="125" width="60" height="30" rx="6"/><rect x="235" y="60" width="60" height="32" rx="6"/><rect x="235" y="205" width="60" height="32" rx="6"/><rect x="355" y="125" width="70" height="36" rx="6"/><rect x="560" y="125" width="70" height="36" rx="6" fill="#fde68a"/><rect x="520" y="30" width="60" height="30" rx="6"/><rect x="640" y="30" width="60" height="30" rx="6"/><rect x="520" y="235" width="60" height="30" rx="6"/><rect x="640" y="235" width="60" height="30" rx="6"/><ellipse cx="835" cy="150" rx="60" ry="45" fill="#e8f8ee"/></g>
+<g fill="#10243b" font-size="14" font-weight="600" text-anchor="middle"><text x="85" y="90">SIM</text><text x="85" y="145">ME</text><text x="265" y="81">BTS</text><text x="265" y="226">BTS</text><text x="390" y="148">BSC</text><text x="595" y="148">MSC</text><text x="550" y="50">HLR</text><text x="670" y="50">VLR</text><text x="550" y="255">EIR</text><text x="670" y="255">AuC</text>
+<text x="835" y="140" font-size="13">PSTN</text><text x="835" y="157" font-size="13">ISDN, PSPDN</text><text x="835" y="174" font-size="13">CSPDN</text></g>
+<g fill="#b45309" font-size="14" font-weight="700" text-anchor="middle"><text x="180" y="165">Um</text><text x="325" y="150">Abis</text><text x="493" y="133">A</text></g>
+<g fill="#0b7285" font-size="14" font-weight="700" text-anchor="middle"><text x="90" y="312">Mobile Station</text><text x="320" y="312">Base Station Subsystem</text><text x="620" y="312">Network Subsystem</text><text x="835" y="312">Public Networks</text></g></svg></div>
+<p>ইন্টারফেস: <strong>Um</strong> = MS ও BTS-এর মধ্যবর্তী রেডিও ইন্টারফেস, <strong>Abis</strong> = BTS ও BSC-র মধ্যে, <strong>A</strong> = BSC ও MSC-র মধ্যে।</p>
+<table><thead><tr><th>সংক্ষেপ</th><th>পূর্ণরূপ</th></tr></thead><tbody><tr><td>SIM</td><td>Subscriber Identity Module</td></tr><tr><td>ME</td><td>Mobile Equipment</td></tr><tr><td>BTS</td><td>Base Transceiver Station</td></tr><tr><td>BSC</td><td>Base Station Controller</td></tr><tr><td>MSC</td><td>Mobile service Switching Centre</td></tr><tr><td>HLR</td><td>Home Location Register</td></tr><tr><td>VLR</td><td>Visitor Location Register</td></tr><tr><td>EIR</td><td>Equipment Identity Register</td></tr><tr><td>AuC</td><td>Authentication Centre</td></tr></tbody></table>
+<h3 id="gsm-ms"><strong>২১.২ Mobile Station (MS)</strong></h3>
+<ul><li>MS = <strong>Mobile Equipment (ME)</strong> + <strong>Subscriber Identity Module (SIM)</strong>।</li><li>SIM সাবস্ক্রাইবারের নিরাপত্তা ও অথেনটিকেশন দেয়।</li><li>মোবাইল যন্ত্র (ME) অনন্যভাবে শনাক্ত হয় <strong>IMEI</strong> (International Mobile Equipment Identity) নম্বর দিয়ে।</li></ul>
+<h3 id="gsm-bss"><strong>২১.৩ Base Station Subsystem (BSS)</strong></h3>
+<ul><li>MS ও সুইচিং যন্ত্রের মধ্যে রেডিও আন্তঃসংযোগ দেয়।</li><li><strong>BTS</strong> cell-এর কেন্দ্রে থাকে এবং সেলুলার নেটওয়ার্কের মোবাইল ইন্টারফেস হিসেবে কাজ করে।</li><li>একগুচ্ছ BTS নিয়ন্ত্রণ করে একটি <strong>BSC</strong>।</li></ul>
+<h3 id="gsm-nss"><strong>২১.৪ Network Subsystem (NSS)</strong></h3>
+<ul><li><strong>MSC</strong> ও তার সহযোগী সিস্টেম নিয়ে গঠিত; ডাটাবেস নিয়ন্ত্রণ করে এবং GSM নেটওয়ার্ক ও <strong>PSTN</strong>-এর মধ্যে আন্তঃসংযোগ দেয়।</li><li><strong>HLR</strong> ও <strong>VLR</strong> MSC-র সাথে মিলে কল রাউটিং ও roaming সম্ভব করে।</li><li><strong>HLR:</strong> সংশ্লিষ্ট GSM নেটওয়ার্কে নিবন্ধিত প্রতিটি সাবস্ক্রাইবারের প্রশাসনিক তথ্য ও মোবাইলের বর্তমান লোকেশন রাখে।</li><li><strong>VLR:</strong> সব সাবস্ক্রাইবারের অস্থায়ী ডাটাবেস; HLR-এর মতো তথ্য ধারণ করে।</li><li><strong>EIR:</strong> নিরাপত্তার জন্য (ডিভাইস যাচাই)।</li><li><strong>AuC:</strong> অথেনটিকেশনের জন্য।</li></ul>
+<h3 id="gsm-pub"><strong>২১.৫ Public Networks</strong></h3>
+<p>Public network circuit-switched ভয়েস যোগাযোগ সমর্থনের জন্য তৈরি (ডায়াগ্রামে PSTN, ISDN, PSPDN, CSPDN)।</p>
+<h3 id="gsm-radio"><strong>২১.৬ Radio Link ও Channel Structure</strong></h3>
+<p>GSM সব দেশে 25 MHz-এর দুটি ব্যান্ড ব্যবহার করে:</p>
+<table><thead><tr><th>দিক</th><th>ব্যান্ড</th></tr></thead><tbody><tr><td>Uplink (সাবস্ক্রাইবার → বেস)</td><td>890–915 MHz</td></tr><tr><td>Downlink (বেস → সাবস্ক্রাইবার)</td><td>935–960 MHz</td></tr></tbody></table>
+<ul><li>Forward ও reverse ব্যান্ড 200 kHz চওড়া channel-এ ভাগ হয়, যাদের বলে <strong>ARFCN</strong> (Absolute Radio Frequency Channel Number)।</li><li>একটি ARFCN মানে এক জোড়া forward ও reverse channel, যাদের ফ্রিকোয়েন্সির ব্যবধান <strong>45 MHz</strong>।</li><li>প্রতিটি channel <strong>TDMA</strong> দিয়ে সর্বোচ্চ <strong>8</strong> জন সাবস্ক্রাইবারের মধ্যে ভাগ হয়।</li></ul>
+<div class="callout g"><p><strong>💡 হিসাব:</strong> 25 MHz ÷ 200 kHz = 125; গার্ড ব্যান্ডসহ বাস্তবে 124টি carrier। প্রতি carrier-এ 8 time slot ধরলে 124 × 8 = 992টি channel।</p></div>
+<h3 id="gsm-call"><strong>২১.৭ দুই মোবাইল সাবস্ক্রাইবারের মধ্যে কল স্থাপন</strong></h3>
+<p><strong>ক) ফোন চালু হলে:</strong> কলে না থাকলেও ফোন forward control channel-গুলো স্ক্যান করে সবচেয়ে শক্তিশালী সিগন্যালটি বেছে নেয় এবং সিগন্যাল ব্যবহারের নিচে নামা পর্যন্ত সেটি মনিটর করে; তারপর আবার স্ক্যান করে সবচেয়ে শক্তিশালী base station খোঁজে। Control channel সাধারণত মোট channel-এর প্রায় <strong>5–6%</strong>, বাকিগুলো ভয়েস ও ডেটার জন্য।</p>
+<p><strong>খ) মোবাইলে কল আসার ক্রম:</strong></p>
+<div class="code">1. MSC  → সিস্টেমের সব base station-কে অনুরোধ পাঠায়
+2. BS   → সাবস্ক্রাইবারের নম্বর paging message হিসেবে সব forward control channel-এ broadcast করে
+3. MS   → paging message পেয়ে reverse control channel-এ নিজের পরিচয় জানায়
+4. BS   → MS-এর acknowledgment MSC-কে জানায় (handshake)
+5. MSC  → BS-কে cell-এর একটি খালি voice channel-এ কল সরাতে বলে
+6. BS   → MS-কে খালি forward/reverse voice channel জোড়ায় ফ্রিকোয়েন্সি বদলাতে বলে
+7. BS   → forward voice channel-এ বার্তা পাঠিয়ে MS-কে beep (রিং) করায়
+8. User → ফোন ধরে</div>
+<p><strong>গ) চিত্রে দেখানো ধাপ (Cellular A থেকে B):</strong></p>
+<ol><li>Cellular A কল করে এবং সবচেয়ে ভালো cell স্ক্যান করে।</li><li>Switch (MTSO — MSC-র সমতুল্য) যাচাই করে A বৈধ সাবস্ক্রাইবার কি না এবং খালি voice channel আছে কি না।</li><li>Switch বিশ্বব্যাপী Cellular B-কে স্ক্যান করে।</li><li>B বৈধ কি না, voice channel আছে কি না, কোন feature চালু আছে কি না যাচাই করে; দুই ফোনের জন্য voice channel ঠিক করে voice path স্থাপন করে।</li><li>B-র সবচেয়ে শক্তিশালী cell খুঁজে বের করা হয়।</li><li>কল চলাকালীন switch দুই ফোনকেই handoff বা release-এর প্রয়োজনে মনিটর করে।</li></ol>
+<h3 id="gsm-handoff"><strong>২১.৮ Handoff</strong></h3>
+<p>কল শুরুর পর ইউজার base station-এর রেঞ্জের ভেতরে-বাইরে গেলে MSC মোবাইলের transmit power সমন্বয় করে এবং মোবাইল ও base station-এর channel বদলায়, যাতে কলের মান ঠিক থাকে। এই প্রক্রিয়াকে <strong>handoff</strong> বলে। কল চলাকালীন voice channel-এ বিশেষ control signalling চালানো হয়, যাতে base station ও MSC মোবাইলকে পরিচালনা করতে পারে।</p>
+<h3 id="gsm-adv"><strong>২১.৯ GSM-এর সুবিধা</strong></h3>
+<ul><li>শক্তিশালী ফিচারসহ স্থিতিশীল নেটওয়ার্ক।</li><li>Pulse-ধর্মী ট্রান্সমিশনের কারণে সাধারণত talk time বেশি।</li><li>GSM open standard, তাই অপারেটরদের royalty দিতে হয় না।</li><li>SIM থাকায় ইউজার ইচ্ছেমতো নেটওয়ার্ক ও হ্যান্ডসেট বদলাতে পারে।</li><li>Tri-band ও dual-band ফোনে নিজ দেশ ও বিদেশে ব্যবহার করা যায় (নোট অনুযায়ী CDMA-তে এটি সম্ভব নয়)।</li><li>Repeater ব্যবহার করা যায়।</li></ul>
+<h3 id="ex-21"><strong>২১.১০ অনুশীলন</strong></h3>
+<ol><li>GSM-এর uplink ও downlink ব্যান্ড কী? → Uplink 890–915 MHz, downlink 935–960 MHz।</li><li>ARFCN-এর channel কত চওড়া এবং forward-reverse জোড়ার ব্যবধান কত? → 200 kHz; 45 MHz।</li><li>GSM-এর একটি channel কতজন ইউজার ভাগ করে? → সর্বোচ্চ 8 জন (TDMA)।</li><li>IMEI কিসের পরিচয় দেয়? → মোবাইল ডিভাইসের (ME)। সাবস্ক্রাইবারের নিরাপত্তা ও অথেনটিকেশন দেয় SIM।</li><li>কোন দুটি রেজিস্টার MSC-র সাথে মিলে কল রাউটিং ও roaming সম্ভব করে? → HLR ও VLR।</li><li>Um, Abis ও A ইন্টারফেস কোথায় থাকে? → Um: MS–BTS, Abis: BTS–BSC, A: BSC–MSC।</li><li>মোবাইলে কল এলে paging message কীভাবে যায়? → MSC সব base station-কে জানায়; নম্বরটি সব forward control channel-এ broadcast হয়; MS reverse control channel-এ সাড়া দেয়।</li><li>Handoff কী? → চলমান কলে ইউজার সরে গেলে MSC power ও channel সমন্বয় করে কলের মান ধরে রাখা।</li></ol>
+</div><div class="tools"><a class="btn" href="cell-20.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-cheatsheet.html">চিটশিট →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>

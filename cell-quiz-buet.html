@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BUET-স্টাইল ২০০ MCQ — Telecommunication Lab</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head><body>
+<header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
+<main>
+<div class="banner"><h1>🎯 BUET-স্টাইল ২০০ MCQ</h1><div class="chips"><span>Teletalk সিলেবাস</span><span>২টি সেট × ১০০</span><span>GSM</span><span>2G–5G</span><span>সূত্র ও ব্যাখ্যাসহ</span></div></div>
+<div class="callout b"><p><strong>সেট ১ (T১–T১০০):</strong> সব টপিক (১–১৯ + Exchange/MSC পরিশিষ্ট), Teletalk সিলেবাস অনুযায়ী।<br><strong>সেট ২ (G১–G১০০):</strong> GSM ও 2G–5G Mobile Communication, সাংখ্যিক ও বিশ্লেষণমুখী।</p></div>
+<div class="callout r"><p><strong>⚠ সৎ কথা:</strong> এগুলো BUET বা Teletalk-এর আসল প্রশ্ন নয়। আসল প্রশ্ন অনলাইনে পাওয়া যায়নি, তাই বুয়েট-ঘরানার মানে অনুশীলনের জন্য বানানো প্রশ্ন। সংখ্যাভিত্তিক সব উত্তর হিসাব করে মেলানো এবং উত্তরমালা মিলিয়ে দেখা হয়েছে। 3GPP/ITU/IEEE-এর মান, port ও frequency band-এর তথ্য নিজের জ্ঞান থেকে লেখা, ওয়েবে নতুন করে যাচাই করা হয়নি; পরীক্ষার আগে সন্দেহজনক তথ্য নিজের নোটের সাথে মিলিয়ে নিন।</p></div>
+<div class="setbar"><button id="s1">সেট ১: সব টপিক</button><button id="s2">সেট ২: GSM ও 2G–5G</button><select id="jump" aria-label="বিভাগে যান"></select></div>
+<div id="mcq"></div>
+<p><a class="btn" href="cell-quiz.html">← মূল MCQ কুইজ</a> <a class="btn" href="cell-index.html">সূচি</a> <a class="btn" href="cell-qa.html">Q &amp; A →</a></p>
+</main>
+<footer>Created by Al Nahian Mugdho</footer>
+<script src="data/questions.js"></script><script src="data/cell_mcq_buet.js"></script><script src="js/app.js"></script>
+<script>
+(function(){
+  const box=document.getElementById('mcq'),jump=document.getElementById('jump'),sets={s1:'BUETMCQ1',s2:'BUETMCQ2'};
+  function show(id){
+    document.querySelectorAll('.score').forEach(e=>e.remove());
+    box.innerHTML='';box.dataset.src=sets[id];renderMCQ();
+    Object.keys(sets).forEach(k=>document.getElementById(k).classList.toggle('on',k===id));
+    jump.innerHTML='<option value="">⬇ বিভাগে যান…</option>';
+    box.querySelectorAll('h2').forEach((h,i)=>{h.id='grp'+i;const o=document.createElement('option');o.value=h.id;o.textContent=h.textContent;jump.appendChild(o)});
+  }
+  jump.onchange=()=>{const t=document.getElementById(jump.value);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})};
+  Object.keys(sets).forEach(k=>document.getElementById(k).onclick=()=>show(k));
+  // app.js runs its own renderMCQ() on DOMContentLoaded, so the first render waits for 'load' (it clears the box first).
+  if(document.readyState==='complete')show('s1');else window.addEventListener('load',()=>show('s1'));
+})();
+</script></body></html>
