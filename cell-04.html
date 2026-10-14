@@ -1,6 +1,7 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Cellular Topic 4: Mobile Core ও Backhaul Architectures — Telecommunication Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/katex/katex.min.css">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
 <main>
@@ -304,7 +305,7 @@
 <p><strong>Fiber-ভিত্তিক:</strong> <strong>GPON</strong> (downlink 2.488 Gbps, uplink 1.244 Gbps, প্রতি পোর্টে 1:64 পর্যন্ত split), <strong>XGS-PON</strong> (10 Gbps symmetric), <strong>DWDM</strong> (একই ফাইবারে বহু তরঙ্গ)।</p>
 <p><strong>Ethernet/IP/MPLS:</strong> বর্তমান backhaul মূলত Carrier Ethernet ও IP/MPLS। <strong>MEF</strong> সেবা: E-Line (point-to-point), E-LAN (multipoint), E-Tree। <strong>MPLS L2VPN/L3VPN</strong> দিয়ে ট্রাফিক আলাদা রাখা হয়। সুরক্ষা: ring protection (<strong>ERPS, G.8032</strong>; প্রায় 50 ms), link aggregation (LAG), BFD (দ্রুত ব্যর্থতা শনাক্ত)।</p>
 <h3 id="availability-ও-capacity-হসব"><strong>৪.৬ Availability ও Capacity হিসাব</strong></h3>
-<p>\text{Downtime/year}=(1-A)\times 525600\ \text{min}</p>
+<div class="katex-block"><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Downtime/year</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6679em;"></span><span class="mord">525600</span><span class="mspace"> </span><span class="mord text"><span class="mord">min</span></span></span></span></span></span></div>
 <table>
 <colgroup>
 <col style="width: 50%" />
@@ -377,7 +378,7 @@
 <p>20 MHz LTE carrier-এ CPRI রেট প্রতি antenna কত? → 1.2288 Gbps।</p>
 </blockquote></li>
 </ol>
-</div><div class="tools"><a class="btn" href="cell-03.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-05.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+</div><div class="card"><b>🎬 ইন্টারঅ্যাকটিভ অ্যানিমেশন</b><p>2G, 3G, 4G ও 5G নেটওয়ার্কে কল কোন কোন নোড (BTS, BSC, MSC, MME, GMSC…) হয়ে যায় তা অ্যানিমেশনে দেখুন।</p><a class="btn" href="cell-animation.html">অ্যানিমেশন দেখুন</a></div><div class="tools"><a class="btn" href="cell-03.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-05.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
 </main>
 <footer>Created by Al Nahian Mugdho</footer>
 <script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
