@@ -1,384 +1,63 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cellular Topic 4: Mobile Core ও Backhaul Architectures — Telecommunication Lab</title>
+<title>Topic 4: Mobile Core and Backhaul Architectures — Telecommunication Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/katex/katex.min.css">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
 <main>
-<h1>Cellular Topic 4: Mobile Core ও Backhaul Architectures</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
-<p>মোবাইল নেটওয়ার্ক তিন ভাগে চিন্তা করো: <strong>RAN</strong> (রেডিও অংশ, tower/base station), <strong>Transport</strong> (RAN ও core-কে জোড়ার লিংক, backhaul/fronthaul) এবং <strong>Core</strong> (সুইচিং, ইউজার ডেটা, নিরাপত্তা, ইন্টারনেট সংযোগ)।</p>
-<p><strong>Core network-এর ক্রমবিবর্তন</strong></p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>প্রজন্ম</th>
-<th>RAN</th>
-<th>Core নোড</th>
-</tr>
-<tr class="odd">
-<th>2G GSM</th>
-<th>BTS + BSC</th>
-<th>MSC, VLR, HLR, AuC, EIR; GPRS-এ SGSN ও GGSN</th>
-</tr>
-<tr class="header">
-<th>3G UMTS</th>
-<th>NodeB + RNC</th>
-<th>CS domain (MSC), PS domain (SGSN, GGSN)</th>
-</tr>
-<tr class="odd">
-<th>4G LTE</th>
-<th>eNodeB</th>
-<th>EPC: MME, S-GW, P-GW, HSS, PCRF</th>
-</tr>
-<tr class="header">
-<th>5G</th>
-<th>gNB</th>
-<th>5GC: AMF, SMF, UPF, UDM, AUSF, PCF, NRF…</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>Backhaul, Midhaul, Fronthaul</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>Fronthaul:</strong> Radio Unit (RU) ↔︎ Baseband Unit (DU/BBU)। উচ্চ bandwidth ও খুব কম latency লাগে, সাধারণত fiber (CPRI/eCPRI)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Midhaul:</strong> DU ↔︎ CU (5G-তে)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Backhaul:</strong> Base station/CU ↔︎ Core network।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Backhaul মাধ্যম:</strong> Optical fiber (সর্বোত্তম, বেশি capacity), Microwave (দ্রুত স্থাপন, দুর্গম এলাকায়), Satellite (প্রত্যন্ত এলাকা, বেশি latency), Leased line/Copper (পুরনো)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>প্রযুক্তি:</strong> IP/MPLS, Carrier Ethernet, PON (GPON/XGS-PON); পুরনো SDH/PDH E1।</p>
-</blockquote></li>
-</ul>
-<p><strong>গুরুত্বপূর্ণ ইন্টারফেস</strong></p>
-<ul>
-<li><blockquote>
-<p>2G: <strong>Abis</strong> (BTS–BSC), <strong>A</strong> (BSC–MSC)। 3G: <strong>Iub</strong> (NodeB–RNC), <strong>Iu</strong> (RNC–core)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>4G: <strong>S1-MME / S1-U</strong> (eNodeB–MME / S-GW), <strong>X2</strong> (eNodeB–eNodeB), <strong>Uu</strong> (UE–eNodeB রেডিও)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>5G: <strong>N2</strong> (gNB–AMF), <strong>N3</strong> (gNB–UPF), <strong>Xn</strong> (gNB–gNB), <strong>N4</strong> (SMF–UPF)।</p>
-</blockquote></li>
-</ul>
-<p><strong>Synchronization:</strong> TDD সিস্টেম ও handover-এর জন্য নেটওয়ার্কে সময় ও ফ্রিকোয়েন্সি সিঙ্ক জরুরি। ব্যবহৃত হয় GPS/GNSS, Synchronous Ethernet (SyncE) এবং IEEE 1588 PTP।</p>
-<p><strong>Backhaul নির্বাচনের মানদণ্ড:</strong> capacity (5G-তে প্রতি সাইটে বহু Gbps), latency, খরচ, নির্ভরযোগ্যতা (redundancy/ring topology), স্থাপনের সময়।</p>
-<p><strong>সম্ভাব্য MCQ</strong></p>
-<ul>
-<li><blockquote>
-<p>LTE-তে eNodeB-গুলোর মধ্যকার ইন্টারফেস কী? → X2</p>
-</blockquote></li>
-<li><blockquote>
-<p>5G-তে gNB ও UPF-এর মধ্যে ইন্টারফেস? → N3</p>
-</blockquote></li>
-<li><blockquote>
-<p>5G-তে RU ও DU-এর মাঝের অংশকে কী বলে? → Fronthaul</p>
-</blockquote></li>
-<li><blockquote>
-<p>সবচেয়ে বেশি capacity ও কম latency দেয় কোন backhaul? → Optical fiber</p>
-</blockquote></li>
-<li><blockquote>
-<p>3G-তে RNC-র কাজ কী? → NodeB-গুলোর রেডিও রিসোর্স ও handover নিয়ন্ত্রণ</p>
-</blockquote></li>
-</ul>
-<h2>বিস্তারিত নোট</h2>
-<h3 id="মবইল-নটওযরকর-তন-ভগ"><strong>৪.১ মোবাইল নেটওয়ার্কের তিন ভাগ</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p><strong>Access (RAN):</strong> BTS/NodeB/eNodeB/gNB, antenna, রেডিও রিসোর্স।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Transport (Backhaul/Fronthaul):</strong> RAN ও core-কে জোড়ার ফাইবার, microwave, ইথারনেট/MPLS।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Core:</strong> সুইচিং, mobility, সাবস্ক্রাইবার ডেটা, নিরাপত্তা, চার্জিং, ইন্টারনেট গেটওয়ে।</p>
-</blockquote></li>
-</ol>
-<h3 id="g3g-core-circuit-ও-packet-domain"><strong>৪.২ 2G/3G Core: Circuit ও Packet domain</strong></h3>
-<p><strong>Circuit-switched (CS) domain:</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>MSC (Mobile Switching Centre):</strong> কল সেটআপ, রাউটিং, handover সমন্বয়, SMS রাউটিং, বিলিং রেকর্ড।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>GMSC (Gateway MSC):</strong> PSTN বা অন্য অপারেটর থেকে আসা কলে HLR-কে জিজ্ঞেস করে গ্রহীতার MSC খোঁজে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>VLR:</strong> আগন্তুক ইউজারের অস্থায়ী ডেটা; সাধারণত MSC-র সাথে একই বাক্সে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>3GPP Release 4 থেকে MSC ভাগ হয়েছে <strong>MSC Server</strong> (control) ও <strong>MGW</strong> (Media Gateway, user plane) আকারে; তাদের মধ্যে <strong>H.248/MEGACO</strong> প্রোটোকল। এই control/user আলাদা করার ধারণাই পরে EPC ও 5GC-তে (CUPS) পূর্ণতা পায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>SMSC:</strong> SMS জমা রাখে ও store-and-forward করে।</p>
-</blockquote></li>
-</ul>
-<p><strong>Packet-switched (PS) domain:</strong> SGSN (mobility ও session, MSC-র সমতুল্য) ও GGSN (ইন্টারনেট গেটওয়ে)।</p>
-<p><strong>Signalling নেটওয়ার্ক (SS7):</strong> নোডগুলোর মধ্যে নিয়ন্ত্রণ বার্তা চলে আলাদা নেটওয়ার্কে।</p>
-<ul>
-<li><blockquote>
-<p><strong>SP/SSP</strong> (সুইচের signalling পয়েন্ট), <strong>STP</strong> (signalling বার্তার রাউটার), <strong>SCP</strong> (ডেটাবেস/সেবা, যেমন prepaid)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>প্রতিটি নোডের <strong>Point Code</strong> (ITU-তে 14 বিট, ANSI-তে 24 বিট)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Signalling link 64 kbps (E1-এর একটি slot) বা IP-তে <strong>SIGTRAN</strong> (M3UA over SCTP)।</p>
-</blockquote></li>
-</ul>
-<h3 id="g-ও-5g-core-সকষপ-বসতরত-পর"><strong>৪.৩ 4G ও 5G Core সংক্ষেপে (বিস্তারিত পরে)</strong></h3>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>প্রজন্ম</th>
-<th>Control</th>
-<th>User plane</th>
-<th>সাবস্ক্রাইবার ডেটা</th>
-</tr>
-<tr class="odd">
-<th>4G EPC</th>
-<th>MME</th>
-<th>S-GW, P-GW</th>
-<th>HSS</th>
-</tr>
-<tr class="header">
-<th>5G 5GC</th>
-<th>AMF, SMF</th>
-<th>UPF</th>
-<th>UDM/UDR</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p>4G-তে MSC-র কাজ নেই (voice IMS দিয়ে), আর পুরো core IP-ভিত্তিক। 5GC আরও এগিয়ে সেবা-ভিত্তিক ও cloud-native।</p>
-<p><strong>Core-এর অবস্থান:</strong> আগে কেন্দ্রীভূত (দেশে 2–3টি ডেটা সেন্টার)। latency-সংবেদনশীল সেবার জন্য এখন UPF edge-এ বসে (distributed core/MEC), আর control plane কেন্দ্রে থাকে। <strong>Pooling:</strong> MSC pool, MME pool (S1-flex) একাধিক নোড একটি অঞ্চল সেবা দেয়, একটি নষ্ট হলে অন্যরা সামলায়। <strong>Geo-redundancy:</strong> ভিন্ন শহরে প্রতিলিপি।</p>
-<p><strong>Roaming:</strong> ইউজার অন্য নেটওয়ার্কে গেলে visited network-এর MME/AMF home network-এর HSS/UDM-এর সাথে কথা বলে। ডেটা <strong>home-routed</strong> (home P-GW দিয়ে, S8 ইন্টারফেসে) বা <strong>local breakout</strong> (visited নেটওয়ার্ক থেকেই ইন্টারনেট) হতে পারে। অপারেটরদের মধ্যে সংযোগ <strong>IPX</strong> নেটওয়ার্কে।</p>
-<h3 id="ইনটরফস-সরণ"><strong>৪.৪ ইন্টারফেস সারণি</strong></h3>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>ইন্টারফেস</th>
-<th>সংযোগ</th>
-<th>প্রযুক্তি</th>
-</tr>
-<tr class="odd">
-<th>Um</th>
-<th>MS–BTS</th>
-<th>GSM রেডিও</th>
-</tr>
-<tr class="header">
-<th>Abis</th>
-<th>BTS–BSC</th>
-<th>2G</th>
-</tr>
-<tr class="odd">
-<th>A</th>
-<th>BSC–MSC</th>
-<th>2G</th>
-</tr>
-<tr class="header">
-<th>Gb</th>
-<th>BSC/PCU–SGSN</th>
-<th>GPRS</th>
-</tr>
-<tr class="odd">
-<th>Gn/Gp</th>
-<th>SGSN–GGSN</th>
-<th>GPRS/3G (GTP)</th>
-</tr>
-<tr class="header">
-<th>Iub / Iu-CS / Iu-PS</th>
-<th>NodeB–RNC / RNC–MSC / RNC–SGSN</th>
-<th>3G</th>
-</tr>
-<tr class="odd">
-<th>Uu</th>
-<th>UE–eNodeB</th>
-<th>LTE রেডিও</th>
-</tr>
-<tr class="header">
-<th>S1-MME / S1-U</th>
-<th>eNodeB–MME / S-GW</th>
-<th>LTE</th>
-</tr>
-<tr class="odd">
-<th>X2</th>
-<th>eNodeB–eNodeB</th>
-<th>LTE</th>
-</tr>
-<tr class="header">
-<th>NG-C (N2) / NG-U (N3)</th>
-<th>gNB–AMF / UPF</th>
-<th>5G</th>
-</tr>
-<tr class="odd">
-<th>Xn</th>
-<th>gNB–gNB</th>
-<th>5G</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<h3 id="backhaul-ধরণ-ও-টপলজ"><strong>৪.৫ Backhaul: ধারণা ও টপোলজি</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>Backhaul:</strong> cell site থেকে core-এর দিকের সংযোগ (RNC/BSC/MME/AMF/UPF পর্যন্ত)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Fronthaul:</strong> RU ও DU/BBU-র মাঝে (C-RAN-এ); <strong>Midhaul:</strong> DU ও CU-র মাঝে (5G)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>টপোলজি:</strong> Star (সরল, একক ব্যর্থতা), Ring (দুই দিকে পথ, দ্রুত পুনরুদ্ধার), Tree, Mesh (সবচেয়ে বেশি নির্ভরযোগ্য, ব্যয়বহুল)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Aggregation স্তর:</strong> Cell site gateway → pre-aggregation → aggregation → core। প্রতি স্তরে ট্রাফিক জমে, তাই capacity বাড়ে।</p>
-</blockquote></li>
-</ul>
-<p><strong>প্রযুক্তি তুলনা:</strong></p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>প্রযুক্তি</th>
-<th>সুবিধা</th>
-<th>সীমা</th>
-</tr>
-<tr class="odd">
-<th>Optical fiber</th>
-<th>কয়েক Gbps–Tbps, কম latency, নির্ভরযোগ্য</th>
-<th>স্থাপন খরচ ও সময় বেশি</th>
-</tr>
-<tr class="header">
-<th>Microwave (6–42 GHz)</th>
-<th>দ্রুত স্থাপন, নদী/দুর্গম এলাকায়</th>
-<th>LOS লাগে, বৃষ্টিতে ক্ষয় (বিশেষত উচ্চ ব্যান্ডে)</th>
-</tr>
-<tr class="odd">
-<th>E-band (71–86 GHz)</th>
-<th>মাল্টি-Gbps</th>
-<th>খুব ছোট hop (≈ 1–3 km), বৃষ্টিতে সংবেদনশীল</th>
-</tr>
-<tr class="header">
-<th>Satellite (VSAT)</th>
-<th>প্রত্যন্ত এলাকা</th>
-<th>বেশি latency, খরচ</th>
-</tr>
-<tr class="odd">
-<th>Copper/DSL</th>
-<th>বিদ্যমান তার</th>
-<th>কম গতি; আজ সীমিত</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>Fiber-ভিত্তিক:</strong> <strong>GPON</strong> (downlink 2.488 Gbps, uplink 1.244 Gbps, প্রতি পোর্টে 1:64 পর্যন্ত split), <strong>XGS-PON</strong> (10 Gbps symmetric), <strong>DWDM</strong> (একই ফাইবারে বহু তরঙ্গ)।</p>
-<p><strong>Ethernet/IP/MPLS:</strong> বর্তমান backhaul মূলত Carrier Ethernet ও IP/MPLS। <strong>MEF</strong> সেবা: E-Line (point-to-point), E-LAN (multipoint), E-Tree। <strong>MPLS L2VPN/L3VPN</strong> দিয়ে ট্রাফিক আলাদা রাখা হয়। সুরক্ষা: ring protection (<strong>ERPS, G.8032</strong>; প্রায় 50 ms), link aggregation (LAG), BFD (দ্রুত ব্যর্থতা শনাক্ত)।</p>
-<h3 id="availability-ও-capacity-হসব"><strong>৪.৬ Availability ও Capacity হিসাব</strong></h3>
-<div class="katex-block"><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text"><span class="mord">Downtime/year</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">A</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.6679em;"></span><span class="mord">525600</span><span class="mspace"> </span><span class="mord text"><span class="mord">min</span></span></span></span></span></span></div>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Availability</th>
-<th>বছরে সর্বোচ্চ বন্ধ থাকার সময়</th>
-</tr>
-<tr class="odd">
-<th>99.9% (three nines)</th>
-<th>প্রায় 8.76 ঘণ্টা</th>
-</tr>
-<tr class="header">
-<th>99.99% (four nines)</th>
-<th>প্রায় 52.56 মিনিট</th>
-</tr>
-<tr class="odd">
-<th>99.999% (five nines, carrier-grade)</th>
-<th>প্রায় 5.26 মিনিট</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>Capacity উদাহরণ:</strong> একটি 3-sector সাইট, প্রতি sector-এর ব্যস্ত ঘণ্টায় গড় 20 Mbps ও peak 150 Mbps। প্রচলিত নিয়মে backhaul ≈ একটি sector-এর peak + বাকি sector-এর গড় = 150 + 2 × 20 = <strong>190 Mbps</strong>। বাস্তবে 1 GbE লিংক বসে ভবিষ্যৎ বৃদ্ধির জন্য। 5G-তে একই সাইটে বহু Gbps লাগে।</p>
-<h3 id="fronthaul-cpri-ও-ecpri"><strong>৪.৭ Fronthaul: CPRI ও eCPRI</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>CPRI:</strong> RU ও BBU-র মাঝে অবিকৃত I/Q নমুনা বহন করে, তাই ডেটা রেট antenna ও bandwidth-এর সাথে সরাসরি বাড়ে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>20 MHz LTE carrier: 30.72 Msps × (15 বিট I + 15 বিট Q) × 16/15 (control word) × 10/8 (8b/10b line coding) = <strong>1.2288 Gbps প্রতি antenna-carrier</strong>; 4 antenna ⇒ 4.9152 Gbps (CPRI option 5)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>5G-তে antenna সংখ্যা বহুগুণ, তাই CPRI অচল; <strong>eCPRI</strong> ফাংশনাল বিভাজন (split 7.2, 7.3 ইত্যাদি) করে Ethernet-এ কম ডেটা রেটে পাঠায়। latency বাজেট খুব কঠিন (কয়েকশো µs)।</p>
-</blockquote></li>
-</ul>
-<h3 id="synchronization"><strong>৪.৮ Synchronization</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>Frequency sync:</strong> রেডিও ফ্রিকোয়েন্সি নির্ভুলতা ±50 ppb (GSM/LTE FDD)। ব্যর্থ হলে handover ও interference সমস্যা।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Phase/Time sync:</strong> TDD ও carrier aggregation-এ ±1.5 µs (এবং 5G-তে আরও কঠিন) লাগে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>উৎস:</strong> GPS/GNSS (সবচেয়ে সরল), Synchronous Ethernet (<strong>SyncE, G.8262</strong>, frequency), <strong>PTP IEEE 1588v2</strong> (<strong>G.8275.1/2</strong> telecom profile; frequency ও phase)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>GNSS নষ্ট হলে (jamming/ব্যর্থতা) holdover oscillator (OCXO, rubidium) কিছুক্ষণ চালিয়ে নেয়।</p>
-</blockquote></li>
-</ul>
-<h3 id="অনশলন-2"><strong>৪.৯ অনুশীলন</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>99.99% availability-তে বছরে downtime কত? → ≈ 52.56 মিনিট।</p>
-</blockquote></li>
-<li><blockquote>
-<p>MSC Server ও MGW-র মধ্যে প্রোটোকল? → H.248/MEGACO।</p>
-</blockquote></li>
-<li><blockquote>
-<p>SS7 নেটওয়ার্কে signalling বার্তা রাউট করে কোন নোড? → STP।</p>
-</blockquote></li>
-<li><blockquote>
-<p>GPON-এর downlink রেট? → 2.488 Gbps।</p>
-</blockquote></li>
-<li><blockquote>
-<p>20 MHz LTE carrier-এ CPRI রেট প্রতি antenna কত? → 1.2288 Gbps।</p>
-</blockquote></li>
-</ol>
-</div><div class="card"><b>🎬 ইন্টারঅ্যাকটিভ অ্যানিমেশন</b><p>2G, 3G, 4G ও 5G নেটওয়ার্কে কল কোন কোন নোড (BTS, BSC, MSC, MME, GMSC…) হয়ে যায় তা অ্যানিমেশনে দেখুন।</p><a class="btn" href="cell-animation.html">অ্যানিমেশন দেখুন</a></div><div class="tools"><a class="btn" href="cell-03.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-05.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+<h1>Topic 4: <span class="bn">Mobile Core ও Backhaul আর্কিটেকচার</span><span class="en">Mobile Core and Backhaul Architectures</span></h1><p class="src"><span class="bn">Theory • সহজ সারাংশ + বিস্তারিত নোট</span><span class="en">Theory • short note + detailed note</span></p>
+<div class="doc">
+<div id="sumBox">
+<h2>🧠 <span class="bn">সংক্ষেপ নোট</span><span class="en">Short note</span></h2>
+<p class="lead"><span class="bn">মোবাইল নেটওয়ার্ককে তিন ভাগে ভাবো: ফোনের কাছের রেডিও অংশ (RAN), মাঝের তার বা microwave লাইন (backhaul), আর বুদ্ধিমান কেন্দ্র (core)।</span><span class="en">Think of a mobile network in three parts: the radio part near the phone (RAN), the wired or microwave links in the middle (backhaul), and the smart centre (core).</span></p>
+<ul><li><span class="bn"><b>RAN</b> = টাওয়ার ও রেডিও যন্ত্র। ফোনের সাথে কথা বলে।</span><span class="en"><b>RAN</b> = towers and radio equipment. Talks to the phone.</span></li><li><span class="bn"><b>Backhaul</b> = টাওয়ার থেকে core পর্যন্ত রাস্তা (fiber / microwave)।</span><span class="en"><b>Backhaul</b> = the road from tower to core (fiber / microwave).</span></li><li><span class="bn"><b>Core</b> = ইউজার চেনা, রুটিং, বিলিং, বাইরের নেটওয়ার্কে সংযোগ।</span><span class="en"><b>Core</b> = identifies users, routing, billing, connection to outside networks.</span></li><li><span class="bn"><b>2G/3G core:</b> ভয়েসের জন্য circuit domain (MSC) আর ডেটার জন্য packet domain (SGSN, GGSN)।</span><span class="en"><b>2G/3G core:</b> a circuit domain for voice (MSC) and a packet domain for data (SGSN, GGSN).</span></li><li><span class="bn"><b>Fronthaul</b> = RU থেকে DU পর্যন্ত (CPRI/eCPRI)।</span><span class="en"><b>Fronthaul</b> = from RU to DU (CPRI/eCPRI).</span></li><li><span class="bn"><b>Availability</b> সমান্তরাল link-এ বাড়ে: 1 − (1 − a)ⁿ।</span><span class="en"><b>Availability</b> rises with parallel links: 1 − (1 − a)ⁿ.</span></li><li><span class="bn"><b>Sync:</b> SyncE = frequency, PTP = সময়।</span><span class="en"><b>Sync:</b> SyncE = frequency, PTP = time.</span></li></ul>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">"RAN-এ কথা, Backhaul-এ বয়ে নেওয়া, Core-এ বিচার।" তিন ভাগ = রেডিও, রাস্তা, মগজ।</span><span class="en">"RAN talks, backhaul carries, core decides." Three parts = radio, road, brain.</span></p></div>
+</div>
+<div id="detBox">
+<h2>📖 <span class="bn">বিস্তারিত নোট</span><span class="en">Detailed note</span></h2>
+<details class="sec" open><summary><span class="bn">৪.১ মোবাইল নেটওয়ার্কের তিন ভাগ</span><span class="en">4.1 The three parts of a mobile network</span></summary>
+<div class="fig" data-fig="core-path"></div>
+<div class="callout b"><p>🛵 <b><span class="bn">উপমা:</span><span class="en">Analogy:</span></b> <span class="bn">কুরিয়ার সেবা ভাবো। RAN = পাড়ার কুরিয়ার বয় যে তোমার বাসা থেকে পার্সেল নেয়। Backhaul = শহরের ভেতরের ট্রাক রুট। Core = কেন্দ্রীয় গুদাম যেখানে ঠিকানা দেখে ঠিক করা হয় পার্সেল কোথায় যাবে।</span><span class="en">Think of a courier service. RAN = the local courier boy who picks up your parcel. Backhaul = the truck route inside the city. Core = the central warehouse where the address is read and the parcel is routed.</span></p></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">ভাগ</span><span class="en">Part</span></th><th><span class="bn">2G</span><span class="en">2G</span></th><th><span class="bn">3G</span><span class="en">3G</span></th><th><span class="bn">4G</span><span class="en">4G</span></th><th><span class="bn">5G</span><span class="en">5G</span></th></tr></thead><tbody><tr><td><span class="bn">রেডিও (RAN)</span><span class="en">Radio (RAN)</span></td><td>BTS + BSC</td><td>Node B + RNC</td><td>eNodeB</td><td>gNB</td></tr><tr><td><span class="bn">Core (ভয়েস)</span><span class="en">Core (voice)</span></td><td>MSC</td><td>MSC</td><td>IMS (VoLTE)</td><td>IMS (VoNR)</td></tr><tr><td><span class="bn">Core (ডেটা)</span><span class="en">Core (data)</span></td><td>SGSN, GGSN (GPRS)</td><td>SGSN, GGSN</td><td>EPC: MME, S-GW, P-GW</td><td>5GC: AMF, SMF, UPF</td></tr><tr><td><span class="bn">ডাটাবেস</span><span class="en">Database</span></td><td>HLR, VLR</td><td>HLR, VLR</td><td>HSS</td><td>UDM, UDR</td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৪.২ 2G/3G Core: Circuit ও Packet domain</span><span class="en">4.2 2G/3G core: circuit and packet domains</span></summary>
+<p><span class="bn">2G ও 3G-তে ভয়েস ও ডেটার জন্য দুটি আলাদা পথ ছিল।</span><span class="en">In 2G and 3G voice and data had two separate paths.</span></p>
+<div class="tbl"><table><thead><tr><th><span class="bn">Domain</span><span class="en">Domain</span></th><th><span class="bn">কী বহন করে</span><span class="en">What it carries</span></th><th><span class="bn">মূল নোড</span><span class="en">Key nodes</span></th><th><span class="bn">সংযুক্ত হয়</span><span class="en">Connects to</span></th></tr></thead><tbody><tr><td>Circuit (CS)</td><td><span class="bn">ভয়েস কল ও SMS</span><span class="en">Voice calls and SMS</span></td><td>MSC, VLR, HLR, GMSC</td><td>PSTN</td></tr><tr><td>Packet (PS)</td><td><span class="bn">ইন্টারনেট ডেটা</span><span class="en">Internet data</span></td><td>SGSN, GGSN</td><td>Internet</td></tr></tbody></table></div>
+<ul><li><span class="bn"><b>MSC:</b> কল সুইচ করে। <b>GMSC:</b> বাইরে থেকে আসা কলের প্রবেশদ্বার।</span><span class="en"><b>MSC:</b> switches calls. <b>GMSC:</b> the gateway for calls coming from outside.</span></li><li><span class="bn"><b>SGSN:</b> ডেটা ইউজারের mobility সামলায়। <b>GGSN:</b> বাইরের ইন্টারনেটের দরজা (4G-তে P-GW)।</span><span class="en"><b>SGSN:</b> handles data users' mobility. <b>GGSN:</b> gate to the outside internet (P-GW in 4G).</span></li></ul>
+</details>
+<details class="sec" open><summary><span class="bn">৪.৩ ইন্টারফেস (দুই নোডের মধ্যে "তার" এর নাম)</span><span class="en">4.3 Interfaces (the name of the "wire" between two nodes)</span></summary>
+<div class="tbl"><table><thead><tr><th><span class="bn">ইন্টারফেস</span><span class="en">Interface</span></th><th><span class="bn">কোন দুটির মধ্যে</span><span class="en">Between</span></th><th><span class="bn">প্রযুক্তি</span><span class="en">Technology</span></th></tr></thead><tbody><tr><td>Um</td><td><span class="bn">ফোন ↔ BTS (রেডিও)</span><span class="en">Phone ↔ BTS (radio)</span></td><td>2G</td></tr><tr><td>Abis</td><td><span class="bn">BTS ↔ BSC</span><span class="en">BTS ↔ BSC</span></td><td>2G</td></tr><tr><td>A</td><td><span class="bn">BSC ↔ MSC</span><span class="en">BSC ↔ MSC</span></td><td>2G</td></tr><tr><td>Gb</td><td><span class="bn">BSC/PCU ↔ SGSN</span><span class="en">BSC/PCU ↔ SGSN</span></td><td>GPRS</td></tr><tr><td>Iub</td><td>Node B ↔ RNC</td><td>3G</td></tr><tr><td>Iu-CS / Iu-PS</td><td>RNC ↔ MSC / SGSN</td><td>3G</td></tr><tr><td>S1-MME / S1-U</td><td>eNodeB ↔ MME / S-GW</td><td>4G</td></tr><tr><td>X2</td><td>eNodeB ↔ eNodeB</td><td>4G</td></tr><tr><td>N2 / N3</td><td>gNB ↔ AMF / UPF</td><td>5G</td></tr><tr><td>F1</td><td><span class="bn">CU ↔ DU</span><span class="en">CU ↔ DU</span></td><td>5G</td></tr></tbody></table></div>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">Um → Abis → A: "উমা আবিস আ" তিন ধাপ, ফোন থেকে MSC পর্যন্ত।</span><span class="en">Um → Abis → A: three hops from the phone to the MSC.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">৪.৪ Backhaul: ধারণা ও topology</span><span class="en">4.4 Backhaul: idea and topologies</span></summary>
+<div class="fig" data-fig="ring"></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">Topology</span><span class="en">Topology</span></th><th><span class="bn">ছবি কেমন</span><span class="en">Shape</span></th><th><span class="bn">সুবিধা</span><span class="en">Benefit</span></th><th><span class="bn">অসুবিধা</span><span class="en">Drawback</span></th></tr></thead><tbody><tr><td>Star</td><td><span class="bn">কেন্দ্র থেকে সব দিকে</span><span class="en">From a centre to all sides</span></td><td><span class="bn">সহজ</span><span class="en">Simple</span></td><td><span class="bn">কেন্দ্র নষ্ট হলে সব বন্ধ</span><span class="en">If the centre fails everything stops</span></td></tr><tr><td>Chain</td><td><span class="bn">একটার পর একটা</span><span class="en">One after another</span></td><td><span class="bn">সস্তা</span><span class="en">Cheap</span></td><td><span class="bn">মাঝখানে কাটলে পরের সব বন্ধ</span><span class="en">A cut in the middle cuts all beyond it</span></td></tr><tr><td>Ring</td><td><span class="bn">বৃত্ত</span><span class="en">A circle</span></td><td><span class="bn">একটি লাইন কাটলে উল্টো পথ আছে (SDH < 50 ms)</span><span class="en">If one link is cut there is the other way (SDH < 50 ms)</span></td><td><span class="bn">খরচ বেশি</span><span class="en">Costlier</span></td></tr><tr><td>Mesh</td><td><span class="bn">অনেক জোড়া সংযোগ</span><span class="en">Many cross links</span></td><td><span class="bn">সবচেয়ে নির্ভরযোগ্য</span><span class="en">Most reliable</span></td><td><span class="bn">জটিল ও দামি</span><span class="en">Complex and costly</span></td></tr></tbody></table></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">মাধ্যম</span><span class="en">Medium</span></th><th><span class="bn">গতি / ব্যান্ড</span><span class="en">Speed / band</span></th><th><span class="bn">কখন ব্যবহার</span><span class="en">When used</span></th></tr></thead><tbody><tr><td>Fiber</td><td><span class="bn">অনেক বেশি (10–100 Gbps+)</span><span class="en">Very high (10–100 Gbps+)</span></td><td><span class="bn">শহর ও মূল পথ</span><span class="en">Cities and main routes</span></td></tr><tr><td>Microwave</td><td><span class="bn">6–42 GHz</span><span class="en">6–42 GHz</span></td><td><span class="bn">যেখানে fiber বসানো কঠিন</span><span class="en">Where fiber is hard to lay</span></td></tr><tr><td>E-band</td><td><span class="bn">71–86 GHz (বেশি capacity, ছোট রেঞ্জ)</span><span class="en">71–86 GHz (high capacity, short range)</span></td><td><span class="bn">5G ঘন এলাকা</span><span class="en">Dense 5G areas</span></td></tr><tr><td>Satellite</td><td><span class="bn">ধীর, দেরি বেশি</span><span class="en">Slower, more delay</span></td><td><span class="bn">দুর্গম এলাকা</span><span class="en">Remote areas</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৪.৫ Availability ও Capacity হিসাব</span><span class="en">4.5 Availability and capacity calculations</span></summary>
+<div class="fxbox"><div class="fxn"><span class="bn">Availability (সেবা চালু থাকার সম্ভাবনা)</span><span class="en">Availability (chance the service is up)</span></div><div class="fxf">এক লাইন: A<br>পরপর (series) দুই লাইন: A₁ · A₂<br>সমান্তরাল (parallel) n লাইন: 1 − (1 − A)<sup>n</sup></div><div class="fxv"><span class="bn">সমান্তরালে একটি অকেজো হলেও অন্যটি চালায়, তাই availability বাড়ে।</span><span class="en">In parallel, if one fails the other still works, so availability rises.</span></div><div class="fxe">✍ <span class="bn">দুটি সমান্তরাল link, প্রতিটি 99.9%: 1 − (0.001)² = 0.999999 = <b>99.9999%</b>।</span><span class="en">Two parallel links of 99.9% each: 1 − (0.001)² = 0.999999 = <b>99.9999%</b>.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">বছরে বন্ধ থাকার সময় (downtime)</span><span class="en">Downtime per year</span></div><div class="fxf">downtime = (1 − A) × 525,600 মিনিট</div><div class="fxv"><span class="bn">একটি বছরে 365 × 24 × 60 = 525,600 মিনিট।</span><span class="en">A year has 365 × 24 × 60 = 525,600 minutes.</span></div><div class="fxe">✍ <span class="bn">99.99%: 0.0001 × 525,600 = 52.56 মিনিট। 99.999%: 5.26 মিনিট।</span><span class="en">99.99%: 0.0001 × 525,600 = 52.56 minutes. 99.999%: 5.26 minutes.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">Backhaul capacity (মোটামুটি)</span><span class="en">Backhaul capacity (rough)</span></div><div class="fxf">capacity ≈ Σ (প্রতি sector-এর peak rate) + overhead</div><div class="fxv"><span class="bn">একটি site-এ ৩ sector থাকলে তিন sector-এর peak যোগ করে, সাথে ~20% overhead ধরা হয়।</span><span class="en">For a 3-sector site add the peaks of the three sectors, plus roughly 20% overhead.</span></div></div>
+</details>
+<details class="sec" open><summary><span class="bn">৪.৬ Fronthaul: CPRI ও eCPRI</span><span class="en">4.6 Fronthaul: CPRI and eCPRI</span></summary>
+<p><span class="bn">Fronthaul হলো RU (টাওয়ারের রেডিও) আর DU/BBU (baseband) এর মধ্যের লিঙ্ক। এখানে খুব কম দেরি ও খুব বেশি গতি লাগে।</span><span class="en">Fronthaul is the link between the RU (radio at the tower) and the DU/BBU (baseband). It needs very low delay and very high speed.</span></p>
+<div class="tbl"><table><thead><tr><th><span class="bn"></span><span class="en"></span></th><th><span class="bn">CPRI</span><span class="en">CPRI</span></th><th><span class="bn">eCPRI</span><span class="en">eCPRI</span></th></tr></thead><tbody><tr><td><span class="bn">ধরন</span><span class="en">Type</span></td><td><span class="bn">ধ্রুবক bit rate (সবসময় একই গতি)</span><span class="en">Constant bit rate (always the same speed)</span></td><td><span class="bn">Ethernet/packet-ভিত্তিক</span><span class="en">Ethernet / packet based</span></td></tr><tr><td><span class="bn">bandwidth</span><span class="en">Bandwidth</span></td><td><span class="bn">খুব বেশি, ফাঁকা থাকলেও খরচ</span><span class="en">Very high, even when idle</span></td><td><span class="bn">অনেক কম, ব্যবহার অনুযায়ী (statistical multiplexing)</span><span class="en">Much lower, depends on usage (statistical multiplexing)</span></td></tr><tr><td><span class="bn">কোথায়</span><span class="en">Where</span></td><td><span class="bn">4G</span><span class="en">4G</span></td><td><span class="bn">5G</span><span class="en">5G</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৪.৭ Synchronization (ঘড়ি মেলানো)</span><span class="en">4.7 Synchronization (keeping clocks aligned)</span></summary>
+<p><span class="bn">সব টাওয়ারের ঘড়ি মিলে না থাকলে handoff ও TDD কাজ করে না। তাই দুই ধরনের সিঙ্ক লাগে।</span><span class="en">If tower clocks are not aligned, handoff and TDD fail. So two kinds of sync are needed.</span></p>
+<div class="tbl"><table><thead><tr><th><span class="bn">ধরন</span><span class="en">Kind</span></th><th><span class="bn">কী মেলায়</span><span class="en">What it aligns</span></th><th><span class="bn">প্রযুক্তি</span><span class="en">Technology</span></th></tr></thead><tbody><tr><td><span class="bn">Frequency sync</span><span class="en">Frequency sync</span></td><td><span class="bn">ঘড়ির "টিক" একই গতিতে</span><span class="en">Clock ticks at the same speed</span></td><td><span class="bn">SyncE (Ethernet-এ), GPS</span><span class="en">SyncE (over Ethernet), GPS</span></td></tr><tr><td><span class="bn">Phase / Time sync</span><span class="en">Phase / time sync</span></td><td><span class="bn">একই মুহূর্তে একই "সময়"</span><span class="en">The exact same moment in time</span></td><td><span class="bn">PTP (IEEE 1588), GPS</span><span class="en">PTP (IEEE 1588), GPS</span></td></tr></tbody></table></div>
+<div class="callout b"><p>🎬 <span class="bn">ফোন কল কোন কোন নোড হয়ে যায় দেখতে অ্যানিমেশন পেজে যাও: <a href="cell-animation.html">নেটওয়ার্ক আর্কিটেকচার অ্যানিমেশন</a>।</span><span class="en">See which nodes a call passes through on the animation page: <a href="cell-animation.html">network architecture animation</a>.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">৪.৮ অনুশীলন</span><span class="en">4.8 Practice</span></summary>
+<details class="qa"><summary><span class="bn">দুটি সমান্তরাল link, প্রতিটি 99.9% available। মোট availability?</span><span class="en">Two parallel links, each 99.9% available. Total availability?</span></summary><p><span class="bn">1 − 0.001² = 0.999999 = 99.9999%।</span><span class="en">1 − 0.001² = 0.999999 = 99.9999%.</span></p></details>
+<details class="qa"><summary><span class="bn">SyncE ও PTP-র পার্থক্য কী?</span><span class="en">What is the difference between SyncE and PTP?</span></summary><p><span class="bn">SyncE frequency মেলায়, PTP সময়/phase মেলায়।</span><span class="en">SyncE aligns frequency, PTP aligns time/phase.</span></p></details>
+<details class="qa"><summary><span class="bn">CPRI-র তুলনায় eCPRI-র সুবিধা কী?</span><span class="en">Advantage of eCPRI over CPRI?</span></summary><p><span class="bn">eCPRI packet-ভিত্তিক, কম bandwidth লাগে, statistical multiplexing সম্ভব।</span><span class="en">eCPRI is packet based, needs less bandwidth and allows statistical multiplexing.</span></p></details>
+<details class="qa"><summary><span class="bn">Ring backhaul-এ লাইন কাটলে কতক্ষণে protection switching হয়?</span><span class="en">How fast is protection switching in a ring after a cut?</span></summary><p><span class="bn">ক্যারিয়ার-গ্রেড লক্ষ্য: 50 ms-এর কম।</span><span class="en">Carrier-grade target: under 50 ms.</span></p></details>
+<details class="qa"><summary><span class="bn">A interface কোন দুটির মধ্যে?</span><span class="en">Between which two nodes is the A interface?</span></summary><p><span class="bn">BSC ও MSC।</span><span class="en">BSC and MSC.</span></p></details>
+</details>
+</div>
+</div>
+<div class="tools"><a class="btn" href="cell-03.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-05.html">পরের টপিক →</a></div>
+<p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a> <a class="btn" href="cell-quiz-buet.html">🎯 BUET MCQ →</a> <a class="btn" href="cell-glossary.html">🔤 শর্টফর্ম</a> <a class="btn" href="cell-formulas.html">📐 সূত্র</a></p>
 </main>
 <footer>Created by Al Nahian Mugdho</footer>
-<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
+<script src="data/questions.js"></script><script src="js/app.js"></script><script src="data/cell_figs.js"></script><script src="js/learn.js"></script></body></html>

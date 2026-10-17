@@ -1,349 +1,48 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cellular Topic 8: 5G Network Slicing — Telecommunication Lab</title>
+<title>Topic 8: 5G Network Slicing — Telecommunication Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
 <main>
-<h1>Cellular Topic 8: 5G Network Slicing</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
-<p>Network slicing-এ একটিই ভৌত 5G নেটওয়ার্ককে ভাগ করে কয়েকটি আলাদা, স্বাধীন <strong>virtual নেটওয়ার্ক (slice)</strong> বানানো হয়। প্রতিটি slice আলাদা সেবার চাহিদা (গতি, latency, নির্ভরযোগ্যতা) অনুযায়ী সাজানো, যেন এক রাস্তায় আলাদা লেন: একটি অ্যাম্বুলেন্সের জন্য, একটি সাধারণ যানের জন্য।</p>
-<p><strong>5G-র তিন মূল ব্যবহার ক্ষেত্র</strong></p>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>সেবা</th>
-<th>পুরো নাম</th>
-<th>বৈশিষ্ট্য</th>
-<th>উদাহরণ</th>
-</tr>
-<tr class="odd">
-<th>eMBB</th>
-<th>Enhanced Mobile Broadband</th>
-<th>অতি উচ্চ গতি</th>
-<th>4K/8K ভিডিও, AR/VR</th>
-</tr>
-<tr class="header">
-<th>URLLC</th>
-<th>Ultra-Reliable Low-Latency Communication</th>
-<th>~1 ms latency, 99.999% নির্ভরযোগ্যতা</th>
-<th>স্বচালিত গাড়ি, দূরবর্তী সার্জারি, শিল্প অটোমেশন</th>
-</tr>
-<tr class="odd">
-<th>mMTC</th>
-<th>Massive Machine-Type Communication</th>
-<th>প্রতি বর্গকিমিতে ১০ লক্ষ পর্যন্ত ডিভাইস, কম power</th>
-<th>স্মার্ট মিটার, সেন্সর, IoT</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>মূল শব্দ</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>Slice:</strong> নির্দিষ্ট সেবার জন্য সাজানো end-to-end লজিক্যাল নেটওয়ার্ক (RAN + Transport + Core)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>S-NSSAI:</strong> Slice-এর পরিচয়; দুটি অংশ: <strong>SST</strong> (Slice/Service Type) ও ঐচ্ছিক <strong>SD</strong> (Slice Differentiator)। SST: 1 = eMBB, 2 = URLLC, 3 = MIoT (mMTC), 4 = V2X।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>NSSAI:</strong> S-NSSAI-এর তালিকা, যেটি UE-র জন্য অনুমোদিত বা অনুরোধকৃত।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>NSSF (Network Slice Selection Function):</strong> UE-র জন্য কোন slice-এ যুক্ত হবে তা নির্বাচন করে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Isolation:</strong> এক slice-এর সমস্যা অন্য slice-কে প্রভাবিত করে না।</p>
-</blockquote></li>
-</ul>
-<p><strong>Slicing কীভাবে সম্ভব</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>NFV ও SDN:</strong> ফাংশন সফটওয়্যারে এবং নেটওয়ার্ক প্রোগ্রামযোগ্য বলেই slice দ্রুত তৈরি ও বদলানো যায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Service-Based Architecture:</strong> 5GC-তে প্রতিটি Network Function আলাদা সেবা হিসেবে চলে, তাই slice-ভেদে আলাদা UPF/SMF বসানো সহজ।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Orchestration:</strong> MANO ও slice management ফাংশন slice-এর জীবনচক্র (তৈরি, পরিবর্তন, বন্ধ) পরিচালনা করে।</p>
-</blockquote></li>
-</ul>
-<p><strong>ব্যবসায়িক সুবিধা:</strong> অপারেটর একই নেটওয়ার্ক থেকে ভিন্ন গ্রাহক শ্রেণিকে (হাসপাতাল, কারখানা, মিডিয়া) আলাদা SLA-সহ সেবা দিতে পারে, ফলে নতুন আয়ের পথ খোলে (Network-as-a-Service)।</p>
-<p><strong>চ্যালেঞ্জ:</strong> end-to-end orchestration-এর জটিলতা, slice-এর মধ্যে নিরাপত্তা, রিসোর্স বরাদ্দের দক্ষতা।</p>
-<p><strong>সম্ভাব্য MCQ</strong></p>
-<ul>
-<li><blockquote>
-<p>URLLC-র লক্ষ্য latency কত? → প্রায় 1 ms</p>
-</blockquote></li>
-<li><blockquote>
-<p>Slice-এর পরিচয় বহনকারী শনাক্তকারী কী? → S-NSSAI</p>
-</blockquote></li>
-<li><blockquote>
-<p>Slice নির্বাচনের কাজ কোন ফাংশনের? → NSSF</p>
-</blockquote></li>
-<li><blockquote>
-<p>IoT সেন্সরের জন্য উপযুক্ত 5G ব্যবহার ক্ষেত্র? → mMTC</p>
-</blockquote></li>
-<li><blockquote>
-<p>Network slicing কোন দুটি প্রযুক্তির উপর নির্ভর করে? → NFV ও SDN</p>
-</blockquote></li>
-</ul>
-<h2>বিস্তারিত নোট</h2>
-<h3 id="g-র-লকষয-ও-তন-বযবহর-কষতর"><strong>৮.১ 5G-র লক্ষ্য ও তিন ব্যবহার ক্ষেত্র</strong></h3>
-<p>ITU-R-এর IMT-2020 (M.2410) মানদণ্ডে 5G-র কিছু প্রধান লক্ষ্য: peak data rate downlink <strong>20 Gbps</strong> ও uplink <strong>10 Gbps</strong>; user-experienced rate 100 Mbps (DL) ও 50 Mbps (UL); latency ≈ <strong>1 ms</strong> (URLLC) ও 4 ms (eMBB); connection density <strong>10 লাখ ডিভাইস/km²</strong>; mobility সর্বোচ্চ 500 km/h; spectral efficiency 4G-র কয়েক গুণ। এসব লক্ষ্য একই ইউজারের জন্য একসাথে পূরণ করা অসম্ভব এবং অপ্রয়োজনীয়: ভিডিওর জন্য গতি, সার্জারির জন্য নির্ভরযোগ্যতা, সেন্সরের জন্য ব্যাটারি। তাই তিন ধরনের সেবা:</p>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>ক্ষেত্র</th>
-<th>পূর্ণ নাম</th>
-<th>প্রধান চাহিদা</th>
-<th>উদাহরণ</th>
-</tr>
-<tr class="odd">
-<th>eMBB</th>
-<th>Enhanced Mobile Broadband</th>
-<th>বেশি গতি ও capacity</th>
-<th>4K/8K ভিডিও, AR/VR, Fixed Wireless Access</th>
-</tr>
-<tr class="header">
-<th>URLLC</th>
-<th>Ultra-Reliable Low-Latency Communication</th>
-<th>≈ 1 ms latency, 99.999% নির্ভরযোগ্যতা</th>
-<th>স্বচালিত যান, দূরবর্তী সার্জারি, শিল্প রোবট, স্মার্ট গ্রিড</th>
-</tr>
-<tr class="odd">
-<th>mMTC</th>
-<th>Massive Machine-Type Communication</th>
-<th>বিপুল ডিভাইস, কম power, কম খরচ</th>
-<th>স্মার্ট মিটার, কৃষি সেন্সর, লজিস্টিক ট্র্যাকিং</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<h3 id="network-slicing-ক"><strong>৮.২ Network Slicing কী?</strong></h3>
-<p>একটি ভৌত নেটওয়ার্ক পরিকাঠামোর উপর একাধিক <strong>স্বাধীন, logical, end-to-end নেটওয়ার্ক</strong>; প্রতিটি নির্দিষ্ট সেবার জন্য নিজস্ব রিসোর্স, ফাংশন, QoS ও নিরাপত্তা নীতি নিয়ে চলে। উপমা: এক রাস্তায় আলাদা লেন, অ্যাম্বুলেন্সের জন্য ফাঁকা, বাসের জন্য নির্দিষ্ট, সাধারণ গাড়ির জন্য ভাগ করা।</p>
-<p><strong>Slice-এর উপাদান (end-to-end):</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>RAN slicing:</strong> রেডিও রিসোর্সের (PRB) ভাগ সংরক্ষণ বা নীতি-ভিত্তিক scheduling; প্রয়োজনে আলাদা CU/DU।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Transport slicing:</strong> VLAN, MPLS/Segment Routing, FlexE, নির্দিষ্ট bandwidth ও latency সহ পথ।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Core slicing:</strong> slice-ভেদে আলাদা SMF/UPF (প্রায়ই AMF ভাগ করা); latency-সংবেদনশীল slice-এর UPF edge-এ।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Management:</strong> সব স্তর জুড়ে orchestration।</p>
-</blockquote></li>
-</ul>
-<h3 id="gpp-পরভষ-ts-23.501"><strong>৮.৩ 3GPP পরিভাষা (TS 23.501)</strong></h3>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>শব্দ</th>
-<th>অর্থ</th>
-</tr>
-<tr class="odd">
-<th><strong>S-NSSAI</strong></th>
-<th>Single Network Slice Selection Assistance Information: slice-এর পরিচয়। দুই অংশ: <strong>SST</strong> (Slice/Service Type, 8 বিট) ও ঐচ্ছিক <strong>SD</strong> (Slice Differentiator, 24 বিট)</th>
-</tr>
-<tr class="header">
-<th><strong>SST মান</strong></th>
-<th>1 = eMBB, 2 = URLLC, 3 = MIoT (mMTC), 4 = V2X, 5 = HMTC</th>
-</tr>
-<tr class="odd">
-<th><strong>NSSAI</strong></th>
-<th>S-NSSAI-র তালিকা; ধরন: Configured, Requested, Allowed, Subscribed NSSAI</th>
-</tr>
-<tr class="header">
-<th><strong>NSI</strong></th>
-<th>Network Slice Instance: বাস্তব চালু slice</th>
-</tr>
-<tr class="odd">
-<th><strong>NSSI</strong></th>
-<th>Network Slice Subnet Instance: slice-এর একটি অংশ (যেমন RAN অংশ, core অংশ)</th>
-</tr>
-<tr class="header">
-<th><strong>NSSF</strong></th>
-<th>Network Slice Selection Function: UE-র জন্য slice ও AMF নির্বাচনে সাহায্য</th>
-</tr>
-<tr class="odd">
-<th><strong>DNN</strong></th>
-<th>Data Network Name (4G-র APN-এর সমতুল্য)</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p>একটি UE একসাথে সর্বোচ্চ <strong>8টি S-NSSAI</strong> (slice) ব্যবহার করতে পারে।</p>
-<h3 id="slice-নরবচনর-ধপ"><strong>৮.৪ Slice নির্বাচনের ধাপ</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>UE registration-এর সময় <strong>Requested NSSAI</strong> পাঠায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>AMF সাবস্ক্রিপশন (UDM থেকে Subscribed NSSAI) দেখে; দরকার হলে NSSF-কে জিজ্ঞেস করে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Registration Accept-এ <strong>Allowed NSSAI</strong> ফেরত।</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE সেবা চালুর সময় PDU Session Establishment-এ <strong>S-NSSAI ও DNN</strong> দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>AMF সঠিক slice-এর <strong>SMF</strong> নির্বাচন করে (NRF/NSSF-এর মাধ্যমে); SMF slice-এর <strong>UPF</strong> বসায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>ডেটা সেই slice-এর পথে চলে।</p>
-</blockquote></li>
-</ol>
-<h3 id="slice-ভততক-রসরস-বণটন-উদহরণ"><strong>৮.৫ Slice-ভিত্তিক রিসোর্স বণ্টন (উদাহরণ)</strong></h3>
-<p>একটি cell-এর মোট capacity 1000 Mbps ধরো; তিনটি slice-এর সংরক্ষিত ভাগ:</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Slice</th>
-<th>সংরক্ষিত ভাগ</th>
-<th>নিশ্চিত ন্যূনতম গতি</th>
-</tr>
-<tr class="odd">
-<th>eMBB</th>
-<th>60%</th>
-<th>600 Mbps</th>
-</tr>
-<tr class="header">
-<th>URLLC</th>
-<th>30%</th>
-<th>300 Mbps</th>
-</tr>
-<tr class="odd">
-<th>mMTC</th>
-<th>10%</th>
-<th>100 Mbps</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<ul>
-<li><blockquote>
-<p><strong>Hard slicing:</strong> ভাগ কঠোর; অব্যবহৃত অংশ অন্য slice পায় না। আইসোলেশন ভালো, দক্ষতা কম।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Soft slicing:</strong> নিশ্চিত ন্যূনতম গতি থাকে, বাকি অংশ ধার নেওয়া যায়। দক্ষ, কিন্তু আইসোলেশন কিছুটা কম।</p>
-</blockquote></li>
-</ul>
-<h3 id="slice-বযবসথপন-3gpp-ts-28.531-ও-gsma"><strong>৮.৬ Slice ব্যবস্থাপনা (3GPP TS 28.531 ও GSMA)</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>CSMF</strong> (Communication Service Management Function): গ্রাহকের সেবার চাহিদা (SLA) গ্রহণ ও অনুবাদ।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>NSMF</strong> (Network Slice Management Function): পুরো slice-এর জীবনচক্র।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>NSSMF</strong> (Network Slice Subnet Management Function): RAN/Transport/Core উপ-অংশের ব্যবস্থাপনা।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>GSMA GST</strong> (Generic Slice Template) ও NEST: slice-এর বৈশিষ্ট্যের (throughput, latency, availability, device density, isolation level) মানসম্মত টেমপ্লেট।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Slice-এর <strong>জীবনচক্র:</strong> Preparation → Commissioning → Operation (activate, modify, monitor) → Decommissioning।</p>
-</blockquote></li>
-</ul>
-<h3 id="g-বনম-5g-slicing"><strong>৮.৭ 4G বনাম 5G Slicing</strong></h3>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>বিষয়</th>
-<th>4G</th>
-<th>5G</th>
-</tr>
-<tr class="odd">
-<th>ধারণা</th>
-<th><strong>DECOR/eDECOR</strong> (Dedicated Core Network) ও MOCN দিয়ে সীমিত বিভাজন</th>
-<th>মূল নকশায় বিল্ট-ইন</th>
-</tr>
-<tr class="header">
-<th>সংখ্যা</th>
-<th>কয়েকটি dedicated core</th>
-<th>প্রায় সীমাহীন slice (প্রতি UE সর্বোচ্চ 8)</th>
-</tr>
-<tr class="odd">
-<th>ফাংশন</th>
-<th>নির্দিষ্ট নোড (MME, S/P-GW)</th>
-<th>সেবা-ভিত্তিক NF, নমনীয়</th>
-</tr>
-<tr class="header">
-<th>প্রয়োজন</th>
-<th>—</th>
-<th><strong>Standalone (SA)</strong> 5GC; NSA-তে পূর্ণ slicing নেই</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<h3 id="বযবসযক-ও-করগর-দক"><strong>৮.৮ ব্যবসায়িক ও কারিগরি দিক</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>Network-as-a-Service:</strong> অপারেটর হাসপাতাল, কারখানা, মিডিয়া কোম্পানিকে আলাদা SLA-সহ slice ভাড়া দেয়; নতুন আয়ের পথ।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Private 5G:</strong> কারখানা/বন্দরে ক্যাম্পাস নেটওয়ার্ক, কখনো পাবলিক নেটওয়ার্কের slice হিসেবে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>প্রয়োজনীয় প্রযুক্তি:</strong> NFV (ফাংশন সফটওয়্যারে), SDN (প্রোগ্রামযোগ্য নেটওয়ার্ক), SBA, MEC (edge computing), AI/ML-ভিত্তিক স্বয়ংক্রিয় ব্যবস্থাপনা।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>চ্যালেঞ্জ:</strong> end-to-end orchestration জটিল, slice-এর মধ্যে নিরাপত্তা ও আইসোলেশন, রিসোর্স দক্ষতা, SLA নিরীক্ষণ, বিক্রেতাদের মধ্যে interoperability।</p>
-</blockquote></li>
-</ul>
-<h3 id="অনশলন-6"><strong>৮.৯ অনুশীলন</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>SST = 2 কোন সেবা? → URLLC।</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE একসাথে সর্বোচ্চ কয়টি slice (S-NSSAI)? → 8।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Slice নির্বাচনে সাহায্য করে কোন NF? → NSSF।</p>
-</blockquote></li>
-<li><blockquote>
-<p>পূর্ণ slicing-এর জন্য কোন মোড লাগে? → Standalone (SA) 5GC।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Soft ও hard slicing-এর পার্থক্য? → Soft-এ অব্যবহৃত রিসোর্স অন্য slice ধার নিতে পারে, hard-এ পারে না।</p>
-</blockquote></li>
-</ol>
-</div><div class="tools"><a class="btn" href="cell-07.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-09.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+<h1>Topic 8: <span class="bn">5G Network Slicing</span><span class="en">5G Network Slicing</span></h1><p class="src"><span class="bn">Theory • সহজ সারাংশ + বিস্তারিত নোট</span><span class="en">Theory • short note + detailed note</span></p>
+<div class="doc">
+<div id="sumBox">
+<h2>🧠 <span class="bn">সংক্ষেপ নোট</span><span class="en">Short note</span></h2>
+<p class="lead"><span class="bn">Network slicing মানে একটি ভৌত 5G নেটওয়ার্কের ভেতরে একাধিক আলাদা "লজিক্যাল নেটওয়ার্ক" বানানো, প্রতিটি আলাদা কাজের জন্য সাজানো।</span><span class="en">Network slicing means creating several separate "logical networks" inside one physical 5G network, each tuned for a different job.</span></p>
+<ul><li><span class="bn"><b>eMBB</b> = বেশি গতি (ভিডিও)। <b>URLLC</b> = খুব কম দেরি ও নির্ভরযোগ্য। <b>mMTC</b> = অনেক ছোট IoT device।</span><span class="en"><b>eMBB</b> = high speed (video). <b>URLLC</b> = very low delay and reliable. <b>mMTC</b> = many small IoT devices.</span></li><li><span class="bn"><b>S-NSSAI</b> = slice-এর পরিচয় = SST (ধরন) + ঐচ্ছিক SD। SST 1 = eMBB, 2 = URLLC, 3 = MIoT, 4 = V2X।</span><span class="en"><b>S-NSSAI</b> = slice identity = SST (type) + optional SD. SST 1 = eMBB, 2 = URLLC, 3 = MIoT, 4 = V2X.</span></li><li><span class="bn"><b>NSSAI:</b> ফোন Requested NSSAI পাঠায়, নেটওয়ার্ক Allowed NSSAI ফেরত দেয়।</span><span class="en"><b>NSSAI:</b> the phone sends a Requested NSSAI, the network returns an Allowed NSSAI.</span></li><li><span class="bn"><b>NSSF</b> slice বেছে দেয়।</span><span class="en"><b>NSSF</b> selects the slice.</span></li><li><span class="bn"><b>Enabler:</b> NFV + SDN + cloud-native।</span><span class="en"><b>Enabler:</b> NFV + SDN + cloud-native.</span></li><li><span class="bn">IMT-2020 লক্ষ্য: peak 20 Gbps (DL), 1 ms latency, 10⁶ device/km²।</span><span class="en">IMT-2020 targets: 20 Gbps peak (DL), 1 ms latency, 10⁶ devices/km².</span></li></ul>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">3টি slice = <b>ভিডিও</b> (eMBB, গতি), <b>গাড়ি</b> (URLLC, দেরি), <b>সেন্সর</b> (mMTC, সংখ্যা)। গতি-দেরি-সংখ্যা।</span><span class="en">3 slices = <b>video</b> (eMBB, speed), <b>car</b> (URLLC, delay), <b>sensors</b> (mMTC, count). Speed-delay-count.</span></p></div>
+</div>
+<div id="detBox">
+<h2>📖 <span class="bn">বিস্তারিত নোট</span><span class="en">Detailed note</span></h2>
+<details class="sec" open><summary><span class="bn">৮.১ কেন slice লাগে</span><span class="en">8.1 Why slices are needed</span></summary>
+<div class="fig" data-fig="slicing"></div>
+<div class="callout b"><p>🛵 <b><span class="bn">উপমা:</span><span class="en">Analogy:</span></b> <span class="bn">একটি বড় হাইওয়েকে লেনে ভাগ করার মতো: অ্যাম্বুলেন্স লেন (URLLC), বাস লেন (eMBB), আর ছোট সাইকেল লেন (mMTC)। একই রাস্তা, কিন্তু আলাদা নিয়ম ও আলাদা গতি।</span><span class="en">Like dividing one highway into lanes: an ambulance lane (URLLC), a bus lane (eMBB) and a small bicycle lane (mMTC). Same road, different rules and speeds.</span></p></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">Slice</span><span class="en">Slice</span></th><th><span class="bn">কী দরকার</span><span class="en">What it needs</span></th><th><span class="bn">উদাহরণ</span><span class="en">Example</span></th></tr></thead><tbody><tr><td>eMBB</td><td><span class="bn">বেশি গতি (শত Mbps – Gbps), বড় bandwidth</span><span class="en">High speed (hundreds of Mbps – Gbps), wide bandwidth</span></td><td><span class="bn">4K ভিডিও, AR/VR</span><span class="en">4K video, AR/VR</span></td></tr><tr><td>URLLC</td><td><span class="bn">1 ms-এর কাছাকাছি দেরি, 99.999% নির্ভরযোগ্য</span><span class="en">Latency near 1 ms, 99.999% reliable</span></td><td><span class="bn">self-driving, অস্ত্রোপচার, কারখানা</span><span class="en">Self-driving, surgery, factories</span></td></tr><tr><td>mMTC</td><td><span class="bn">অনেক device (10⁶/km²), কম power</span><span class="en">Many devices (10⁶/km²), low power</span></td><td><span class="bn">স্মার্ট মিটার, কৃষি sensor</span><span class="en">Smart meters, farm sensors</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৮.২ S-NSSAI ও NSSAI</span><span class="en">8.2 S-NSSAI and NSSAI</span></summary>
+<div class="fxbox"><div class="fxn"><span class="bn">S-NSSAI গঠন</span><span class="en">S-NSSAI structure</span></div><div class="fxf">S-NSSAI = SST (8 bit) + SD (24 bit, ঐচ্ছিক / optional)</div><div class="fxv"><span class="bn">SST = slice-এর ধরন (1, 2, 3, 4...), SD = একই ধরনের আলাদা slice চিনতে।</span><span class="en">SST = slice type (1, 2, 3, 4...), SD = tells apart slices of the same type.</span></div></div>
+<ol><li><span class="bn">ফোন Registration-এর সময় <b>Requested NSSAI</b> পাঠায়: "আমার এই slice গুলো লাগবে"।</span><span class="en">During Registration the phone sends a <b>Requested NSSAI</b>: "I need these slices".</span></li><li><span class="bn">AMF/NSSF ইউজারের সাবস্ক্রিপশন ও নেটওয়ার্ক দেখে যাচাই করে।</span><span class="en">The AMF/NSSF checks the subscription and the network.</span></li><li><span class="bn">নেটওয়ার্ক <b>Allowed NSSAI</b> ফেরত দেয়: "এগুলো পাবে"।</span><span class="en">The network returns an <b>Allowed NSSAI</b>: "you may use these".</span></li></ol>
+</details>
+<details class="sec" open><summary><span class="bn">৮.৩ Slice কীভাবে বানানো হয়</span><span class="en">8.3 How a slice is built</span></summary>
+<ul><li><span class="bn"><b>NFV:</b> VNF/CNF দিয়ে slice-এর জন্য আলাদা SMF, UPF চালু।</span><span class="en"><b>NFV:</b> separate SMF and UPF instances for a slice using VNFs/CNFs.</span></li><li><span class="bn"><b>SDN:</b> transport network-এ slice-এর জন্য আলাদা পথ ও bandwidth।</span><span class="en"><b>SDN:</b> a separate path and bandwidth for the slice in the transport network.</span></li><li><span class="bn"><b>RAN slicing:</b> radio রিসোর্স (RB) slice অনুযায়ী ভাগ।</span><span class="en"><b>RAN slicing:</b> radio resources (RBs) shared out by slice.</span></li><li><span class="bn"><b>Cloud-native:</b> container + Kubernetes দিয়ে দ্রুত চালু ও scale।</span><span class="en"><b>Cloud-native:</b> containers + Kubernetes for fast start and scaling.</span></li></ul>
+<div class="callout b"><p>💡 <span class="bn">Slice পুরোপুরি কাজ করতে 5G SA (Standalone, 5GC সহ) লাগে। NSA (Option 3x) LTE anchor ও EPC ব্যবহার করে, তাই সেখানে slicing সীমিত।</span><span class="en">Full slicing needs 5G SA (Standalone, with 5GC). NSA (Option 3x) uses an LTE anchor and EPC, so slicing is limited there.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">৮.৪ 5G-র লক্ষ্যমাত্রা (IMT-2020)</span><span class="en">8.4 5G target numbers (IMT-2020)</span></summary>
+<div class="tbl"><table><thead><tr><th><span class="bn">মাপকাঠি</span><span class="en">Metric</span></th><th><span class="bn">4G (IMT-A)</span><span class="en">4G (IMT-A)</span></th><th><span class="bn">5G লক্ষ্য</span><span class="en">5G target</span></th></tr></thead><tbody><tr><td><span class="bn">Peak DL</span><span class="en">Peak DL</span></td><td>≈ 1 Gbps</td><td>20 Gbps</td></tr><tr><td><span class="bn">Peak UL</span><span class="en">Peak UL</span></td><td>—</td><td>10 Gbps</td></tr><tr><td><span class="bn">Latency (radio)</span><span class="en">Latency (radio)</span></td><td><span class="bn">≈ 10 ms</span><span class="en">≈ 10 ms</span></td><td>≈ 1 ms</td></tr><tr><td><span class="bn">Device density</span><span class="en">Device density</span></td><td>10⁵/km²</td><td>10⁶/km²</td></tr></tbody></table></div>
+<div class="fxbox"><div class="fxn"><span class="bn">Array gain (beamforming)</span><span class="en">Array gain (beamforming)</span></div><div class="fxf">G = 10·log<sub>10</sub>(N)  dB</div><div class="fxv"><span class="bn">N = antenna element সংখ্যা।</span><span class="en">N = number of antenna elements.</span></div><div class="fxe">✍ <span class="bn">N = 64: 10·log<sub>10</sub>64 = <b>18.06 dB</b>।</span><span class="en">N = 64: 10·log<sub>10</sub>64 = <b>18.06 dB</b>.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">উচ্চ ফ্রিকোয়েন্সিতে অতিরিক্ত path loss</span><span class="en">Extra path loss at higher frequency</span></div><div class="fxf">ΔFSPL = 20·log<sub>10</sub>(f₂ / f₁)</div><div class="fxv"><span class="bn">একই দূরত্বে ফ্রিকোয়েন্সি বাড়লে loss বাড়ে। তাই mmWave-এ beamforming লাগে।</span><span class="en">At the same distance, higher frequency means more loss. So mmWave needs beamforming.</span></div><div class="fxe">✍ <span class="bn">3.5 GHz থেকে 28 GHz: 20·log<sub>10</sub>(8) = <b>18.06 dB</b> বেশি।</span><span class="en">3.5 GHz to 28 GHz: 20·log<sub>10</sub>(8) = <b>18.06 dB</b> more.</span></div></div>
+</details>
+<details class="sec" open><summary><span class="bn">৮.৫ অনুশীলন</span><span class="en">8.5 Practice</span></summary>
+<details class="qa"><summary><span class="bn">SST = 2 কোন slice?</span><span class="en">Which slice is SST = 2?</span></summary><p><span class="bn">URLLC।</span><span class="en">URLLC.</span></p></details>
+<details class="qa"><summary><span class="bn">Registration-এ UE কী পাঠায় ও কী পায়?</span><span class="en">What does the UE send and get at Registration?</span></summary><p><span class="bn">Requested NSSAI পাঠায়, Allowed NSSAI পায়।</span><span class="en">It sends the Requested NSSAI and receives the Allowed NSSAI.</span></p></details>
+<details class="qa"><summary><span class="bn">mMTC ঘনত্বের লক্ষ্য কত?</span><span class="en">What is the mMTC density target?</span></summary><p><span class="bn">10⁶ device প্রতি km²।</span><span class="en">10⁶ devices per km².</span></p></details>
+<details class="qa"><summary><span class="bn">Slice নির্বাচন করে কোন NF?</span><span class="en">Which NF selects the slice?</span></summary><p><span class="bn">NSSF।</span><span class="en">The NSSF.</span></p></details>
+<details class="qa"><summary><span class="bn">64-element array-র gain কত?</span><span class="en">Array gain of a 64-element array?</span></summary><p><span class="bn">10·log₁₀(64) ≈ 18 dB।</span><span class="en">10·log₁₀(64) ≈ 18 dB.</span></p></details>
+</details>
+</div>
+</div>
+<div class="tools"><a class="btn" href="cell-07.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-09.html">পরের টপিক →</a></div>
+<p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a> <a class="btn" href="cell-quiz-buet.html">🎯 BUET MCQ →</a> <a class="btn" href="cell-glossary.html">🔤 শর্টফর্ম</a> <a class="btn" href="cell-formulas.html">📐 সূত্র</a></p>
 </main>
 <footer>Created by Al Nahian Mugdho</footer>
-<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
+<script src="data/questions.js"></script><script src="js/app.js"></script><script src="data/cell_figs.js"></script><script src="js/learn.js"></script></body></html>

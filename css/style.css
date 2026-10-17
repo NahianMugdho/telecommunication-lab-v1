@@ -77,3 +77,54 @@ body[data-theme=dark] .callout.b{background:#14264d}body[data-theme=dark] .callo
 .setbar button.on{background:#14284b;color:#fff;border-color:#14284b}
 @media (max-width:600px){.banner h1{font-size:1.25rem}}
 #mcq h2{scroll-margin-top:72px}
+
+/* ===== Study helpers (learn.js): toggle bar, collapsible sections, formula boxes, animated figures ===== */
+.learnbar{position:sticky;top:0;z-index:6;display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:var(--hd);padding:8px 10px;border-radius:10px;margin:10px 0}
+.learnbar button,.learnbar .btn{background:#1f3d57;color:#fff;border:2px solid transparent;display:inline-flex;gap:8px;align-items:center;padding:5px 12px;font-size:.95rem}
+.learnbar button[aria-pressed=true]{background:#0b7285;border-color:#3bc9db}
+.learnbar .plain{background:#2b4a63}
+.learnbar .en{color:inherit}body[data-lang=both] .learnbar .bn+.en{display:inline;margin-left:5px}
+.sw{display:inline-block;width:34px;height:18px;border-radius:9px;background:#7b8a96;position:relative;flex:none}
+.sw:after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s}
+[aria-pressed=true] .sw{background:#2f9e44}[aria-pressed=true] .sw:after{left:18px}
+.learnhint{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:10px 14px}
+details.sec{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:12px 0;padding:0 14px}
+details.sec>summary{cursor:pointer;font-weight:700;color:var(--acc);padding:10px 0;font-size:1.12rem;list-style-position:inside}
+details.sec[open]>summary{border-bottom:1px solid var(--line);margin-bottom:8px}
+details.qa{border:1px solid var(--line);border-radius:8px;padding:6px 12px;margin:8px 0;background:var(--card)}
+details.qa>summary{cursor:pointer;font-weight:600}
+.lead{font-size:1.08rem;font-weight:600}
+.fxbox{background:var(--fbg);border-left:5px solid var(--hot);border-radius:6px;padding:8px 14px;margin:12px 0}
+.fxbox .fxn{font-weight:700}
+.fxbox .fxf{font-family:Georgia,'Times New Roman',serif;font-size:1.15rem;overflow-x:auto;white-space:nowrap;padding:4px 0}
+.fxbox .fxv,.fxbox .fxe{font-size:.94rem}
+.fxbox .fxe{border-top:1px dashed var(--line);margin-top:6px;padding-top:6px}
+body[data-lang=both] .fxbox .fxe .en{display:block}
+.tbl{overflow-x:auto}
+.figbox{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:14px 0}
+.figtitle{font-weight:700;color:var(--acc);margin-bottom:6px}
+.figscroll{overflow-x:auto}
+.figbox svg{display:block;width:100%;min-width:620px;height:auto;background:transparent;border:0}
+.figcap{min-height:3.2em;font-size:.98rem;padding:6px 2px}
+.figctl{display:flex;gap:8px;align-items:center}.figctl button{min-height:0;padding:3px 12px}.figctl .fs{color:var(--sub);font-size:.9rem}
+.figbox .zone{fill:none;stroke:var(--sub);stroke-dasharray:5 4;opacity:.7}.figbox .zt{fill:var(--sub);font-size:12px;text-anchor:middle;font-weight:600}
+.figbox .ln{stroke:var(--sub);stroke-width:2;stroke-dasharray:6 5;opacity:.55;animation:na-dash 1s linear infinite}
+@keyframes na-dash{to{stroke-dashoffset:-11}}
+.figbox .nd rect,.figbox .nd ellipse{fill:var(--card);stroke:var(--acc);stroke-width:2;transition:fill .25s}
+.figbox .nd text{fill:var(--ink);font-size:13px;text-anchor:middle;font-weight:600}
+.figbox .nd.on rect,.figbox .nd.on ellipse{fill:#fde68a;stroke:#d97706;stroke-width:3}.figbox .nd.on text{fill:#10243b}
+.figbox .dot{filter:drop-shadow(0 0 3px rgba(0,0,0,.35))}
+.figbox .life{stroke:var(--line);stroke-width:2;stroke-dasharray:4 4}
+.figbox .msg{opacity:0;transition:opacity .3s}.figbox .msg.shown{opacity:.45}.figbox .msg.cur{opacity:1}
+.figbox .ar{stroke:currentColor;stroke-width:2.2;fill:none}.figbox .ar.dash{stroke-dasharray:6 4}
+.figbox .ml{fill:var(--ink);font-size:12px;font-family:ui-monospace,Consolas,monospace}
+.figbox .tw{fill:var(--card);stroke:var(--acc);stroke-width:2}.figbox .tl{fill:var(--ink);font-size:13px;text-anchor:middle;font-weight:600}
+.figbox .ph{font-size:30px}.figbox .lnk{stroke:#16a34a;stroke-width:2.5;stroke-dasharray:5 4}
+.figbox .barbg{fill:var(--line)}.figbox .bar{fill:#2563eb}.figbox .inf{fill:var(--ink);font-size:15px;font-weight:700}.figbox .inf.hot{fill:#dc2626}.figbox .inf2{fill:var(--sub);font-size:12px}
+.glosrow td:first-child{font-weight:700;white-space:nowrap;color:var(--acc)}
+.chips2{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.chips2 button{background:var(--card);color:var(--ink);border:1px solid var(--line);padding:4px 10px;min-height:0}.chips2 button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+input.wide{width:100%;max-width:420px;padding:8px 10px}
+@media (max-width:600px){.learnbar button,.learnbar .btn{font-size:.88rem;padding:5px 9px}}
+.figbox .msg polygon{fill:currentColor}
+.chips2 button .en{color:inherit}body[data-lang=both] .chips2 .bn+.en{display:inline;margin-left:6px}body[data-lang=both] .chips2 .bn+.en:before{content:"/ "}
+.fpanel h3 a{color:var(--acc);text-decoration:none}

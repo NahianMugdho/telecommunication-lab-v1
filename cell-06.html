@@ -1,341 +1,48 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cellular Topic 6: Network Function Virtualization (NFV) in Cellular Systems — Telecommunication Lab</title>
+<title>Topic 6: Network Function Virtualization (NFV) in Cellular Systems — Telecommunication Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
 <main>
-<h1>Cellular Topic 6: Network Function Virtualization (NFV) in Cellular Systems</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
-<p>NFV-এ নেটওয়ার্কের কাজ (MME, S-GW, P-GW, firewall, router ইত্যাদি) বিশেষ হার্ডওয়্যার বক্সের বদলে সাধারণ সার্ভারে <strong>সফটওয়্যার হিসেবে</strong> চালানো হয়। ফলে নতুন সেবা দ্রুত চালু করা যায়, খরচ কমে, চাহিদা অনুযায়ী স্কেল করা যায়। এর মানদণ্ড তৈরি করেছে <strong>ETSI</strong>।</p>
-<p><strong>NFV আর্কিটেকচারের তিন স্তম্ভ (ETSI)</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>VNF (Virtualized Network Function):</strong> সফটওয়্যার রূপে নেটওয়ার্ক ফাংশন, যেমন vEPC, vIMS, vFirewall।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>NFVI (NFV Infrastructure):</strong> VNF চালানোর পরিকাঠামো: কম্পিউট, স্টোরেজ, নেটওয়ার্ক হার্ডওয়্যার ও তার উপর virtualization স্তর (hypervisor/container)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>MANO (Management and Orchestration):</strong> পুরো ব্যবস্থার পরিচালনা, তিনটি অংশে:</p>
-</blockquote>
-<ul>
-<li><blockquote>
-<p><strong>NFVO:</strong> সেবা ও রিসোর্সের সামগ্রিক orchestration।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>VNFM:</strong> প্রতিটি VNF-এর জীবনচক্র (তৈরি, স্কেল, বন্ধ)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>VIM:</strong> NFVI রিসোর্স ব্যবস্থাপনা (উদাহরণ: OpenStack)।</p>
-</blockquote></li>
-</ul></li>
-</ul>
-<p><strong>মোবাইল নেটওয়ার্কে প্রয়োগ</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>vEPC:</strong> MME, S-GW, P-GW সফটওয়্যারে; ট্রাফিক বাড়লে instance বাড়ানো হয় (scale-out)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>vIMS / vRAN:</strong> voice সেবা ও baseband প্রক্রিয়াও virtualize করা যায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Cloud-native / CNF:</strong> 5G Core শুরু থেকেই container ও microservice-ভিত্তিক (Kubernetes), যাকে Cloud-native Network Function বলে।</p>
-</blockquote></li>
-</ul>
-<p><strong>NFV বনাম SDN</strong></p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>বিষয়</th>
-<th>NFV</th>
-<th>SDN</th>
-</tr>
-<tr class="odd">
-<th>মূল ধারণা</th>
-<th>নেটওয়ার্ক ফাংশনকে হার্ডওয়্যার থেকে আলাদা করা</th>
-<th>Control plane ও data plane আলাদা করা</th>
-</tr>
-<tr class="header">
-<th>ফোকাস</th>
-<th>ফাংশন সফটওয়্যারে চালানো</th>
-<th>কেন্দ্রীয় প্রোগ্রামযোগ্য নিয়ন্ত্রণ</th>
-</tr>
-<tr class="odd">
-<th>উদাহরণ</th>
-<th>vEPC, vFirewall</th>
-<th>OpenFlow, SDN controller</th>
-</tr>
-<tr class="header">
-<th>সম্পর্ক</th>
-<th>একে অপরের পরিপূরক, একটি ছাড়াও অন্যটি চলে</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>Hypervisor বনাম Container</strong></p>
-<ul>
-<li><blockquote>
-<p>Virtual Machine (VM): প্রতিটিতে পূর্ণ guest OS; আলাদা কিন্তু ভারী।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Container: host OS kernel ভাগ করে, হালকা ও দ্রুত চালু; Docker, Kubernetes।</p>
-</blockquote></li>
-<li><blockquote>
-<p>পারফরম্যান্স বাড়াতে <strong>DPDK, SR-IOV</strong> ব্যবহার হয়, কারণ সাধারণ সার্ভারে packet প্রক্রিয়া ধীর।</p>
-</blockquote></li>
-</ul>
-<p><strong>সুবিধা ও চ্যালেঞ্জ</strong></p>
-<ul>
-<li><blockquote>
-<p>সুবিধা: CAPEX/OPEX কম, দ্রুত সেবা চালু, স্কেল সহজ, vendor lock-in কম।</p>
-</blockquote></li>
-<li><blockquote>
-<p>চ্যালেঞ্জ: carrier-grade নির্ভরযোগ্যতা (99.999%), পারফরম্যান্স, security, orchestration-এর জটিলতা।</p>
-</blockquote></li>
-</ul>
-<p><strong>সম্ভাব্য MCQ</strong></p>
-<ul>
-<li><blockquote>
-<p>NFV-এর মানদণ্ড কোন সংস্থা তৈরি করেছে? → ETSI</p>
-</blockquote></li>
-<li><blockquote>
-<p>NFV MANO-র কোন অংশ VNF-এর জীবনচক্র দেখে? → VNFM</p>
-</blockquote></li>
-<li><blockquote>
-<p>VIM-এর একটি উদাহরণ? → OpenStack</p>
-</blockquote></li>
-<li><blockquote>
-<p>SDN-এর মূল বৈশিষ্ট্য কী? → Control ও data plane আলাদা করা</p>
-</blockquote></li>
-<li><blockquote>
-<p>5G Core কোন ধরনের স্থাপত্যে বানানো? → Cloud-native, microservice-ভিত্তিক</p>
-</blockquote></li>
-</ul>
-<h2>বিস্তারিত নোট</h2><p><i>টপিক ৬ থেকে ১০ গভীরভাবে। নতুন প্রযুক্তি (NFV, O-RAN, Slicing) এখানে ধারণা থেকে শুরু করে আর্কিটেকচার পর্যন্ত ব্যাখ্যা করা হয়েছে।</i></p>
-<h3 id="সমসয-ও-সমধন"><strong>৬.১ সমস্যা ও সমাধান</strong></h3>
-<p>প্রচলিত টেলিকম নেটওয়ার্কে প্রতিটি কাজের জন্য আলাদা বিশেষ হার্ডওয়্যার বাক্স (router, firewall, EPC নোড, session border controller) কিনতে হতো। এর ফলে: (১) প্রতিটি নতুন সেবায় নতুন হার্ডওয়্যার ও দীর্ঘ সময়, (২) বিক্রেতা-নির্ভরতা (vendor lock-in), (৩) যন্ত্র দ্রুত অচল হয়, (৪) চাহিদা কম-বেশি হলেও ক্ষমতা স্থির। NFV সমাধান দেয়: নেটওয়ার্ক ফাংশন সফটওয়্যার হিসেবে লিখে সাধারণ উচ্চ-ক্ষমতার সার্ভারে (COTS) চালানো, ফলে একই সার্ভারে বিভিন্ন ফাংশন চলে, চাহিদা অনুযায়ী বাড়ানো-কমানো যায়, আর সফটওয়্যার আপডেট করেই নতুন সুবিধা আসে।</p>
-<p><strong>ইতিহাস:</strong> ২০১২ সালে বিশ্বের প্রধান অপারেটররা প্রথম white paper প্রকাশ করে এবং <strong>ETSI ISG NFV</strong> (Industry Specification Group) গঠিত হয়। মানদণ্ড ETSI GS NFV সিরিজে।</p>
-<h3 id="etsi-nfv-আরকটকচর-ফরমওযরক"><strong>৬.২ ETSI NFV আর্কিটেকচার ফ্রেমওয়ার্ক</strong></h3>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>উপাদান</th>
-<th>বিবরণ</th>
-</tr>
-<tr class="odd">
-<th><strong>VNF</strong></th>
-<th>সফটওয়্যার রূপে নেটওয়ার্ক ফাংশন (vEPC, vIMS, vFirewall, vRouter)। এক বা একাধিক VNFC (component) নিয়ে গঠিত।</th>
-</tr>
-<tr class="header">
-<th><strong>NFVI</strong></th>
-<th>VNF-এর চলার পরিকাঠামো: compute, storage, network হার্ডওয়্যার + virtualization স্তর (hypervisor/container runtime)</th>
-</tr>
-<tr class="odd">
-<th><strong>MANO: NFVO</strong></th>
-<th>সেবা (Network Service) ও রিসোর্সের সামগ্রিক orchestration, একাধিক VIM জুড়ে; VNF onboarding</th>
-</tr>
-<tr class="header">
-<th><strong>MANO: VNFM</strong></th>
-<th>প্রতিটি VNF-এর জীবনচক্র: instantiate, configure, scale, heal, terminate</th>
-</tr>
-<tr class="odd">
-<th><strong>MANO: VIM</strong></th>
-<th>একটি ডেটা সেন্টারের NFVI রিসোর্স নিয়ন্ত্রণ (উদাহরণ: OpenStack, Kubernetes-ভিত্তিক)</th>
-</tr>
-<tr class="header">
-<th><strong>EMS</strong></th>
-<th>VNF-এর ফাংশনাল ব্যবস্থাপনা (fault, config, performance)</th>
-</tr>
-<tr class="odd">
-<th><strong>OSS/BSS</strong></th>
-<th>পরিচালনা ও ব্যবসায়িক সিস্টেম (বিলিং, অর্ডার)</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>Reference point (মনে রাখার মতো):</strong> Os-Ma-nfvo (OSS–NFVO), <strong>Or-Vnfm</strong> (NFVO–VNFM), <strong>Vi-Vnfm</strong> (VNFM–VIM), <strong>Or-Vi</strong> (NFVO–VIM), Ve-Vnfm (EMS/VNF–VNFM), <strong>Nf-Vi</strong> (NFVI–VIM), Vn-Nf (VNF–NFVI)।</p>
-<p><strong>Descriptor:</strong> <strong>VNFD</strong> (একটি VNF-এর বিবরণ: প্রয়োজনীয় CPU/RAM/storage, নেটওয়ার্ক ইন্টারফেস, স্কেলিং নীতি), <strong>NSD</strong> (পুরো সেবার বিবরণ), <strong>VNFFG</strong> (VNF Forwarding Graph: ট্রাফিক কোন কোন VNF-এর মধ্য দিয়ে যাবে, <strong>service chaining</strong>)।</p>
-<h3 id="vnf-lifecycle"><strong>৬.৩ VNF Lifecycle</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p><strong>Onboarding:</strong> প্যাকেজ (image ও VNFD) নিবন্ধন ও যাচাই।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Instantiation:</strong> রিসোর্স বরাদ্দ করে VNF চালু ও কনফিগার।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Scaling:</strong> <strong>scale-out/in</strong> (instance সংখ্যা বাড়ানো/কমানো) ও <strong>scale-up/down</strong> (একই instance-এ CPU/RAM বদল)। স্বয়ংক্রিয়ভাবে লোড দেখে হয় (autoscaling)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Healing:</strong> ব্যর্থ instance সরিয়ে নতুন চালু।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Update/Upgrade:</strong> সেবা না থামিয়ে (rolling upgrade)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Termination:</strong> রিসোর্স মুক্ত।</p>
-</blockquote></li>
-</ol>
-<p><strong>Scale-out উদাহরণ:</strong> প্রতি vEPC instance 10,000 session সামলায়। 45,000 session এলে ceil(45000/10000) = 5 instance; N+1 redundancy-তে মোট <strong>6</strong> instance রাখা হয়।</p>
-<h3 id="virtualization-পরযকত"><strong>৬.৪ Virtualization প্রযুক্তি</strong></h3>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>বিষয়</th>
-<th>Virtual Machine (VM)</th>
-<th>Container</th>
-</tr>
-<tr class="odd">
-<th>বিচ্ছিন্নতা</th>
-<th>পূর্ণ (প্রতিটির নিজস্ব guest OS)</th>
-<th>প্রসেস-স্তরের (host kernel ভাগ)</th>
-</tr>
-<tr class="header">
-<th>আকার ও চালু হওয়ার সময়</th>
-<th>বড় (GB), মিনিট</th>
-<th>হালকা (MB), সেকেন্ড</th>
-</tr>
-<tr class="odd">
-<th>ঘনত্ব</th>
-<th>কম</th>
-<th>বেশি</th>
-</tr>
-<tr class="header">
-<th>নিরাপত্তা</th>
-<th>বেশি</th>
-<th>কম (kernel ভাগ)</th>
-</tr>
-<tr class="odd">
-<th>টুল</th>
-<th>KVM, VMware ESXi, Xen</th>
-<th>Docker, containerd, Kubernetes</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<ul>
-<li><blockquote>
-<p><strong>Hypervisor Type 1 (bare-metal):</strong> সরাসরি হার্ডওয়্যারের উপর (KVM, ESXi, Xen); টেলিকমে প্রচলিত। <strong>Type 2:</strong> host OS-এর উপর (VirtualBox)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>CNF (Cloud-native Network Function):</strong> microservice ও container-ভিত্তিক VNF; Kubernetes-এ চলে; 5G core মূলত CNF।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Kubernetes ধারণা:</strong> <strong>Pod</strong> (সবচেয়ে ছোট একক), Deployment, Service, ConfigMap; স্বয়ংক্রিয় স্কেলিং ও পুনরুদ্ধার।</p>
-</blockquote></li>
-</ul>
-<p><strong>OpenStack (VIM-এর জনপ্রিয় উদাহরণ):</strong> <strong>Nova</strong> (compute), <strong>Neutron</strong> (network), <strong>Cinder</strong> (block storage), <strong>Glance</strong> (image), <strong>Keystone</strong> (identity), <strong>Swift</strong> (object storage), <strong>Heat</strong> (orchestration), <strong>Horizon</strong> (dashboard)।</p>
-<p><strong>ওপেন সোর্স উদ্যোগ:</strong> OPNFV (ইন্টিগ্রেশন), ONAP (orchestration), Open Source MANO (OSM), OpenDaylight/ONOS (SDN controller)।</p>
-<h3 id="পরফরমযনস-সমসয-ও-সমধন"><strong>৬.৫ পারফরম্যান্স সমস্যা ও সমাধান</strong></h3>
-<p>সাধারণ সার্ভারে Linux kernel দিয়ে packet প্রক্রিয়া ধীর (interrupt ও copy ওভারহেড)। সমাধান:</p>
-<ul>
-<li><blockquote>
-<p><strong>DPDK:</strong> user-space-এ poll-mode driver, kernel ও interrupt এড়িয়ে সরাসরি NIC থেকে packet; মিলিয়ন packet/s।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>SR-IOV:</strong> একটি ভৌত NIC-কে অনেক virtual function-এ ভাগ করে VM-কে সরাসরি দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>PCI passthrough, hugepages, CPU pinning, NUMA-aware placement</strong> latency ও jitter কমায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>SmartNIC/FPGA offload:</strong> ভারী কাজ হার্ডওয়্যারে।</p>
-</blockquote></li>
-</ul>
-<h3 id="sdn-বনম-nfv"><strong>৬.৬ SDN বনাম NFV</strong></h3>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>বিষয়</th>
-<th>SDN</th>
-<th>NFV</th>
-</tr>
-<tr class="odd">
-<th>ফোকাস</th>
-<th>Control plane ও data plane আলাদা, কেন্দ্রীয় প্রোগ্রামযোগ্য নিয়ন্ত্রণ</th>
-<th>ফাংশনকে হার্ডওয়্যার থেকে আলাদা</th>
-</tr>
-<tr class="header">
-<th>প্রোটোকল</th>
-<th>OpenFlow, NETCONF, P4</th>
-<th>মূলত ETSI মানদণ্ড, API</th>
-</tr>
-<tr class="odd">
-<th>নিয়ন্ত্রক</th>
-<th>SDN controller (ONOS, OpenDaylight)</th>
-<th>MANO</th>
-</tr>
-<tr class="header">
-<th>উদাহরণ</th>
-<th>ডেটা সেন্টার ফ্যাব্রিক, WAN ট্রাফিক প্রকৌশল</th>
-<th>vEPC, vIMS, vFirewall</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p>SDN-এর ইন্টারফেস: <strong>Northbound</strong> (controller–অ্যাপ), <strong>Southbound</strong> (controller–সুইচ, OpenFlow)। দুটি স্বাধীন, কিন্তু একসাথে শক্তিশালী: SDN ট্রাফিককে VNF-গুলোর মধ্য দিয়ে ঘুরিয়ে service chaining করে।</p>
-<h3 id="টলকম-বযবহর-ও-telco-cloud"><strong>৬.৭ টেলিকমে ব্যবহার ও Telco Cloud</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>vEPC/5GC:</strong> স্বয়ংক্রিয় স্কেলিং, ঘটনা-ভিত্তিক (কনসার্ট, ঈদে ট্রাফিক বৃদ্ধি) ক্ষমতা।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>vIMS:</strong> VoLTE/VoWiFi core সফটওয়্যারে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>vRAN/Cloud RAN:</strong> baseband সফটওয়্যারে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>vCPE, vFirewall, vLoad balancer:</strong> গ্রাহকের প্রান্তের ডিভাইসের ফাংশন ক্লাউডে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Telco cloud স্তর:</strong> Central DC (control, ডেটাবেস), Regional DC, <strong>Edge</strong> (UPF, MEC, vRAN)। latency-সংবেদনশীল সেবা edge-এ।</p>
-</blockquote></li>
-</ul>
-<p><strong>সুবিধা:</strong> কম CAPEX/OPEX, দ্রুত time-to-market, স্কেলযোগ্যতা, কম vendor lock-in, স্বয়ংক্রিয়তা।</p>
-<p><strong>চ্যালেঞ্জ:</strong> carrier-grade 99.999% নির্ভরযোগ্যতা, পারফরম্যান্স ও latency, বহু বিক্রেতার VNF একসাথে (interoperability), নিরাপত্তা (hypervisor আক্রমণ), orchestration-এর জটিলতা, দক্ষ জনবল।</p>
-<h3 id="অনশলন-4"><strong>৬.৮ অনুশীলন</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>ETSI NFV-তে VNF-এর জীবনচক্র দেখে কোন MANO উপাদান? → VNFM।</p>
-</blockquote></li>
-<li><blockquote>
-<p>VIM-এর একটি উদাহরণ? → OpenStack।</p>
-</blockquote></li>
-<li><blockquote>
-<p>OpenStack-এর compute সার্ভিস? → Nova।</p>
-</blockquote></li>
-<li><blockquote>
-<p>DPDK-এর কাজ? → user-space-এ দ্রুত packet প্রক্রিয়া, kernel এড়িয়ে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>CNF কী? → container/microservice-ভিত্তিক cloud-native network function।</p>
-</blockquote></li>
-</ol>
-</div><div class="tools"><a class="btn" href="cell-05.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-07.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+<h1>Topic 6: <span class="bn">Cellular সিস্টেমে NFV</span><span class="en">Network Function Virtualization (NFV) in Cellular Systems</span></h1><p class="src"><span class="bn">Theory • সহজ সারাংশ + বিস্তারিত নোট</span><span class="en">Theory • short note + detailed note</span></p>
+<div class="doc">
+<div id="sumBox">
+<h2>🧠 <span class="bn">সংক্ষেপ নোট</span><span class="en">Short note</span></h2>
+<p class="lead"><span class="bn">NFV মানে আগে যে কাজগুলো আলাদা আলাদা দামি যন্ত্রে হতো, সেগুলোকে সাধারণ server-এ চলা software বানিয়ে ফেলা। কম খরচ, দ্রুত পরিবর্তন।</span><span class="en">NFV means turning jobs that used to run on separate costly boxes into software running on ordinary servers. Lower cost, faster change.</span></p>
+<ul><li><span class="bn"><b>VNF</b> = একটি network function-এর software রূপ (যেমন virtual MME)।</span><span class="en"><b>VNF</b> = the software form of a network function (e.g. a virtual MME).</span></li><li><span class="bn"><b>NFVI</b> = সব VNF যে hardware ও virtualization-এর ওপর চলে।</span><span class="en"><b>NFVI</b> = the hardware and virtualization layer on which VNFs run.</span></li><li><span class="bn"><b>MANO</b> = ম্যানেজার: NFVO (সমন্বয়), VNFM (VNF-এর জীবনচক্র), VIM (hardware রিসোর্স)।</span><span class="en"><b>MANO</b> = the manager: NFVO (orchestration), VNFM (VNF life cycle), VIM (hardware resources).</span></li><li><span class="bn"><b>VM</b> ভারী কিন্তু আলাদা; <b>Container (CNF)</b> হালকা, দ্রুত চালু, Kubernetes-এ চলে।</span><span class="en"><b>VM</b> is heavy but isolated; a <b>container (CNF)</b> is light, starts fast and runs on Kubernetes.</span></li><li><span class="bn"><b>SDN</b> = control ও data আলাদা; কেন্দ্রীয় controller পুরো নেটওয়ার্ক চালায়।</span><span class="en"><b>SDN</b> = control and data are separate; a central controller runs the whole network.</span></li><li><span class="bn"><b>DPDK / SR-IOV</b> = VM-এর packet প্রক্রিয়া দ্রুত করার কৌশল।</span><span class="en"><b>DPDK / SR-IOV</b> = tricks that speed up packet handling in VMs.</span></li></ul>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">NFV = "বাক্স থেকে software"। MANO = তিন ম্যানেজার: <b>O</b>rchestrator (সবার প্রধান), <b>VNFM</b> (কাজের দায়িত্ব), <b>VIM</b> (যন্ত্রপাতির দায়িত্ব)।</span><span class="en">NFV = "from box to software". MANO = three managers: the <b>O</b>rchestrator (boss), the <b>VNFM</b> (looks after the job) and the <b>VIM</b> (looks after the hardware).</span></p></div>
+</div>
+<div id="detBox">
+<h2>📖 <span class="bn">বিস্তারিত নোট</span><span class="en">Detailed note</span></h2>
+<details class="sec" open><summary><span class="bn">৬.১ সমস্যাটা কী ছিল, NFV কী সমাধান</span><span class="en">6.1 The problem and the NFV answer</span></summary>
+<div class="fig" data-fig="nfv"></div>
+<div class="callout b"><p>🛵 <b><span class="bn">উপমা:</span><span class="en">Analogy:</span></b> <span class="bn">আগে প্রতিটি কাজের জন্য আলাদা যন্ত্র কেনা মানে প্রতিটি পোশাকের জন্য আলাদা আলমারি কেনা। NFV হলো একটি বড় সাধারণ আলমারি (server) যেখানে সব পোশাক (VNF) রাখা যায়, দরকার মতো বাড়ানো-কমানো যায়।</span><span class="en">Buying a separate box for every job is like buying a separate wardrobe for each garment. NFV is one big common wardrobe (server) where all garments (VNFs) fit, and you can add or remove as needed.</span></p></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">আগে (ঐতিহ্যবাহী)</span><span class="en">Before (traditional)</span></th><th><span class="bn">NFV-এর পরে</span><span class="en">After NFV</span></th></tr></thead><tbody><tr><td><span class="bn">বিশেষ hardware, দামি</span><span class="en">Special costly hardware</span></td><td><span class="bn">সাধারণ commodity server</span><span class="en">Ordinary commodity servers</span></td></tr><tr><td><span class="bn">নতুন সেবা চালু করতে মাস লাগে</span><span class="en">New service takes months</span></td><td><span class="bn">software ইনস্টল করলেই, দিনে বা ঘণ্টায়</span><span class="en">Install software: days or hours</span></td></tr><tr><td><span class="bn">capacity বাড়াতে নতুন যন্ত্র কেনা</span><span class="en">Buy new boxes to add capacity</span></td><td><span class="bn">আরও VM/container চালু (scale-out)</span><span class="en">Start more VMs/containers (scale-out)</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৬.২ ETSI NFV কাঠামো</span><span class="en">6.2 The ETSI NFV framework</span></summary>
+<div class="tbl"><table><thead><tr><th><span class="bn">অংশ</span><span class="en">Part</span></th><th><span class="bn">কাজ</span><span class="en">Job</span></th></tr></thead><tbody><tr><td>VNF</td><td><span class="bn">network function software (MME, firewall, P-GW...)</span><span class="en">Network function software (MME, firewall, P-GW...)</span></td></tr><tr><td>NFVI</td><td><span class="bn">Compute + Storage + Network + virtualization layer (hypervisor)</span><span class="en">Compute + storage + network + virtualization layer (hypervisor)</span></td></tr><tr><td>VIM</td><td><span class="bn">NFVI-এর রিসোর্স পরিচালনা (যেমন OpenStack)</span><span class="en">Manages NFVI resources (e.g. OpenStack)</span></td></tr><tr><td>VNFM</td><td><span class="bn">VNF চালু, বন্ধ, scale, heal</span><span class="en">Start, stop, scale and heal VNFs</span></td></tr><tr><td>NFVO</td><td><span class="bn">পুরো সেবা ও রিসোর্সের সমন্বয়</span><span class="en">Orchestrates whole services and resources</span></td></tr><tr><td>EMS/OSS</td><td><span class="bn">ব্যবসা ও ব্যবস্থাপনা সিস্টেম</span><span class="en">Business and management systems</span></td></tr></tbody></table></div>
+<div class="callout r"><p>⚠ <b><span class="bn">ভুল ধারণা:</span><span class="en">Common mistake:</span></b> <span class="bn">VIM = hardware রিসোর্স, VNFM = VNF-এর জীবন, NFVO = সবার সমন্বয়। প্রশ্নে এই তিনটি গুলিয়ে ফেলা সবচেয়ে সাধারণ ভুল।</span><span class="en">VIM = hardware resources, VNFM = life of a VNF, NFVO = overall orchestration. Mixing up these three is the most common mistake.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">৬.৩ VM, Container ও performance</span><span class="en">6.3 VM, container and performance</span></summary>
+<div class="tbl"><table><thead><tr><th><span class="bn"></span><span class="en"></span></th><th><span class="bn">VM</span><span class="en">VM</span></th><th><span class="bn">Container (CNF)</span><span class="en">Container (CNF)</span></th></tr></thead><tbody><tr><td><span class="bn">ওজন</span><span class="en">Weight</span></td><td><span class="bn">ভারী, নিজের OS</span><span class="en">Heavy, has its own OS</span></td><td><span class="bn">হালকা, host kernel ভাগ করে</span><span class="en">Light, shares the host kernel</span></td></tr><tr><td><span class="bn">চালু হওয়া</span><span class="en">Start time</span></td><td><span class="bn">মিনিট</span><span class="en">Minutes</span></td><td><span class="bn">সেকেন্ড</span><span class="en">Seconds</span></td></tr><tr><td><span class="bn">কোথায়</span><span class="en">Where</span></td><td><span class="bn">4G NFV</span><span class="en">4G NFV</span></td><td><span class="bn">5GC cloud-native</span><span class="en">5GC cloud-native</span></td></tr></tbody></table></div>
+<ul><li><span class="bn"><b>সমস্যা:</b> সাধারণ software network packet ধীরে প্রক্রিয়া করে।</span><span class="en"><b>Problem:</b> ordinary software handles network packets slowly.</span></li><li><span class="bn"><b>DPDK:</b> kernel এড়িয়ে সরাসরি NIC থেকে packet পড়ে। <b>SR-IOV:</b> একটি NIC-কে অনেক VM-এর কাছে আলাদা করে দেয়।</span><span class="en"><b>DPDK:</b> bypasses the kernel and reads packets straight from the NIC. <b>SR-IOV:</b> splits one NIC into separate pieces for many VMs.</span></li></ul>
+</details>
+<details class="sec" open><summary><span class="bn">৬.৪ SDN ও FCAPS</span><span class="en">6.4 SDN and FCAPS</span></summary>
+<p><span class="bn">SDN-এ router-এর "মগজ" (control plane) আলাদা হয়ে একটি কেন্দ্রীয় controller-এ যায়। router শুধু hardware (data plane) হিসেবে কাজ করে। controller OpenFlow দিয়ে নির্দেশ পাঠায়।</span><span class="en">In SDN the "brain" (control plane) of the router moves to a central controller. The router just forwards (data plane). The controller sends rules using OpenFlow.</span></p>
+<div class="tbl"><table><thead><tr><th><span class="bn">FCAPS</span><span class="en">FCAPS</span></th><th><span class="bn">অর্থ</span><span class="en">Meaning</span></th><th><span class="bn">কাজ</span><span class="en">Job</span></th></tr></thead><tbody><tr><td>F</td><td>Fault</td><td><span class="bn">সমস্যা ধরা</span><span class="en">Detect faults</span></td></tr><tr><td>C</td><td>Configuration</td><td><span class="bn">সেটিং</span><span class="en">Settings</span></td></tr><tr><td>A</td><td>Accounting</td><td><span class="bn">ব্যবহার গোনা, বিল</span><span class="en">Count usage, billing</span></td></tr><tr><td>P</td><td>Performance</td><td><span class="bn">মান মাপা</span><span class="en">Measure quality</span></td></tr><tr><td>S</td><td>Security</td><td><span class="bn">নিরাপত্তা</span><span class="en">Security</span></td></tr></tbody></table></div>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">FCAPS = "ফোন কলে আপনি পিছিয়ে সরে": F-C-A-P-S। (বা শুধু প্রথম অক্ষরগুলো মুখস্থ)</span><span class="en">FCAPS = Fault, Configuration, Accounting, Performance, Security. Remember the five initials in order.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">৬.৫ অনুশীলন</span><span class="en">6.5 Practice</span></summary>
+<details class="qa"><summary><span class="bn">VIM কী পরিচালনা করে?</span><span class="en">What does the VIM manage?</span></summary><p><span class="bn">NFVI-এর compute, storage ও network রিসোর্স।</span><span class="en">The compute, storage and network resources of the NFVI.</span></p></details>
+<details class="qa"><summary><span class="bn">Container VM-এর চেয়ে কেন দ্রুত?</span><span class="en">Why is a container faster than a VM?</span></summary><p><span class="bn">Container host kernel ভাগ করে, তাই নিজস্ব OS চালু করতে হয় না।</span><span class="en">A container shares the host kernel, so no separate OS needs to boot.</span></p></details>
+<details class="qa"><summary><span class="bn">FCAPS-এ A মানে কী?</span><span class="en">What is A in FCAPS?</span></summary><p><span class="bn">Accounting।</span><span class="en">Accounting.</span></p></details>
+<details class="qa"><summary><span class="bn">DPDK কোন সমস্যা সমাধান করে?</span><span class="en">Which problem does DPDK solve?</span></summary><p><span class="bn">VM-এর packet প্রক্রিয়ার গতি (kernel bypass)।</span><span class="en">Slow packet processing in VMs (kernel bypass).</span></p></details>
+<details class="qa"><summary><span class="bn">SDN-এর মূল ধারণা কী?</span><span class="en">Main idea of SDN?</span></summary><p><span class="bn">Control plane ও data plane আলাদা, controller দিয়ে কেন্দ্রীয় নিয়ন্ত্রণ।</span><span class="en">Separate control and data planes with central control through a controller.</span></p></details>
+</details>
+</div>
+</div>
+<div class="tools"><a class="btn" href="cell-05.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-07.html">পরের টপিক →</a></div>
+<p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a> <a class="btn" href="cell-quiz-buet.html">🎯 BUET MCQ →</a> <a class="btn" href="cell-glossary.html">🔤 শর্টফর্ম</a> <a class="btn" href="cell-formulas.html">📐 সূত্র</a></p>
 </main>
 <footer>Created by Al Nahian Mugdho</footer>
-<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
+<script src="data/questions.js"></script><script src="js/app.js"></script><script src="data/cell_figs.js"></script><script src="js/learn.js"></script></body></html>

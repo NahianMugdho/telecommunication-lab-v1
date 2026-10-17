@@ -1,384 +1,53 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cellular Topic 9: Packet Switching ও Call Control — Telecommunication Lab</title>
+<title>Topic 9: Packet Switching and Call Control — Telecommunication Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/katex/katex.min.css">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
 <main>
-<h1>Cellular Topic 9: Packet Switching ও Call Control</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
-<p>Packet switching-এ বার্তা ছোট packet-এ ভেঙে প্রতিটি আলাদাভাবে গন্তব্যে পাঠানো হয়, আর call control হলো কল শুরু, চালু রাখা ও শেষ করার নিয়ন্ত্রণ ও signalling ব্যবস্থা।</p>
-<p><strong>Packet switching-এর ধরন</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>Datagram:</strong> প্রতিটি packet স্বাধীনভাবে route হয় (IP); ক্রম উল্টে যেতে পারে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Virtual circuit:</strong> আগে একটি লজিক্যাল পথ ঠিক হয়, সব packet সেই পথে যায় (X.25, ATM, MPLS-এর লেবেল)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Store-and-forward:</strong> রাউটার পুরো packet গ্রহণ করে তারপর পরবর্তী হপে পাঠায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Transport:</strong> TCP (নির্ভরযোগ্য, সংযোগভিত্তিক, ওয়েব/ইমেইল), UDP (দ্রুত, সংযোগহীন, voice/video/স্ট্রিমিং)।</p>
-</blockquote></li>
-</ul>
-<p><strong>Signalling ও Bearer আলাদা</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>Signalling (control plane):</strong> কল সেটআপ, মুছে ফেলা, mobility, বার্তা আদান-প্রদানের তথ্য।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Bearer/User plane:</strong> আসল voice বা ডেটা।</p>
-</blockquote></li>
-<li><blockquote>
-<p>আধুনিক নেটওয়ার্ক <strong>out-of-band signalling</strong> ব্যবহার করে, অর্থাৎ signalling আলাদা চ্যানেলে চলে।</p>
-</blockquote></li>
-</ul>
-<p><strong>Circuit-switched নেটওয়ার্কের signalling: SS7</strong></p>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>প্রোটোকল</th>
-<th>কাজ</th>
-</tr>
-<tr class="odd">
-<th>MTP (1-3)</th>
-<th>নিচু স্তরের নির্ভরযোগ্য বার্তা পরিবহন</th>
-</tr>
-<tr class="header">
-<th>SCCP</th>
-<th>Routing ও global title translation</th>
-</tr>
-<tr class="odd">
-<th>ISUP</th>
-<th>কল সেটআপ ও শেষ করা (সুইচের মধ্যে voice সার্কিট নিয়ন্ত্রণ)</th>
-</tr>
-<tr class="header">
-<th>TCAP</th>
-<th>লেনদেনভিত্তিক বার্তা (ডেটাবেস অনুসন্ধান)</th>
-</tr>
-<tr class="odd">
-<th>MAP</th>
-<th>মোবাইল-নির্দিষ্ট: HLR-এর সাথে location update, authentication, SMS</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p>সাধারণ ISUP কল প্রবাহ: IAM (Initial Address Message) → ACM (Address Complete) → ANM (Answer) → REL (Release) → RLC (Release Complete)।</p>
-<p><strong>SIP (Session Initiation Protocol)</strong></p>
-<ul>
-<li><blockquote>
-<p>IP নেটওয়ার্কে voice/video সেশন শুরু, পরিবর্তন ও শেষ করার টেক্সটভিত্তিক প্রোটোকল (HTTP-র মতো গঠন); VoLTE ও IMS-এর ভিত্তি। ডিফল্ট port 5060।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Methods:</strong> REGISTER (অবস্থান নিবন্ধন), INVITE (কল শুরু), ACK (নিশ্চিতকরণ), BYE (কল শেষ), CANCEL (শুরু হওয়া কল বাতিল), OPTIONS।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Response কোড:</strong> 1xx সাময়িক (180 Ringing), 2xx সফল (200 OK), 3xx পুনর্নির্দেশ, 4xx ক্লায়েন্টের ত্রুটি (404 Not Found), 5xx সার্ভারের ত্রুটি, 6xx সার্বিক ব্যর্থতা।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>SDP:</strong> মিডিয়ার ধরন, codec, port-এর বিবরণ; <strong>RTP/RTCP:</strong> আসল মিডিয়া ও তার মান-প্রতিবেদন বহন করে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>সাধারণ ক্রম: INVITE → 100 Trying → 180 Ringing → 200 OK → ACK → (RTP media) → BYE → 200 OK।</p>
-</blockquote></li>
-</ul>
-<p><strong>Call control-এর ধাপ (মোবাইল কল)</strong></p>
-<ol type="1">
-<li><blockquote>
-<p>কলকারী নম্বর ডায়াল করে, নেটওয়ার্কে সংযোগ ও রিসোর্স অনুরোধ।</p>
-</blockquote></li>
-<li><blockquote>
-<p>নেটওয়ার্ক authentication ও কলের অনুমতি যাচাই করে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>গ্রহীতার অবস্থান খুঁজে (paging) তাকে রিং করায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>গ্রহীতা উত্তর দিলে voice পথ সংযুক্ত (bearer তৈরি)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>কথোপকথন চলাকালীন handover ও QoS পর্যবেক্ষণ।</p>
-</blockquote></li>
-<li><blockquote>
-<p>যেকোনো পক্ষ কাটলে রিসোর্স মুক্ত ও বিলিং রেকর্ড (CDR) তৈরি।</p>
-</blockquote></li>
-</ol>
-<p><strong>সম্ভাব্য MCQ</strong></p>
-<ul>
-<li><blockquote>
-<p>SIP-এর ডিফল্ট port কত? → 5060</p>
-</blockquote></li>
-<li><blockquote>
-<p>SIP-এর কোন method দিয়ে কল শুরু হয়? → INVITE</p>
-</blockquote></li>
-<li><blockquote>
-<p>SS7-এ কল সেটআপের জন্য কোন প্রোটোকল? → ISUP</p>
-</blockquote></li>
-<li><blockquote>
-<p>SIP-এ "180" কী বোঝায়? → Ringing</p>
-</blockquote></li>
-<li><blockquote>
-<p>IP নেটওয়ার্কে real-time voice সাধারণত কোন transport-এ চলে? → UDP (RTP)</p>
-</blockquote></li>
-</ul>
-<h2>বিস্তারিত নোট</h2>
-<h3 id="packet-switching-এর-মল-ধরণ"><strong>৯.১ Packet switching-এর মূল ধারণা</strong></h3>
-<p>বার্তা ছোট <strong>packet</strong>-এ ভাঙা হয়; প্রতিটিতে header (ঠিকানা, ক্রম, নিয়ন্ত্রণ তথ্য) ও payload থাকে। রাউটার প্রতিটি packet-এর header দেখে পরের hop ঠিক করে (<strong>store-and-forward</strong>)।</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>ধরন</th>
-<th>কাজের পদ্ধতি</th>
-<th>উদাহরণ</th>
-</tr>
-<tr class="odd">
-<th>Datagram</th>
-<th>প্রতিটি packet স্বাধীন, সংযোগ স্থাপন নেই, ক্রম বদলাতে পারে</th>
-<th>IP</th>
-</tr>
-<tr class="header">
-<th>Virtual circuit</th>
-<th>আগে লজিক্যাল পথ ঠিক, সব packet সেই পথে, ক্রম বজায়</th>
-<th>X.25, Frame Relay, ATM, MPLS (label switched path)</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>সুবিধা:</strong> রিসোর্স ভাগাভাগি, bursty ট্রাফিকে দক্ষ, ব্যর্থ লিংক এড়িয়ে পথ বদল। <strong>অসুবিধা:</strong> delay ও jitter পরিবর্তনশীল, packet হারাতে পারে (তাই QoS দরকার)।</p>
-<p><strong>IP header মূল তথ্য:</strong> IPv4 header ন্যূনতম 20 বাইট; ক্ষেত্র: version, header length, DSCP/ToS, total length, identification/fragment, <strong>TTL</strong> (প্রতি hop-এ 1 কমে, 0 হলে packet বাতিল; loop রোধ), protocol (6 = TCP, 17 = UDP, 1 = ICMP), source ও destination ঠিকানা (32 বিট)। IPv6: ঠিকানা 128 বিট, header 40 বাইট।</p>
-<p><strong>Transport স্তর:</strong></p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>বিষয়</th>
-<th>TCP</th>
-<th>UDP</th>
-</tr>
-<tr class="odd">
-<th>সংযোগ</th>
-<th>সংযোগভিত্তিক (3-way handshake: SYN, SYN-ACK, ACK)</th>
-<th>সংযোগহীন</th>
-</tr>
-<tr class="header">
-<th>নির্ভরযোগ্যতা</th>
-<th>ACK, পুনঃপ্রেরণ, ক্রম, flow ও congestion control</th>
-<th>নেই</th>
-</tr>
-<tr class="odd">
-<th>গতি/ওভারহেড</th>
-<th>বেশি ওভারহেড</th>
-<th>কম</th>
-</tr>
-<tr class="header">
-<th>ব্যবহার</th>
-<th>ওয়েব, ইমেইল, ফাইল</th>
-<th>VoIP/RTP, ভিডিও স্ট্রিম, DNS, গেম</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>QoS-এর মূল ব্যবস্থা:</strong> <strong>DiffServ</strong> (packet-এ DSCP চিহ্ন; voice-এর জন্য <strong>EF = DSCP 46</strong>), priority queuing, traffic shaping/policing, <strong>MPLS</strong> (label)। MPLS label 32 বিটের shim header: 20 বিট label, 3 বিট traffic class, 1 বিট bottom-of-stack, 8 বিট TTL।</p>
-<h3 id="call-control-ও-signalling-এর-ধরণ"><strong>৯.২ Call Control ও Signalling-এর ধারণা</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>CAS (Channel Associated Signalling):</strong> signalling ভয়েসের একই চ্যানেলে বা তার সাথে বাঁধা। পুরনো, সীমিত।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>CCS (Common Channel Signalling):</strong> signalling আলাদা চ্যানেল/নেটওয়ার্কে (SS7)। দ্রুত কল সেটআপ, সমৃদ্ধ সেবা (prepaid, roaming, SMS)।</p>
-</blockquote></li>
-</ul>
-<p><strong>SS7 স্ট্যাক:</strong></p>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>স্তর</th>
-<th>কাজ</th>
-</tr>
-<tr class="odd">
-<th>MTP-1/2/3</th>
-<th>ভৌত লিংক, নির্ভরযোগ্য বার্তা, রাউটিং (point code)</th>
-</tr>
-<tr class="header">
-<th>SCCP</th>
-<th>অতিরিক্ত রাউটিং (Global Title translation), connectionless/connection-oriented</th>
-</tr>
-<tr class="odd">
-<th>ISUP</th>
-<th>PSTN/মোবাইল কলের সার্কিট সেটআপ ও বন্ধ</th>
-</tr>
-<tr class="header">
-<th>TCAP</th>
-<th>ডেটাবেস ও লেনদেন (ট্রানজ্যাকশন)</th>
-</tr>
-<tr class="odd">
-<th>MAP</th>
-<th>মোবাইল সেবা: location update, authentication, SMS, handover</th>
-</tr>
-<tr class="header">
-<th>INAP/CAP</th>
-<th>Intelligent Network (prepaid, CAMEL)</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>ISUP কল প্রবাহ (A থেকে B):</strong></p>
-<ol type="1">
-<li><blockquote>
-<p><strong>IAM</strong> (Initial Address Message): গন্তব্য নম্বরসহ কল শুরু; সার্কিট দখল।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>ACM</strong> (Address Complete): গন্তব্য পাওয়া গেছে, রিং হচ্ছে (ringback tone)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>ANM</strong> (Answer): B ধরেছে; বিলিং শুরু।</p>
-</blockquote></li>
-<li><blockquote>
-<p>কথোপকথন।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>REL</strong> (Release): যেকোনো পক্ষ কেটেছে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>RLC</strong> (Release Complete): সার্কিট মুক্ত।</p>
-</blockquote></li>
-</ol>
-<p><strong>GSM Mobile-Originated কল:</strong></p>
-<ol type="1">
-<li><blockquote>
-<p>ফোন <strong>Channel Request</strong> (RACH) পাঠায় → <strong>Immediate Assignment</strong> (AGCH) → সিগন্যালিং channel SDCCH।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>CM Service Request</strong> → <strong>Authentication</strong> (RAND/SRES) → <strong>Ciphering Mode Command</strong>।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Setup</strong> (গন্তব্য নম্বর) → MSC থেকে <strong>Call Proceeding</strong>।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Assignment Command</strong> → ভয়েস channel (TCH) বরাদ্দ।</p>
-</blockquote></li>
-<li><blockquote>
-<p>B-পক্ষে paging ও ringing → <strong>Alerting</strong> → B ধরলে <strong>Connect</strong> → <strong>Connect Acknowledge</strong>।</p>
-</blockquote></li>
-<li><blockquote>
-<p>কথা শেষে <strong>Disconnect → Release → Release Complete</strong>; রেডিও channel মুক্ত।</p>
-</blockquote></li>
-</ol>
-<p><strong>Mobile-Terminated কল:</strong> GMSC HLR-কে জিজ্ঞেস করে (SRI) → MSRN পেয়ে ভিজিটেড MSC-তে রাউট → <strong>Paging</strong> → ফোন সাড়া দেয় (Paging Response) → authentication ও ciphering → Setup → Alerting → Connect।</p>
-<p><strong>ISDN/Q.931 বার্তা:</strong> SETUP, CALL PROCEEDING, ALERTING, CONNECT, CONNECT ACK, DISCONNECT, RELEASE, RELEASE COMPLETE। (GSM-এর call control এর অনেকটাই এই ধাঁচের।)</p>
-<h3 id="sip-session-initiation-protocol"><strong>৯.৩ SIP (Session Initiation Protocol)</strong></h3>
-<p>IP নেটওয়ার্কে সেশন (ভয়েস, ভিডিও, মেসেজিং) তৈরি, পরিবর্তন ও শেষ করার টেক্সট-ভিত্তিক প্রোটোকল (RFC 3261); গঠন HTTP-র মতো। ডিফল্ট port <strong>5060</strong> (UDP/TCP), <strong>5061</strong> (TLS)।</p>
-<p><strong>SIP উপাদান:</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>UA (User Agent):</strong> UAC (অনুরোধকারী) ও UAS (উত্তরদাতা)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Proxy server:</strong> অনুরোধ ফরওয়ার্ড করে (routing)। <strong>Registrar:</strong> REGISTER গ্রহণ করে ইউজারের বর্তমান ঠিকানা (binding) সংরক্ষণ। <strong>Redirect server:</strong> গন্তব্য জানিয়ে দেয়। <strong>B2BUA:</strong> দুই পাশে আলাদা সেশন (SBC ও অ্যাপ সার্ভারে)।</p>
-</blockquote></li>
-</ul>
-<p><strong>Method:</strong> REGISTER, <strong>INVITE</strong>, <strong>ACK</strong>, <strong>BYE</strong>, CANCEL, OPTIONS, SUBSCRIBE/NOTIFY, MESSAGE, UPDATE, PRACK, REFER।</p>
-<p><strong>Response কোড:</strong> 1xx সাময়িক (100 Trying, 180 Ringing, 183 Session Progress), 2xx সফল (<strong>200 OK</strong>), 3xx পুনর্নির্দেশ, 4xx ক্লায়েন্ট ত্রুটি (401 Unauthorized, 404 Not Found, 486 Busy Here), 5xx সার্ভার ত্রুটি (503 Service Unavailable), 6xx সার্বিক ব্যর্থতা (603 Decline)।</p>
-<p><strong>মূল header:</strong> Via (পথ), From, To, Call-ID (কল শনাক্ত), CSeq (অনুরোধের ক্রম), Contact (সরাসরি ঠিকানা), Content-Type: application/sdp।</p>
-<p><strong>সাধারণ কল প্রবাহ:</strong> INVITE (SDP offer) → 100 Trying → 180 Ringing → 200 OK (SDP answer) → ACK → RTP মিডিয়া → BYE → 200 OK।</p>
-<p><strong>SDP:</strong> মিডিয়ার বিবরণ: v= (version), o= (origin), s= (session), c= (connection ঠিকানা), t= (সময়), m= (media: audio, port, RTP/AVP, payload type), a= (attribute, যেমন codec)। Offer/answer মডেলে codec ও port দর কষাকষি।</p>
-<p><strong>RTP/RTCP:</strong> RTP header 12 বাইট (sequence number, timestamp, SSRC, payload type)। Payload type: 0 = PCMU (G.711 μ-law), 8 = PCMA (G.711 A-law), 18 = G.729। <strong>RTCP</strong> মান-প্রতিবেদন (loss, jitter) পাঠায়।</p>
-<h3 id="voice-codec-ও-voip-bandwidth"><strong>৯.৪ Voice Codec ও VoIP bandwidth</strong></h3>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Codec</th>
-<th>বিটরেট</th>
-<th>বৈশিষ্ট্য</th>
-</tr>
-<tr class="odd">
-<th>G.711</th>
-<th>64 kbps</th>
-<th>PCM, মান ভালো, বেশি bandwidth</th>
-</tr>
-<tr class="header">
-<th>G.729</th>
-<th>8 kbps</th>
-<th>compressed</th>
-</tr>
-<tr class="odd">
-<th>AMR-NB</th>
-<th>4.75–12.2 kbps</th>
-<th>2G/3G ভয়েস (8 kHz)</th>
-</tr>
-<tr class="header">
-<th>AMR-WB</th>
-<th>6.6–23.85 kbps</th>
-<th>HD voice (16 kHz)</th>
-</tr>
-<tr class="odd">
-<th>EVS</th>
-<th>5.9–128 kbps</th>
-<th>VoLTE-র আধুনিক, super-wideband পর্যন্ত</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>IP-স্তরে bandwidth (20 ms packetization):</strong></p>
-<div class="katex-block"><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord text"><span class="mord brahmic_fallback">প্যাকেট</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8889em;vertical-align:-0.1944em;"></span><span class="mord text"><span class="mord">payload</span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">12</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">RTP</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">8</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">UDP</span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">20</span><span class="mspace" style="margin-right:0.1667em;"></span><span class="mopen">(</span><span class="mord"><span class="mord mathrm">IP</span></span><span class="mclose">)</span></span></span></span></span><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">50</span><span class="mspace"> </span><span class="mord text"><span class="mord">packet/s</span></span></span></span></span></span></div>
-<ul>
-<li><blockquote>
-<p><strong>G.711:</strong> payload 160 বাইট ⇒ প্যাকেট 200 বাইট ⇒ 200 × 8 × 50 = <strong>80 kbps</strong> (কোডেকের 64 kbps-এর চেয়ে বেশি)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>G.729:</strong> payload 20 বাইট ⇒ প্যাকেট 60 বাইট ⇒ 60 × 8 × 50 = <strong>24 kbps</strong>।</p>
-</blockquote></li>
-</ul>
-<p><strong>VoIP মান:</strong> একমুখী delay ≤ 150 ms (ITU-T G.114), jitter যতটা সম্ভব কম (jitter buffer দিয়ে সামলানো), packet loss 1%-এর নিচে ভালো। মান মাপা হয় <strong>MOS</strong> (1–5; 4+ চমৎকার)।</p>
-<h3 id="diameter-4g-ত-aaa-পরটকল"><strong>৯.৫ Diameter (4G-তে AAA প্রোটোকল)</strong></h3>
-<p>RADIUS-এর উত্তরসূরি; TCP/SCTP-এ চলে (port 3868); বার্তা AVP (Attribute-Value Pair) দিয়ে গঠিত। মৌলিক বার্তা: CER/CEA (সংযোগ), DWR/DWA (জীবিত থাকা)। <strong>ইন্টারফেস/অ্যাপ্লিকেশন:</strong> S6a (MME–HSS: ULR/ULA, AIR/AIA), Gx (P-GW–PCRF), Rx (P-CSCF–PCRF), Cx (CSCF–HSS), Gy (online charging)। <strong>DRA</strong> (Diameter Routing Agent) বার্তা রাউট করে।</p>
-<h3 id="অনশলন-7"><strong>৯.৬ অনুশীলন</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>G.711 ভয়েস 20 ms packetization-এ IP-স্তরে কত bandwidth? → 80 kbps।</p>
-</blockquote></li>
-<li><blockquote>
-<p>ISUP-তে কল শুরুর বার্তা? → IAM।</p>
-</blockquote></li>
-<li><blockquote>
-<p>SIP-এ 486 কী? → Busy Here।</p>
-</blockquote></li>
-<li><blockquote>
-<p>SIP-এর TLS port? → 5061।</p>
-</blockquote></li>
-<li><blockquote>
-<p>DSCP EF মান কত? → 46 (voice)।</p>
-</blockquote></li>
-</ol>
-</div><div class="tools"><a class="btn" href="cell-08.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-10.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+<h1>Topic 9: <span class="bn">Packet Switching ও Call Control</span><span class="en">Packet Switching and Call Control</span></h1><p class="src"><span class="bn">Theory • সহজ সারাংশ + বিস্তারিত নোট</span><span class="en">Theory • short note + detailed note</span></p>
+<div class="doc">
+<div id="sumBox">
+<h2>🧠 <span class="bn">সংক্ষেপ নোট</span><span class="en">Short note</span></h2>
+<p class="lead"><span class="bn">Packet switching-এ ডেটা ছোট packet হয়ে স্বাধীনভাবে গন্তব্যে যায়। আর call control ঠিক করে কে কাকে ডাকছে, কখন কথা শুরু ও শেষ হবে। পুরোনো ফোনে এই কাজ করত SS7, এখন করে SIP।</span><span class="en">In packet switching data travels as small independent packets. Call control decides who is calling whom and when the call starts and ends. Old phones used SS7 for this; today SIP does it.</span></p>
+<ul><li><span class="bn"><b>Packet</b> = header (ঠিকানা, নম্বর) + payload (আসল ডেটা)।</span><span class="en"><b>Packet</b> = header (address, number) + payload (the real data).</span></li><li><span class="bn"><b>Delay:</b> processing + queuing + transmission (L/R) + propagation (d/s)।</span><span class="en"><b>Delay:</b> processing + queuing + transmission (L/R) + propagation (d/s).</span></li><li><span class="bn"><b>Signalling</b> (কে কল করছে) আর <b>media</b> (কথা) আলাদা পথে চলে।</span><span class="en"><b>Signalling</b> (who is calling) and <b>media</b> (the talk) travel on separate paths.</span></li><li><span class="bn"><b>SIP:</b> INVITE → 100 Trying → 180 Ringing → 200 OK → ACK। শেষে BYE। Port 5060।</span><span class="en"><b>SIP:</b> INVITE → 100 Trying → 180 Ringing → 200 OK → ACK. End with BYE. Port 5060.</span></li><li><span class="bn"><b>RTP</b> ভয়েস বহন করে, <b>RTCP</b> মান (jitter, loss) জানায়।</span><span class="en"><b>RTP</b> carries voice, <b>RTCP</b> reports quality (jitter, loss).</span></li><li><span class="bn"><b>VoIP bandwidth:</b> G.711 → IP স্তরে 80 kbps, G.729 → 24 kbps।</span><span class="en"><b>VoIP bandwidth:</b> G.711 → 80 kbps at IP level, G.729 → 24 kbps.</span></li><li><span class="bn"><b>Diameter</b> (port 3868) = AAA ও policy protocol।</span><span class="en"><b>Diameter</b> (port 3868) = AAA and policy protocol.</span></li></ul>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">SIP কলের ক্রম: "ডাক, চেষ্টা, বাজছে, ধরেছে, নিশ্চিত" = INVITE, 100, 180, 200, ACK।</span><span class="en">SIP call order: "invite, trying, ringing, OK, confirm" = INVITE, 100, 180, 200, ACK.</span></p></div>
+</div>
+<div id="detBox">
+<h2>📖 <span class="bn">বিস্তারিত নোট</span><span class="en">Detailed note</span></h2>
+<details class="sec" open><summary><span class="bn">৯.১ Packet switching কীভাবে কাজ করে</span><span class="en">9.1 How packet switching works</span></summary>
+<div class="fig" data-fig="packets"></div>
+<div class="callout b"><p>🛵 <b><span class="bn">উপমা:</span><span class="en">Analogy:</span></b> <span class="bn">একটি বড় বই ডাকে পাঠাতে হলে প্রতিটি পাতা আলাদা খামে পাঠাও, প্রতিটি খামে ঠিকানা ও পাতার নম্বর। খামগুলো আলাদা পথে যেতে পারে। গন্তব্যে নম্বর দেখে পাতা সাজিয়ে বই তৈরি হয়।</span><span class="en">To post a big book, send each page in a separate envelope with the address and page number. The envelopes may take different routes. At the end the pages are arranged by number.</span></p></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">ধরন</span><span class="en">Type</span></th><th><span class="bn">কীভাবে</span><span class="en">How</span></th><th><span class="bn">উদাহরণ</span><span class="en">Example</span></th></tr></thead><tbody><tr><td>Datagram</td><td><span class="bn">প্রতিটি packet স্বাধীন, পথ আলাদা হতে পারে</span><span class="en">Each packet is independent and may take a different path</span></td><td>IP</td></tr><tr><td>Virtual circuit</td><td><span class="bn">আগে একটি পথ ঠিক হয়, সব packet সেই পথে</span><span class="en">A path is fixed first and all packets follow it</span></td><td>MPLS, ATM</td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৯.২ Delay-র হিসাব (সূত্রসহ)</span><span class="en">9.2 Delay calculations (with formulas)</span></summary>
+<div class="fxbox"><div class="fxn"><span class="bn">মোট delay</span><span class="en">Total delay</span></div><div class="fxf">d = d<sub>proc</sub> + d<sub>queue</sub> + d<sub>trans</sub> + d<sub>prop</sub></div><div class="fxv"><span class="bn"><b>proc</b> = header দেখা, <b>queue</b> = লাইনে অপেক্ষা, <b>trans</b> = বিট ঠেলে দেওয়া, <b>prop</b> = তারে ভ্রমণ।</span><span class="en"><b>proc</b> = reading the header, <b>queue</b> = waiting in line, <b>trans</b> = pushing the bits out, <b>prop</b> = travel in the wire.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">Transmission ও Propagation delay</span><span class="en">Transmission and propagation delay</span></div><div class="fxf">d<sub>trans</sub> = L / R,     d<sub>prop</sub> = d / s</div><div class="fxv"><span class="bn">L = packet আকার (bit), R = link গতি (bps), d = দূরত্ব, s = সিগন্যালের গতি (fiber-এ প্রায় 2×10⁸ m/s)।</span><span class="en">L = packet size (bits), R = link rate (bps), d = distance, s = signal speed (about 2×10⁸ m/s in fiber).</span></div><div class="fxe">✍ <span class="bn">1500 byte (12,000 bit), 10 Mbps: 12,000 / 10⁷ = <b>1.2 ms</b>। 2000 km fiber: 2×10⁶ / 2×10⁸ = <b>10 ms</b>।</span><span class="en">1500 bytes (12,000 bits) at 10 Mbps: 12,000 / 10⁷ = <b>1.2 ms</b>. 2000 km of fiber: 2×10⁶ / 2×10⁸ = <b>10 ms</b>.</span></div></div>
+</details>
+<details class="sec" open><summary><span class="bn">৯.৩ VoIP-র bandwidth (সূত্রসহ)</span><span class="en">9.3 VoIP bandwidth (with formulas)</span></summary>
+<p><span class="bn">ভয়েস packet-এর ওপর RTP (12 byte) + UDP (8) + IP (20) = <b>40 byte</b> header যোগ হয়। তাই IP স্তরে গতি codec-এর গতির চেয়ে বেশি।</span><span class="en">Each voice packet gets RTP (12 bytes) + UDP (8) + IP (20) = <b>40 bytes</b> of header. So the IP-level rate is higher than the codec rate.</span></p>
+<div class="fxbox"><div class="fxn"><span class="bn">Payload আকার ও IP bitrate</span><span class="en">Payload size and IP bitrate</span></div><div class="fxf">payload = codec rate × packet time<br>IP bitrate = (payload + 40 byte) × 8 / packet time</div><div class="fxe">✍ <span class="bn">G.711 (64 kbps, 20 ms): payload = 64,000 × 0.02 / 8 = 160 byte; (160 + 40) × 8 / 0.02 = <b>80 kbps</b>।<br>G.729 (8 kbps, 20 ms): payload = 20 byte; (20 + 40) × 8 / 0.02 = <b>24 kbps</b>।</span><span class="en">G.711 (64 kbps, 20 ms): payload = 64,000 × 0.02 / 8 = 160 bytes; (160 + 40) × 8 / 0.02 = <b>80 kbps</b>.<br>G.729 (8 kbps, 20 ms): payload = 20 bytes; (20 + 40) × 8 / 0.02 = <b>24 kbps</b>.</span></div></div>
+<div class="callout r"><p>⚠ <b><span class="bn">ভুল ধারণা:</span><span class="en">Common mistake:</span></b> <span class="bn">G.729-এর codec গতি 8 kbps হলেও header মিলিয়ে নেটওয়ার্কে লাগে 24 kbps। header-ই বেশির ভাগ জায়গা নেয়।</span><span class="en">G.729 is 8 kbps at the codec but needs 24 kbps on the network with headers. Headers take most of the space.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">৯.৪ Call control: SIP</span><span class="en">9.4 Call control: SIP</span></summary>
+<div class="fig" data-fig="sip-call"></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">SIP কোড</span><span class="en">SIP code</span></th><th><span class="bn">অর্থ</span><span class="en">Meaning</span></th></tr></thead><tbody><tr><td>100 Trying</td><td><span class="bn">অনুরোধ পেয়েছি</span><span class="en">Request received</span></td></tr><tr><td>180 Ringing</td><td><span class="bn">গন্তব্যে রিং বাজছে</span><span class="en">Ringing at the destination</span></td></tr><tr><td>200 OK</td><td><span class="bn">সফল / ফোন ধরেছে</span><span class="en">Success / answered</span></td></tr><tr><td>486 Busy Here</td><td><span class="bn">ব্যস্ত</span><span class="en">Busy</span></td></tr><tr><td>401 Unauthorized</td><td><span class="bn">পরিচয় প্রমাণ করো (authentication)</span><span class="en">Prove your identity (authentication)</span></td></tr></tbody></table></div>
+<ul><li><span class="bn"><b>SDP:</b> INVITE-এর ভেতরে থাকে। কোন codec, কোন IP/port-এ media পাঠানো হবে বলে।</span><span class="en"><b>SDP:</b> sits inside INVITE. It says which codec and which IP/port for media.</span></li><li><span class="bn"><b>RTP/RTCP:</b> RTP media বহন করে, RTCP মান জানায়।</span><span class="en"><b>RTP/RTCP:</b> RTP carries media, RTCP reports quality.</span></li><li><span class="bn"><b>Diameter:</b> port 3868, AAA ও policy কাজে। (RADIUS = 1812, SIP = 5060, GTP-C = 2123, GTP-U = 2152)</span><span class="en"><b>Diameter:</b> port 3868, for AAA and policy. (RADIUS = 1812, SIP = 5060, GTP-C = 2123, GTP-U = 2152)</span></li></ul>
+</details>
+<details class="sec" open><summary><span class="bn">৯.৫ পুরোনো circuit call control: SS7 / ISUP</span><span class="en">9.5 Old circuit call control: SS7 / ISUP</span></summary>
+<div class="tbl"><table><thead><tr><th><span class="bn">বার্তা</span><span class="en">Message</span></th><th><span class="bn">কাজ</span><span class="en">Job</span></th></tr></thead><tbody><tr><td>IAM</td><td><span class="bn">Initial Address Message: কল শুরু</span><span class="en">Call start</span></td></tr><tr><td>ACM</td><td><span class="bn">Address Complete: রিং হচ্ছে</span><span class="en">Ringing</span></td></tr><tr><td>ANM</td><td><span class="bn">Answer: ফোন ধরেছে</span><span class="en">Answered</span></td></tr><tr><td>REL / RLC</td><td><span class="bn">Release / Release Complete: কল শেষ</span><span class="en">Call end</span></td></tr></tbody></table></div>
+<p><span class="bn">Softswitch ধারণায় "বুদ্ধি" (Media Gateway Controller) আলাদা এবং "পেশি" (Media Gateway) আলাদা। MGC signalling বোঝে, MG ভয়েস রূপান্তর করে।</span><span class="en">In the softswitch idea the "brain" (Media Gateway Controller) and the "muscle" (Media Gateway) are separate. The MGC understands signalling and the MG converts the voice.</span></p>
+</details>
+<details class="sec" open><summary><span class="bn">৯.৬ অনুশীলন</span><span class="en">9.6 Practice</span></summary>
+<details class="qa"><summary><span class="bn">G.711, 20 ms packet-এ IP-স্তরে bitrate?</span><span class="en">IP-level bitrate of G.711 with 20 ms packets?</span></summary><p><span class="bn">(160 + 40) × 8 / 0.02 = 80 kbps।</span><span class="en">(160 + 40) × 8 / 0.02 = 80 kbps.</span></p></details>
+<details class="qa"><summary><span class="bn">SIP 180 মানে কী?</span><span class="en">What does SIP 180 mean?</span></summary><p><span class="bn">Ringing।</span><span class="en">Ringing.</span></p></details>
+<details class="qa"><summary><span class="bn">1500 byte packet, 10 Mbps link: transmission delay?</span><span class="en">1500-byte packet on a 10 Mbps link: transmission delay?</span></summary><p><span class="bn">12,000 / 10,000,000 = 1.2 ms।</span><span class="en">12,000 / 10,000,000 = 1.2 ms.</span></p></details>
+<details class="qa"><summary><span class="bn">Diameter-এর port কত?</span><span class="en">What is the Diameter port?</span></summary><p><span class="bn">3868।</span><span class="en">3868.</span></p></details>
+<details class="qa"><summary><span class="bn">RTCP কী করে?</span><span class="en">What does RTCP do?</span></summary><p><span class="bn">QoS/jitter/loss-এর feedback দেয়।</span><span class="en">Gives QoS, jitter and loss feedback.</span></p></details>
+</details>
+</div>
+</div>
+<div class="tools"><a class="btn" href="cell-08.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-10.html">পরের টপিক →</a></div>
+<p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a> <a class="btn" href="cell-quiz-buet.html">🎯 BUET MCQ →</a> <a class="btn" href="cell-glossary.html">🔤 শর্টফর্ম</a> <a class="btn" href="cell-formulas.html">📐 সূত্র</a></p>
 </main>
 <footer>Created by Al Nahian Mugdho</footer>
-<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
+<script src="data/questions.js"></script><script src="js/app.js"></script><script src="data/cell_figs.js"></script><script src="js/learn.js"></script></body></html>

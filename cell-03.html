@@ -1,441 +1,86 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cellular Topic 3: Basic Concept of Cellular Networks — Telecommunication Lab</title>
+<title>Topic 3: Basic Concept of Cellular Networks — Telecommunication Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/katex/katex.min.css">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
 <main>
-<h1>Cellular Topic 3: Basic Concept of Cellular Networks</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="card"><b>Frequency reuse animation</b> — cluster size N বদলে দেখো (একই রঙ = একই frequency; মোটা বর্ডার = co-channel cell)<canvas id="hx" width="780" height="330"></canvas><div class="tools">N <select id="hxN"><option>1</option><option>3</option><option selected>7</option><option>9</option><option>13</option></select> <span id="hxinfo"></span></div></div><div class="doc">
-<p>Cellular নেটওয়ার্কের মূল আইডিয়া: একটি বড় এলাকাকে অনেক ছোট ছোট cell-এ ভাগ করা, প্রতিটিতে একটি base station। একই ফ্রিকোয়েন্সি দূরের অন্য cell-এ আবার ব্যবহার করা হয়, একেই <strong>frequency reuse</strong> বলে। এতে সীমিত spectrum দিয়ে অসংখ্য ইউজার সামলানো যায়।</p>
-<p><strong>মূল শব্দ</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>Cell:</strong> একটি base station-এর কভারেজ এলাকা (আদর্শ আকার hexagon)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Cluster:</strong> যে cell-গুলো মিলে সব ফ্রিকোয়েন্সি একবার ব্যবহার করে; আকার N।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Co-channel interference:</strong> একই ফ্রিকোয়েন্সির দূরের cell-এর বাধা।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Handoff/Handover:</strong> কল চলাকালীন এক cell থেকে আরেক cell-এ সংযোগ সরানো।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Roaming:</strong> নিজের নেটওয়ার্কের বাইরে অন্য এলাকা/অপারেটরে সেবা পাওয়া।</p>
-</blockquote></li>
-</ul>
-<p><strong>গুরুত্বপূর্ণ সূত্র</strong></p>
-<div class="katex-block"><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">i</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.854em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0572em;">ij</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.0085em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0572em;">j</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.04em;vertical-align:-0.1133em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9267em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.109em;">N</span></span></span><span style="top:-2.8867em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
-c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
-c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
-c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
-s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
-c69,-144,104.5,-217.7,106.5,-221
-l0 -0
-c5.3,-9.3,12,-14,20,-14
-H400000v40H845.2724
-s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
-c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
-M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1133em;"><span></span></span></span></span></span></span></span></span></span><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6944em;"></span><span class="mord text"><span class="mord">Reuse factor</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.1901em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8451em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.109em;">N</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
-<ul>
-<li><blockquote>
-<p>N-এর সম্ভাব্য মান: 1, 3, 4, 7, 9, 12 (7 সবচেয়ে বেশি আলোচিত)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>D = co-channel cell-এর মধ্যে দূরত্ব, R = cell radius। N বাড়লে D/R বাড়ে, interference কমে কিন্তু প্রতি cell-এ channel কমে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>মোট channel S হলে প্রতি cell-এ k = S/N channel।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Hexagon cell-এর ক্ষেত্রফল = (3√3 / 2) R²।</p>
-</blockquote></li>
-</ul>
-<p><strong>Capacity বাড়ানোর কৌশল</strong></p>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>কৌশল</th>
-<th>কাজ</th>
-</tr>
-<tr class="odd">
-<th>Cell splitting</th>
-<th>ব্যস্ত cell ছোট ছোট cell-এ ভাগ, power কমিয়ে</th>
-</tr>
-<tr class="header">
-<th>Sectoring</th>
-<th>Directional antenna দিয়ে cell-কে 3 বা 6 sector-এ ভাগ; interference কমে</th>
-</tr>
-<tr class="odd">
-<th>Microcell/Picocell/Femtocell</th>
-<th>ঘন এলাকায় ছোট কভারেজের cell</th>
-</tr>
-<tr class="header">
-<th>Frequency reuse 1 (LTE/5G)</th>
-<th>সব cell একই ফ্রিকোয়েন্সি, interference সামলায় ICIC ও scheduling</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>Handoff-এর ধরন</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>Hard handoff:</strong> আগের সংযোগ কেটে নতুন সংযোগ (break-before-make); GSM, LTE।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Soft handoff:</strong> একসাথে একাধিক cell-এর সাথে যুক্ত (make-before-break); CDMA/WCDMA।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Intra-/Inter-system:</strong> একই প্রযুক্তির ভেতরে বা ভিন্ন প্রযুক্তির মধ্যে (যেমন 4G→3G)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Handover ঠিক করে সংকেত মান (RSRP/RSRQ) ও থ্রেশহোল্ড; অকারণ ping-pong এড়াতে hysteresis রাখা হয়।</p>
-</blockquote></li>
-</ul>
-<p><strong>GSM আর্কিটেকচার (পরীক্ষায় খুব আসে)</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>MS</strong> (মোবাইল + SIM) → <strong>BTS</strong> (রেডিও ট্রান্সসিভার) → <strong>BSC</strong> (BTS নিয়ন্ত্রণ, handover, channel বরাদ্দ) → <strong>MSC</strong> (কল সুইচিং)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>HLR:</strong> সাবস্ক্রাইবারের স্থায়ী ডেটাবেস। <strong>VLR:</strong> বর্তমান এলাকার অস্থায়ী ডেটা। <strong>AuC:</strong> authentication key। <strong>EIR:</strong> চুরি/অবৈধ ডিভাইসের IMEI তালিকা।</p>
-</blockquote></li>
-<li><blockquote>
-<p>BTS+BSC মিলে <strong>BSS</strong>; MSC, VLR, HLR, AuC, EIR মিলে <strong>NSS</strong>।</p>
-</blockquote></li>
-</ul>
-<p><strong>সম্ভাব্য MCQ</strong></p>
-<ul>
-<li><blockquote>
-<p>7-cell cluster-এ reuse factor কত? → 1/7</p>
-</blockquote></li>
-<li><blockquote>
-<p>Cell splitting-এর উদ্দেশ্য কী? → Capacity বাড়ানো</p>
-</blockquote></li>
-<li><blockquote>
-<p>Soft handoff কোথায় ব্যবহৃত? → CDMA/WCDMA</p>
-</blockquote></li>
-<li><blockquote>
-<p>GSM-এ চুরি হওয়া ফোন ব্লক করতে কোন ডেটাবেস? → EIR</p>
-</blockquote></li>
-<li><blockquote>
-<p>BSC-এর কাজ কী? → একাধিক BTS নিয়ন্ত্রণ ও handover পরিচালনা</p>
-</blockquote></li>
-</ul>
-<h2>বিস্তারিত নোট</h2>
-<h3 id="কন-cellular"><strong>৩.১ কেন cellular?</strong></h3>
-<p>পুরনো মোবাইল ব্যবস্থায় একটি উঁচু টাওয়ার ও বেশি শক্তির transmitter পুরো শহর কভার করত, ফলে মোট channel ছিল হাতে গোনা (কয়েক ডজন ইউজার)। Cellular ধারণায় এলাকাকে ছোট cell-এ ভাগ করা হয়, প্রতিটিতে কম শক্তির base station থাকে, আর একই ফ্রিকোয়েন্সি দূরের cell-এ আবার ব্যবহৃত হয় (frequency reuse)। ফলে একই spectrum দিয়ে লাখো ইউজার সামলানো যায়। মূল সুবিধা তিনটি: বেশি capacity, কম transmit power (ফোনের ব্যাটারি বাঁচে), এবং সহজে কভারেজ বাড়ানো।</p>
-<h3 id="hexagon-জযমত-ও-cluster"><strong>৩.২ Hexagon জ্যামিতি ও cluster</strong></h3>
-<p>বাস্তবে cell গোলাকার, কিন্তু ফাঁক বা overlap ছাড়া পুরো এলাকা ঢাকতে হেক্সাগন সবচেয়ে কাছের আদর্শ আকার। R ব্যাসার্ধের হেক্সাগনের ক্ষেত্রফল = (3√3/2)R² ≈ 2.598R²।</p>
-<div class="katex-block"><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.109em;">N</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.8974em;vertical-align:-0.0833em;"></span><span class="mord"><span class="mord mathnormal">i</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:0.854em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0572em;">ij</span><span class="mspace" style="margin-right:0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.0085em;vertical-align:-0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0572em;">j</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord mathnormal" style="margin-right:0.0278em;">D</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.04em;vertical-align:-0.1133em;"></span><span class="mord mathnormal" style="margin-right:0.0077em;">R</span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9267em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.109em;">N</span></span></span><span style="top:-2.8867em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
-c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
-c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
-c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
-s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
-c69,-144,104.5,-217.7,106.5,-221
-l0 -0
-c5.3,-9.3,12,-14,20,-14
-H400000v40H845.2724
-s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
-c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
-M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1133em;"><span></span></span></span></span></span></span></span></span></span><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.625em;vertical-align:-0.1944em;"></span><span class="mord mathnormal" style="margin-right:0.0359em;">q</span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.2173em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0077em;">R</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0278em;">D</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.04em;vertical-align:-0.1133em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.9267em;"><span class="svg-align" style="top:-3em;"><span class="pstrut" style="height:3em;"></span><span class="mord" style="padding-left:0.833em;"><span class="mord">3</span><span class="mord mathnormal" style="margin-right:0.109em;">N</span></span></span><span style="top:-2.8867em;"><span class="pstrut" style="height:3em;"></span><span class="hide-tail" style="min-width:0.853em;height:1.08em;"><svg xmlns="http://www.w3.org/2000/svg" width="400em" height="1.08em" viewBox="0 0 400000 1080" preserveAspectRatio="xMinYMin slice"><path d="M95,702
-c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
-c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
-c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
-s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
-c69,-144,104.5,-217.7,106.5,-221
-l0 -0
-c5.3,-9.3,12,-14,20,-14
-H400000v40H845.2724
-s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
-c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
-M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.1133em;"><span></span></span></span></span></span></span></span></span></span></div>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>(i, j)</th>
-<th>N</th>
-<th>D/R</th>
-<th>বৈশিষ্ট্য</th>
-</tr>
-<tr class="odd">
-<th>(1,0)</th>
-<th>1</th>
-<th>1.73</th>
-<th>LTE/5G-তে reuse-1</th>
-</tr>
-<tr class="header">
-<th>(1,1)</th>
-<th>3</th>
-<th>3.00</th>
-<th>সাধারণ sector-ভিত্তিক</th>
-</tr>
-<tr class="odd">
-<th>(2,0)</th>
-<th>4</th>
-<th>3.46</th>
-<th>AMPS-এর ছোট cluster</th>
-</tr>
-<tr class="header">
-<th>(2,1)</th>
-<th>7</th>
-<th>4.58</th>
-<th>সবচেয়ে বেশি আলোচিত</th>
-</tr>
-<tr class="odd">
-<th>(3,0)</th>
-<th>9</th>
-<th>5.20</th>
-<th></th>
-</tr>
-<tr class="header">
-<th>(2,2)</th>
-<th>12</th>
-<th>6.00</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p>চ্যানেল বণ্টন: মোট S টি duplex channel থাকলে প্রতি cell-এ k = S/N। N বাড়লে D/R বাড়ে (interference কমে) কিন্তু প্রতি cell-এ channel কমে (capacity কমে)। এটাই মূল trade-off। Cluster M বার পুনরাবৃত্তি হলে মোট capacity C = M × k × N = M × S।</p>
-<h3 id="co-channel-interference-ও-sir"><strong>৩.৩ Co-channel Interference ও SIR</strong></h3>
-<p>প্রথম স্তরে 6টি co-channel cell পরিবেষ্টন করে। Path loss exponent n হলে:</p>
-<div class="katex-block"><span class="fx"><span class="katex"><span class="katex-html" aria-hidden="true"><span class="katex-base"><span class="katex-strut" style="height:0.6833em;"></span><span class="mord"><span class="mord mathrm">SIR</span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.2173em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.8723em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0785em;">I</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.0576em;">S</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mathnormal mtight" style="margin-right:0.0278em;">D</span><span class="mord mtight">/</span><span class="mord mathnormal mtight" style="margin-right:0.0077em;">R</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.7385em;"><span style="top:-2.931em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5em;"></span><span class="katex-sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right:0.2778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2778em;"></span></span><span class="katex-base"><span class="katex-strut" style="height:1.5067em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.1617em;"><span style="top:-2.655em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.485em;"><span class="pstrut" style="height:3em;"></span><span class="katex-sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mopen mtight">(</span><span class="mord mtight">3</span><span class="mord mathnormal mtight" style="margin-right:0.109em;">N</span><span class="mclose mtight"><span class="mclose mtight">)</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.9667em;"><span style="top:-2.9667em;margin-right:0.0714em;"><span class="pstrut" style="height:2.5357em;"></span><span class="katex-sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mord mtight">/2</span></span></span></span></span></span></span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></span></div>
-<ul>
-<li><blockquote>
-<p>GSM-এ সাধারণত SIR ≥ 9–12 dB, AMPS-এ ≈ 18 dB লাগে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Adjacent channel interference:</strong> পাশের ফ্রিকোয়েন্সির leakage; guard band ও ভালো ফিল্টারে কমে।</p>
-</blockquote></li>
-</ul>
-<p><strong>সমাধানকৃত অঙ্ক ১ (SIR থেকে cluster size):</strong> প্রয়োজন 15 dB (= 31.62 গুণ), প্রথম স্তরে 6 interferer।</p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>N</th>
-<th>n = 4-এ SIR</th>
-<th>n = 3-এ SIR</th>
-</tr>
-<tr class="odd">
-<th>3</th>
-<th>11.30 dB (ব্যর্থ)</th>
-<th>6.53 dB (ব্যর্থ)</th>
-</tr>
-<tr class="header">
-<th>4</th>
-<th>13.80 dB (ব্যর্থ)</th>
-<th>8.41 dB (ব্যর্থ)</th>
-</tr>
-<tr class="odd">
-<th>7</th>
-<th><strong>18.66 dB (পাস)</strong></th>
-<th>12.05 dB (ব্যর্থ)</th>
-</tr>
-<tr class="header">
-<th>9</th>
-<th>20.85 dB</th>
-<th>13.69 dB (ব্যর্থ)</th>
-</tr>
-<tr class="odd">
-<th>12</th>
-<th>23.34 dB</th>
-<th><strong>15.56 dB (পাস)</strong></th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p>উত্তর: n = 4-এ ন্যূনতম <strong>N = 7</strong> (reuse factor 1/7); n = 3-এ ন্যূনতম <strong>N = 12</strong> (reuse factor 1/12)। শিক্ষা: path loss exponent কম (খোলা এলাকা) হলে interference বেশি বহুদূরে পৌঁছায়, তাই বড় cluster লাগে।</p>
-<h3 id="capacity-বডনর-কশল"><strong>৩.৪ Capacity বাড়ানোর কৌশল</strong></h3>
-<p><strong>Cell splitting:</strong> ব্যস্ত cell-কে ছোট cell-এ ভাগ। ব্যাসার্ধ অর্ধেক হলে ক্ষেত্রফল ¼ হয়, অর্থাৎ ওই জায়গায় cell সংখ্যা 4 গুণ। Path loss exponent n হলে প্রতি cell-এর transmit power কমাতে হয় প্রায় 2ⁿ গুণ; n = 4 হলে 1/16 (12 dB কম), যাতে SIR বজায় থাকে। অসুবিধা: নতুন সাইট ও handoff বেশি।</p>
-<p><strong>Sectoring:</strong> omni antenna-র বদলে directional antenna। Interferer 6 থেকে কমে 120° sector-এ 2, 60° sector-এ 1 হয়। উদাহরণ (n = 4, N = 7): omni SIR = 441/6 = 73.5 (<strong>18.66 dB</strong>); 120° sector = 441/2 = 220.5 (<strong>23.43 dB</strong>); 60° sector = 441/1 (<strong>26.44 dB</strong>)। এই SIR বাড়ার সুযোগে ছোট cluster ব্যবহার করে capacity বাড়ানো যায়। ক্ষতি: trunking efficiency কিছুটা কমে (channel ভাগ হয়ে যায়) ও handoff বাড়ে।</p>
-<p><strong>Microcell/Picocell/Femtocell:</strong> শহরের ঘন জায়গা, ভবনের ভেতরে ছোট কভারেজ। <strong>Repeater:</strong> কভারেজ বাড়ায়, capacity নয়। <strong>Frequency reuse-1 + ICIC:</strong> LTE/5G-তে সব cell একই ব্যান্ডে, interference সমন্বয় (ICIC/eICIC) ও scheduling দিয়ে সামলায়।</p>
-<h3 id="trunking-ও-grade-of-service"><strong>৩.৫ Trunking ও Grade of Service</strong></h3>
-<p>অনেক ইউজার অল্প channel ভাগাভাগি করে, কারণ সবাই একসাথে কল করে না। Erlang-B (blocked calls cleared) দিয়ে নির্ধারণ হয় কতজন ইউজার কত blocking-এ সামলানো যায়।</p>
-<p><strong>সমাধানকৃত অঙ্ক ২:</strong> blocking 0.5%, প্রতি ইউজারের লোড 0.1 Erlang।</p>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Channel</th>
-<th>সর্বোচ্চ লোড (Erlang)</th>
-<th>সমর্থিত ইউজার</th>
-<th>ইউজার/channel</th>
-</tr>
-<tr class="odd">
-<th>5</th>
-<th>1.132</th>
-<th>≈ 11</th>
-<th>2.3</th>
-</tr>
-<tr class="header">
-<th>10</th>
-<th>3.961</th>
-<th>≈ 39</th>
-<th>4.0</th>
-</tr>
-<tr class="odd">
-<th>20</th>
-<th>11.092</th>
-<th>≈ 110</th>
-<th>5.5</th>
-</tr>
-<tr class="header">
-<th>100</th>
-<th>80.910</th>
-<th>≈ 809</th>
-<th>8.1</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p>শিক্ষা: channel বাড়ালে প্রতি channel-এ ইউজার বাড়ে। এটিই <strong>trunking efficiency</strong>; তাই বড় channel pool ছোট ছোট আলাদা pool-এর চেয়ে ভালো (sectoring-এ কেন সামান্য ক্ষতি, তার ব্যাখ্যাও এটাই)।</p>
-<p><strong>সমাধানকৃত অঙ্ক ৩ (spectrum থেকে channel):</strong> মোট 33 MHz, 25 kHz simplex channel → duplex channel প্রতিটি 50 kHz → 33 MHz / 50 kHz = <strong>660</strong> duplex channel। প্রতি cell-এ: N = 4 হলে <strong>165</strong>, N = 7 হলে প্রায় <strong>94</strong>, N = 12 হলে <strong>55</strong>।</p>
-<h3 id="handoff"><strong>৩.৬ Handoff</strong></h3>
-<p>কল চলাকালীন ইউজার cell ছাড়লে সংযোগ না কেটে নতুন cell-এ সরানো।</p>
-<ul>
-<li><blockquote>
-<p><strong>Handoff শুরুর মানদণ্ড:</strong> সংকেত শক্তি (RSSI/RSRP) একটি threshold-এর নিচে যাওয়া। threshold ও ন্যূনতম ব্যবহারযোগ্য সংকেতের পার্থক্য <strong>handoff margin Δ</strong>। Δ খুব ছোট হলে call drop (সময় থাকে না), খুব বড় হলে অযথা handoff।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Hysteresis:</strong> ping-pong (বারবার আসা-যাওয়া) এড়াতে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Dwell time:</strong> একটি cell-এ ইউজার যতক্ষণ থাকে; দ্রুত ইউজারের dwell time কম, তাই microcell-এ দ্রুত গতির ইউজারকে umbrella macro cell-এ রাখা হয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Prioritizing handoff:</strong> নতুন কলের চেয়ে চলমান কল বেশি মূল্যবান, তাই কিছু <strong>guard channel</strong> শুধু handoff-এর জন্য সংরক্ষিত (নতুন কল ব্লক হওয়ার সম্ভাবনা বাড়ে, কিন্তু কল drop কমে)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>ধরন:</strong> Hard (break-before-make; GSM, LTE), Soft (make-before-break; CDMA/WCDMA), Softer (একই সাইটের দুই sector-এর মধ্যে)। <strong>MAHO</strong> (Mobile Assisted Handoff): ফোন নিজে প্রতিবেশী cell মেপে রিপোর্ট করে; GSM-এ ব্যবহৃত।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Intra-/Inter-BSC, Inter-MSC, Inter-RAT</strong> (যেমন 4G→3G) handoff।</p>
-</blockquote></li>
-</ul>
-<h3 id="gsm-এর-বসতরত-পরকষয-পরযই-আস"><strong>৩.৭ GSM-এর বিস্তারিত (পরীক্ষায় প্রায়ই আসে)</strong></h3>
-<p><strong>স্থাপত্য:</strong></p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>উপ-ব্যবস্থা</th>
-<th>নোড</th>
-<th>কাজ</th>
-</tr>
-<tr class="odd">
-<th>MS</th>
-<th>ME + SIM</th>
-<th>ফোন ও পরিচয় কার্ড</th>
-</tr>
-<tr class="header">
-<th>BSS</th>
-<th>BTS, BSC, TRAU</th>
-<th>রেডিও সংযোগ, channel ও handover ব্যবস্থাপনা</th>
-</tr>
-<tr class="odd">
-<th>NSS</th>
-<th>MSC, GMSC, VLR, HLR, AuC, EIR</th>
-<th>সুইচিং, mobility, নিরাপত্তা</th>
-</tr>
-<tr class="header">
-<th>OSS</th>
-<th>OMC</th>
-<th>অপারেশন ও রক্ষণাবেক্ষণ</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>রেডিও প্যারামিটার:</strong> carrier ব্যবধান 200 kHz; প্রতি carrier-এ 8 time slot; এক slot = 576.9 µs (প্রায় 0.577 ms); এক TDMA frame = 8 slot = 4.615 ms; প্রতি slot-এ 156.25 bit; carrier-এর মোট bit rate = 270.833 kbps; modulation GMSK (BT = 0.3); GSM 900-এ 124টি ARFCN; frequency hopping প্রায় 217 hop/s; speech coding full-rate 13 kbps (RPE-LTP), ফলে 8 user প্রতি carrier-এ।</p>
-<p><strong>Timing advance:</strong> দূরের ফোনের সংকেত দেরিতে পৌঁছায়, তাই BTS ফোনকে আগে পাঠাতে বলে। 1 step = 1 bit period = 3.69 µs ≈ 550 m; সর্বোচ্চ 63 step ⇒ প্রায় 35 km সর্বোচ্চ cell radius (GSM-এ)।</p>
-<p><strong>Logical channel:</strong></p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>শ্রেণি</th>
-<th>চ্যানেল</th>
-<th>কাজ</th>
-</tr>
-<tr class="odd">
-<th>Traffic</th>
-<th>TCH</th>
-<th>ভয়েস/ডেটা</th>
-</tr>
-<tr class="header">
-<th>Broadcast</th>
-<th>BCCH, FCCH, SCH</th>
-<th>cell তথ্য, ফ্রিকোয়েন্সি ও সময় সিঙ্ক</th>
-</tr>
-<tr class="odd">
-<th>Common control</th>
-<th>PCH (paging), RACH (UL access), AGCH (access grant)</th>
-<th></th>
-</tr>
-<tr class="header">
-<th>Dedicated control</th>
-<th>SDCCH, SACCH, FACCH</th>
-<th>সিগন্যালিং, ধীর/দ্রুত সংশ্লিষ্ট সিগন্যালিং</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>শনাক্তকারী:</strong> IMSI = MCC (3) + MNC (2–3) + MSIN; বাংলাদেশের MCC = 470; LAI = MCC + MNC + LAC; CGI = LAI + CI (Cell Identity)। (অপারেটর MNC: GP 01, Robi 02, Banglalink 03, Teletalk 04, এটি আমার স্মৃতি থেকে, নিশ্চিত হয়ে নিও।)</p>
-<p><strong>Location Area:</strong> একসাথে paging যাওয়া cell-গুচ্ছ। ফোন LA বদলালে <strong>Location Update</strong>; বড় LA-তে paging ভার বেশি, ছোট LA-তে update ভার বেশি।</p>
-<h3 id="অনশলন-1"><strong>৩.৮ অনুশীলন</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>N = 9 হলে D/R? → √27 ≈ 5.20।</p>
-</blockquote></li>
-<li><blockquote>
-<p>60° sectoring-এ প্রথম স্তরে কতটি interferer? → 1।</p>
-</blockquote></li>
-<li><blockquote>
-<p>GSM carrier-এর মোট bit rate? → 270.833 kbps।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Timing advance সর্বোচ্চ কত step? → 63।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Cell ব্যাসার্ধ অর্ধেক করলে cell সংখ্যা কত গুণ? → 4 গুণ।</p>
-</blockquote></li>
-</ol>
-</div><div class="tools"><a class="btn" href="cell-02.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-04.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+<h1>Topic 3: <span class="bn">সেলুলার নেটওয়ার্কের মূল ধারণা</span><span class="en">Basic Concept of Cellular Networks</span></h1><p class="src"><span class="bn">Theory • সহজ সারাংশ + বিস্তারিত নোট</span><span class="en">Theory • short note + detailed note</span></p>
+<div class="card"><b><span class="bn">Frequency reuse অ্যানিমেশন</span><span class="en">Frequency reuse animation</span></b> — <span class="bn">cluster size N বদলে দেখো (একই রঙ = একই frequency; মোটা বর্ডার = co-channel cell)</span><span class="en">change the cluster size N (same colour = same frequency; thick border = co-channel cell)</span><canvas height="330" id="hx" width="780"></canvas><div class="tools">N <select id="hxN"><option>1</option><option>3</option><option selected="">7</option><option>9</option><option>13</option></select> <span id="hxinfo"></span></div></div>
+<div class="doc">
+<div id="sumBox">
+<h2>🧠 <span class="bn">সংক্ষেপ নোট</span><span class="en">Short note</span></h2>
+<p class="lead"><span class="bn">একটা বড় শহরকে অনেক ছোট ছোট ঘরে (cell) ভাগ করো, প্রতিটিতে একটি টাওয়ার। দূরের ঘরে একই ফ্রিকোয়েন্সি আবার ব্যবহার করো। এতে অল্প ফ্রিকোয়েন্সিতেই অনেক মানুষ একসাথে কথা বলতে পারে।</span><span class="en">Cut a big city into many small "rooms" (cells), each with one tower. Reuse the same frequency in far-away rooms. This lets many people talk at once using little spectrum.</span></p>
+<ul><li><span class="bn"><b>Cell</b> = একটি টাওয়ারের এলাকা। হিসাবের সুবিধার জন্য ষড়ভুজ (hexagon) আঁকা হয়।</span><span class="en"><b>Cell</b> = the area of one tower. Drawn as a hexagon to make calculation easy.</span></li><li><span class="bn"><b>Cluster (N)</b> = কয়েকটি পাশাপাশি cell, যারা মিলে সব ফ্রিকোয়েন্সি ভাগ করে নেয়। যেমন N = 7।</span><span class="en"><b>Cluster (N)</b> = a group of neighbouring cells that share all the frequencies between them. For example N = 7.</span></li><li><span class="bn"><b>Frequency reuse</b> = একই ফ্রিকোয়েন্সি দূরের অন্য cluster-এ আবার ব্যবহার।</span><span class="en"><b>Frequency reuse</b> = using the same frequency again in a far cluster.</span></li><li><span class="bn"><b>SIR</b> = নিজের সিগন্যাল ÷ একই ফ্রিকোয়েন্সির দূরের cell-গুলোর বিরক্তি। যত বেশি, তত ভালো।</span><span class="en"><b>SIR</b> = own signal ÷ interference from far cells using the same frequency. Higher is better.</span></li><li><span class="bn"><b>Handoff</b> = কথা চলার সময় টাওয়ার বদল। <b>Roaming</b> = অন্য নেটওয়ার্কে সেবা পাওয়া।</span><span class="en"><b>Handoff</b> = changing tower during a call. <b>Roaming</b> = getting service on another network.</span></li><li><span class="bn"><b>Capacity বাড়ানোর উপায়:</b> cell splitting, sectoring, ছোট cell (micro/pico)।</span><span class="en"><b>Ways to add capacity:</b> cell splitting, sectoring, smaller cells (micro/pico).</span></li><li><span class="bn"><b>Erlang-B:</b> কতগুলো channel থাকলে কত শতাংশ কল আটকে যাবে তার হিসাব।</span><span class="en"><b>Erlang-B:</b> tells what percent of calls get blocked for a given number of channels.</span></li><li><span class="bn"><b>GSM:</b> 200 kHz carrier, ৮টি time slot, মোট গতি 270.833 kbps।</span><span class="en"><b>GSM:</b> 200 kHz carrier, 8 time slots, total rate 270.833 kbps.</span></li></ul>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">Cell = ঘর, Cluster = পাড়া, N = পাড়ায় ঘরের সংখ্যা। N বাড়ালে বিরক্তি কমে (SIR বাড়ে), কিন্তু প্রতি ঘরের channel কমে। দুটোর মধ্যে ভারসাম্য রাখতে হয়।</span><span class="en">Cell = room, cluster = neighbourhood, N = rooms per neighbourhood. A bigger N means less disturbance (higher SIR) but fewer channels per room. It is always a trade-off.</span></p></div>
+</div>
+<div id="detBox">
+<h2>📖 <span class="bn">বিস্তারিত নোট</span><span class="en">Detailed note</span></h2>
+<details class="sec" open><summary><span class="bn">৩.১ কেন cellular?</span><span class="en">3.1 Why cellular?</span></summary>
+<p><span class="bn">আগে একটি বিশাল টাওয়ার পুরো শহর ঢাকত। সমস্যা: ওই টাওয়ারের হাতে মাত্র কয়েকটি channel, তাই অল্প কিছু মানুষই একসাথে কথা বলতে পারত। আবার দূরের ফোনকে ধরতে অনেক বেশি power লাগত।</span><span class="en">Earlier one huge tower covered a whole city. Problem: it had only a few channels, so only a few people could talk at once. Far phones also needed a lot of power.</span></p>
+<div class="callout b"><p>🛵 <b><span class="bn">উপমা:</span><span class="en">Analogy:</span></b> <span class="bn">একটি বাজারে একজন মাইক দিয়ে চিৎকার করছে: একসময়ে একজনই বলতে পারে। এবার বাজারটাকে ছোট ছোট দোকানে ভাগ করো, প্রতিটিতে ছোট স্পিকার। এখন সবাই একসাথে কথা বলতে পারে। আবার দূরের দুই দোকানে একই "চ্যানেল" ব্যবহার করলেও কেউ কারো শব্দ শোনে না।</span><span class="en">In a market one man shouts through a mic: only one person can speak at a time. Now split the market into small shops, each with a small speaker. Everyone can talk together. Two far shops can even use the same "channel" without hearing each other.</span></p></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">বিষয়</span><span class="en">Item</span></th><th><span class="bn">একটি বড় টাওয়ার</span><span class="en">One big tower</span></th><th><span class="bn">Cellular (অনেক ছোট টাওয়ার)</span><span class="en">Cellular (many small towers)</span></th></tr></thead><tbody><tr><td><span class="bn">ক্ষমতা (capacity)</span><span class="en">Capacity</span></td><td><span class="bn">কম</span><span class="en">Low</span></td><td><span class="bn">অনেক বেশি (frequency reuse)</span><span class="en">Much higher (frequency reuse)</span></td></tr><tr><td><span class="bn">ফোনের transmit power</span><span class="en">Phone transmit power</span></td><td><span class="bn">বেশি, ব্যাটারি দ্রুত শেষ</span><span class="en">High, battery drains fast</span></td><td><span class="bn">কম, ব্যাটারি বেশি টেকে</span><span class="en">Low, battery lasts longer</span></td></tr><tr><td><span class="bn">খরচ</span><span class="en">Cost</span></td><td><span class="bn">টাওয়ার কম, কিন্তু সেবা সীমিত</span><span class="en">Few towers but limited service</span></td><td><span class="bn">টাওয়ার বেশি, কিন্তু সেবা অনেক বেশি</span><span class="en">More towers but far more service</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৩.২ Hexagon জ্যামিতি ও Cluster</span><span class="en">3.2 Hexagon geometry and clusters</span></summary>
+<p><span class="bn">Cell আসলে গোল, কিন্তু গোল আকার দিয়ে মানচিত্র ঢাকলে ফাঁক থেকে যায়। ফাঁক ছাড়া ঢাকা যায় এমন আকারের মধ্যে hexagon সবচেয়ে গোলের কাছাকাছি, তাই টাওয়ার কম লাগে। তাই সবাই hexagon ধরে হিসাব করে।</span><span class="en">A cell is really round, but circles leave gaps when covering a map. Among shapes that tile without gaps, the hexagon is closest to a circle, so fewer towers are needed. That is why everyone calculates with hexagons.</span></p>
+<div class="fxbox"><div class="fxn"><span class="bn">Hexagon-এর ক্ষেত্রফল</span><span class="en">Area of a hexagon cell</span></div><div class="fxf">A = (3√3 / 2) · R² ≈ 2.598 · R²</div><div class="fxv"><span class="bn">R = কেন্দ্র থেকে কোণের দূরত্ব (cell radius)।</span><span class="en">R = distance from centre to a corner (cell radius).</span></div><div class="fxe">✍ <span class="bn">R = 2 km হলে A = 2.598 × 2² = 10.39 km²।</span><span class="en">If R = 2 km then A = 2.598 × 2² = 10.39 km².</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">Cluster size</span><span class="en">Cluster size</span></div><div class="fxf">N = i² + i·j + j²</div><div class="fxv"><span class="bn">i, j হলো 0 বা ধনাত্মক পূর্ণসংখ্যা (দুই দিকে কত ধাপ গেলে একই ফ্রিকোয়েন্সির cell পাওয়া যায়)। তাই N শুধু 1, 3, 4, 7, 9, 12, 13 ... হতে পারে। 5, 6, 8 হতে পারে না।</span><span class="en">i, j are whole numbers 0 or more (steps you walk in two directions to reach a cell with the same frequency). So N can only be 1, 3, 4, 7, 9, 12, 13 ... but never 5, 6 or 8.</span></div><div class="fxe">✍ <span class="bn">i = 2, j = 1 হলে N = 4 + 2 + 1 = 7।</span><span class="en">i = 2, j = 1 gives N = 4 + 2 + 1 = 7.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">Reuse distance (একই ফ্রিকোয়েন্সির দুই cell-এর দূরত্ব)</span><span class="en">Reuse distance (between two cells with the same frequency)</span></div><div class="fxf">D = R · √(3N)     ⇒     D / R = √(3N)</div><div class="fxv"><span class="bn">N যত বড়, D তত বেশি, তাই বিরক্তি তত কম।</span><span class="en">The bigger N, the larger D, so less interference.</span></div><div class="fxe">✍ <span class="bn">N = 7 হলে D/R = √21 = 4.58।</span><span class="en">N = 7 gives D/R = √21 = 4.58.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">প্রতি cell-এ channel</span><span class="en">Channels per cell</span></div><div class="fxf">channels per cell = মোট channel ÷ N</div><div class="fxe">✍ <span class="bn">মোট 420 channel, N = 7 হলে প্রতি cell-এ 420 ÷ 7 = 60টি।</span><span class="en">With 420 channels in total and N = 7, each cell gets 420 ÷ 7 = 60.</span></div></div>
+</details>
+<details class="sec" open><summary><span class="bn">৩.৩ Co-channel Interference ও SIR</span><span class="en">3.3 Co-channel interference and SIR</span></summary>
+<p><span class="bn">একই ফ্রিকোয়েন্সি ব্যবহার করা দূরের cell-এর সিগন্যাল তোমার কলে বিরক্তি (interference) তৈরি করে। এর মধ্যে সবচেয়ে কাছের ৬টি cell (first tier) সবচেয়ে বেশি ক্ষতি করে।</span><span class="en">Far cells that use the same frequency add interference to your call. The nearest 6 (first tier) hurt the most.</span></p>
+<p><span class="bn">দূরত্ব বাড়লে সিগন্যাল দুর্বল হয়, দূরত্বের γ ঘাতে (path loss exponent)। γ = 2 ফাঁকা জায়গায়, শহরে সাধারণত 3 থেকে 4।</span><span class="en">Signals weaken with distance, as distance to the power γ (path loss exponent). γ = 2 in free space, usually 3 to 4 in a city.</span></p>
+<div class="fxbox"><div class="fxn"><span class="bn">SIR বের করার ধাপ</span><span class="en">Deriving SIR step by step</span></div><div class="fxf">S ∝ R<sup>−γ</sup>,   প্রতিটি interferer ∝ D<sup>−γ</sup>,   মোট I = 6 · D<sup>−γ</sup><br>SIR = S / I = (D/R)<sup>γ</sup> / 6 = (3N)<sup>γ/2</sup> / 6</div><div class="fxv"><span class="bn">S = নিজের টাওয়ারের সিগন্যাল, I = ৬টি interferer-এর যোগফল।</span><span class="en">S = signal from own tower, I = sum of the 6 interferers.</span></div><div class="fxe">✍ <span class="bn">N = 7, γ = 4: (21)² ÷ 6 = 441 ÷ 6 = 73.5। dB-তে 10·log<sub>10</sub>(73.5) = <b>18.7 dB</b>।</span><span class="en">N = 7, γ = 4: 21² ÷ 6 = 441 ÷ 6 = 73.5. In dB: 10·log<sub>10</sub>(73.5) = <b>18.7 dB</b>.</span></div></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">Cluster N</span><span class="en">Cluster N</span></th><th><span class="bn">D / R</span><span class="en">D / R</span></th><th><span class="bn">SIR (γ = 4)</span><span class="en">SIR (γ = 4)</span></th></tr></thead><tbody><tr><td>3</td><td>3.00</td><td>11.3 dB</td></tr><tr><td>4</td><td>3.46</td><td>13.8 dB</td></tr><tr><td>7</td><td>4.58</td><td>18.7 dB</td></tr><tr><td>12</td><td>6.00</td><td>23.3 dB</td></tr></tbody></table></div>
+<div class="callout b"><p>💡 <span class="bn">পুরোনো analog (AMPS)-এ প্রায় 18 dB লাগত, তাই N = 7 বেছে নেওয়া হয়েছিল। GSM-এ coding ও frequency hopping থাকায় প্রায় 9–12 dB হলেই চলে, তাই ছোট N (যেমন 3 বা 4) ব্যবহার করা যায় এবং ক্ষমতা বাড়ে।</span><span class="en">Old analog (AMPS) needed about 18 dB, so N = 7 was chosen. GSM has coding and frequency hopping, so about 9–12 dB is enough. A smaller N (3 or 4) can be used, which gives more capacity.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">৩.৪ Capacity বাড়ানোর কৌশল</span><span class="en">3.4 Ways to increase capacity</span></summary>
+<div class="fxbox"><div class="fxn"><span class="bn">Cell splitting (cell ছোট করা)</span><span class="en">Cell splitting (making cells smaller)</span></div><div class="fxf">নতুন cell সংখ্যা = (R<sub>old</sub> / R<sub>new</sub>)²,    P<sub>t,new</sub> = P<sub>t,old</sub> · (R<sub>new</sub> / R<sub>old</sub>)<sup>γ</sup></div><div class="fxv"><span class="bn">ক্ষেত্রফল R²-এর সমানুপাতিক, তাই ব্যাসার্ধ আধা করলে cell সংখ্যা 4 গুণ। পাশাপাশি transmit power কমাতে হয়, নইলে বিরক্তি বাড়ে।</span><span class="en">Area is proportional to R², so halving the radius gives 4 times the cells. Transmit power must also drop or interference rises.</span></div><div class="fxe">✍ <span class="bn">R আধা, γ = 4: cell = 4 গুণ, power = (1/2)⁴ = 1/16 (12 dB কম)।</span><span class="en">R halved, γ = 4: cells ×4, power = (1/2)⁴ = 1/16 (12 dB lower).</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">Sectoring (দিক ভাগ করা)</span><span class="en">Sectoring (splitting by direction)</span></div><div class="fxf">SIR = (D/R)<sup>γ</sup> / i<sub>0</sub>,     i<sub>0</sub> = 6 (omni), 2 (120° sector), 1 (60° sector)</div><div class="fxv"><span class="bn">অ্যান্টেনা এক দিকে জোরালো হলে অন্য দিকের interferer কম শোনে।</span><span class="en">A directional antenna hears fewer interferers from other directions.</span></div><div class="fxe">✍ <span class="bn">N = 7, γ = 4: 120° এ 441/2 = 220.5 → 23.4 dB; 60° এ 441 → 26.4 dB।</span><span class="en">N = 7, γ = 4: 120° gives 441/2 = 220.5 → 23.4 dB; 60° gives 441 → 26.4 dB.</span></div></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">কৌশল</span><span class="en">Method</span></th><th><span class="bn">কীভাবে কাজ করে</span><span class="en">How it works</span></th><th><span class="bn">সুবিধা</span><span class="en">Benefit</span></th><th><span class="bn">অসুবিধা</span><span class="en">Drawback</span></th></tr></thead><tbody><tr><td><span class="bn">Cell splitting</span><span class="en">Cell splitting</span></td><td><span class="bn">একটি cell ভেঙে অনেক ছোট cell</span><span class="en">Break one cell into many small ones</span></td><td><span class="bn">capacity অনেক বাড়ে</span><span class="en">Capacity rises a lot</span></td><td><span class="bn">টাওয়ার বেশি, handoff বেশি</span><span class="en">More towers, more handoffs</span></td></tr><tr><td><span class="bn">Sectoring</span><span class="en">Sectoring</span></td><td><span class="bn">দিক-নির্দিষ্ট antenna</span><span class="en">Directional antennas</span></td><td><span class="bn">SIR বাড়ে</span><span class="en">SIR improves</span></td><td><span class="bn">handoff বাড়ে, trunking efficiency কমে</span><span class="en">More handoffs, lower trunking efficiency</span></td></tr><tr><td><span class="bn">Micro / pico / femto</span><span class="en">Micro / pico / femto</span></td><td><span class="bn">ঘন ভিড়ে খুব ছোট cell</span><span class="en">Very small cells in dense crowds</span></td><td><span class="bn">hotspot-এ অনেক ক্ষমতা</span><span class="en">High capacity in hotspots</span></td><td><span class="bn">ব্যবস্থাপনা কঠিন</span><span class="en">Harder to manage</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৩.৫ Trunking ও Erlang-B</span><span class="en">3.5 Trunking and Erlang-B</span></summary>
+<p><span class="bn">সবাই একই মুহূর্তে কল করে না। তাই প্রতিজনের জন্য আলাদা channel রাখার বদলে কম সংখ্যক channel সবাই ভাগ করে নেয়। একেই trunking বলে।</span><span class="en">Not everyone calls at the same moment. So instead of one channel per person, a smaller pool of channels is shared. This is called trunking.</span></p>
+<div class="callout b"><p>🛵 <b><span class="bn">উপমা:</span><span class="en">Analogy:</span></b> <span class="bn">বাসস্টপে সবার জন্য আলাদা বাস রাখতে হয় না। কয়েকটি বাসই সবাইকে বহন করে। শুধু ভিড়ের সময় কেউ কেউ বাস পায় না।</span><span class="en">A bus stop does not need one bus per person. A few buses carry everyone. Only at rush hour, some people miss a bus.</span></p></div>
+<div class="fxbox"><div class="fxn"><span class="bn">Traffic (Erlang)</span><span class="en">Traffic (Erlang)</span></div><div class="fxf">A = λ · h</div><div class="fxv"><span class="bn">λ = প্রতি ঘণ্টায় কল সংখ্যা, h = গড় কলের সময় (ঘণ্টায়)। 1 Erlang = একটি channel পুরো সময় ব্যস্ত।</span><span class="en">λ = calls per hour, h = average call length (in hours). 1 Erlang = one channel busy all the time.</span></div><div class="fxe">✍ <span class="bn">প্রতি ঘণ্টায় 120 কল, গড় 3 মিনিট: A = 120 × (3/60) = 6 Erlang। অথবা 1000 জন × 25 mE = 25 Erlang।</span><span class="en">120 calls per hour, 3 min each: A = 120 × (3/60) = 6 Erlang. Or 1000 users × 25 mE = 25 Erlang.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">Erlang-B (আটকে যাওয়া কলের সম্ভাবনা)</span><span class="en">Erlang-B (probability a call is blocked)</span></div><div class="fxf">B(A, 0) = 1,     B(A, m) = A · B(A, m−1) / ( m + A · B(A, m−1) )</div><div class="fxv"><span class="bn">A = traffic, m = channel সংখ্যা। এই পদ্ধতিতে একটার পর একটা m বাড়িয়ে হিসাব করা যায়।</span><span class="en">A = traffic, m = number of channels. Compute by raising m one at a time.</span></div><div class="fxe">✍ <span class="bn">A = 1, m = 1: B = 1·1/(1+1·1) = 0.5 (50%)।</span><span class="en">A = 1, m = 1: B = 1·1/(1+1·1) = 0.5 (50%).</span></div></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">10 Erlang traffic</span><span class="en">10 Erlang of traffic</span></th><th><span class="bn">Blocking</span><span class="en">Blocking</span></th></tr></thead><tbody><tr><td><span class="bn">16 channel</span><span class="en">16 channels</span></td><td>2.23%</td></tr><tr><td><span class="bn">17 channel</span><span class="en">17 channels</span></td><td>1.29%</td></tr><tr><td><span class="bn">18 channel</span><span class="en">18 channels</span></td><td>0.71%</td></tr></tbody></table></div>
+<p><span class="bn">তাই 2% এর বেশি কল আটকানো চলবে না ধরলে ন্যূনতম 17টি channel লাগে।</span><span class="en">So if no more than 2% blocking is allowed, at least 17 channels are needed.</span></p>
+<div class="callout r"><p>⚠ <b><span class="bn">ভুল ধারণা:</span><span class="en">Common mistake:</span></b> <span class="bn">Erlang-B-তে আটকে যাওয়া কল বাতিল হয়ে যায় (blocked calls cleared)। অপেক্ষা করলে সেটা Erlang-C।</span><span class="en">In Erlang-B a blocked call is dropped (blocked calls cleared). If blocked calls wait in a queue, that is Erlang-C.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">৩.৬ Handoff, Roaming ও Paging</span><span class="en">3.6 Handoff, roaming and paging</span></summary>
+<div class="fig" data-fig="handoff"></div>
+<ul><li><span class="bn"><b>Hard handoff:</b> আগের সংযোগ কেটে নতুন টাওয়ারে সংযোগ (GSM)। কয়েক মিলিসেকেন্ডের ফাঁক।</span><span class="en"><b>Hard handoff:</b> break the old link, then make the new one (GSM). A gap of a few milliseconds.</span></li><li><span class="bn"><b>Soft handoff:</b> আগে নতুন টাওয়ারে যুক্ত, তারপর পুরোনোটা ছাড়া (CDMA/WCDMA)।</span><span class="en"><b>Soft handoff:</b> join the new tower first, then drop the old one (CDMA/WCDMA).</span></li><li><span class="bn"><b>Hysteresis margin:</b> নতুন টাওয়ার নির্দিষ্ট dB বেশি শক্তিশালী না হলে বদলায় না। এতে ফোন বারবার দুই টাওয়ারের মধ্যে লাফায় না (ping-pong)।</span><span class="en"><b>Hysteresis margin:</b> switch only if the new tower is stronger by a set number of dB. This stops the phone bouncing between two towers (ping-pong).</span></li><li><span class="bn"><b>MAHO:</b> GSM-এ ফোন নিজেই আশপাশের টাওয়ার মেপে নেটওয়ার্ককে রিপোর্ট করে।</span><span class="en"><b>MAHO:</b> in GSM the phone itself measures nearby towers and reports to the network.</span></li></ul>
+<div class="tbl"><table><thead><tr><th><span class="bn">শব্দ</span><span class="en">Term</span></th><th><span class="bn">কখন</span><span class="en">When</span></th><th><span class="bn">কী ঘটে</span><span class="en">What happens</span></th></tr></thead><tbody><tr><td>Handoff / Handover</td><td><span class="bn">কল চলাকালীন</span><span class="en">During a call</span></td><td><span class="bn">টাওয়ার বদল</span><span class="en">Tower changes</span></td></tr><tr><td>Location Update</td><td><span class="bn">ফোন idle থাকলে</span><span class="en">Phone is idle</span></td><td><span class="bn">নতুন Location Area-তে গেলে নেটওয়ার্ককে জানায়</span><span class="en">Tells the network when entering a new Location Area</span></td></tr><tr><td>Paging</td><td><span class="bn">কল আসার সময়</span><span class="en">When a call arrives</span></td><td><span class="bn">নেটওয়ার্ক Location Area-র সব cell-এ ডাকে</span><span class="en">The network calls on all cells of the Location Area</span></td></tr><tr><td>Roaming</td><td><span class="bn">অন্য নেটওয়ার্ক/দেশে</span><span class="en">On another network or country</span></td><td><span class="bn">বিদেশি নেটওয়ার্কে সেবা পাওয়া</span><span class="en">Getting service on a visited network</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৩.৭ GSM-এর সংখ্যাগুলো কোথা থেকে এল (সূত্রসহ)</span><span class="en">3.7 Where the GSM numbers come from (with formulas)</span></summary>
+<div class="fig" data-fig="tdma"></div>
+<p><span class="bn">GSM-এর প্রতিটি সংখ্যা আসলে একটি সরল হিসাবের ফল। ধাপে ধাপে দেখো:</span><span class="en">Every GSM number is the result of a simple calculation. Follow it step by step:</span></p>
+<div class="fxbox"><div class="fxn"><span class="bn">ধাপ ১: ARFCN সংখ্যা (carrier)</span><span class="en">Step 1: number of ARFCN (carriers)</span></div><div class="fxf">N<sub>ARFCN</sub> = 25 MHz / 200 kHz = 125 → 1টি guard বাদ → <b>124</b><br>F<sub>UL</sub>(n) = 890 + 0.2·n MHz,     F<sub>DL</sub>(n) = F<sub>UL</sub>(n) + 45 MHz</div><div class="fxv"><span class="bn">n = 1 থেকে 124। যেমন n = 1: UL = 890.2 MHz, DL = 935.2 MHz।</span><span class="en">n = 1 to 124. For n = 1: UL = 890.2 MHz, DL = 935.2 MHz.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">ধাপ ২: Bit সময় (GSM-এর 13 MHz ঘড়ি থেকে)</span><span class="en">Step 2: bit time (from the GSM 13 MHz clock)</span></div><div class="fxf">T<sub>b</sub> = 48 / 13 MHz = 3.6923 µs     ⇒     bit rate = 13 MHz / 48 = <b>270.833 kbps</b></div><div class="fxv"><span class="bn">GMSK-এ প্রতি symbol-এ 1 bit, তাই symbol rate = 270.833 ksymbol/s।</span><span class="en">GMSK carries 1 bit per symbol, so the symbol rate = 270.833 ksymbol/s.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">ধাপ ৩: Slot ও frame</span><span class="en">Step 3: slot and frame</span></div><div class="fxf">T<sub>slot</sub> = 156.25 × 3.6923 µs = <b>576.9 µs</b> (≈ 0.577 ms)<br>T<sub>frame</sub> = 8 × 576.9 µs = <b>4.615 ms</b></div><div class="fxv"><span class="bn">প্রতি slot-এ 156.25 bit-সময়: 148 bit-এর burst + 8.25 bit guard।</span><span class="en">Each slot has 156.25 bit-times: a 148-bit burst plus 8.25 bits of guard.</span></div><div class="fxe">✍ <span class="bn">যাচাই: 156.25 × 8 ÷ 4.615 ms = 1250 bit ÷ 4.615 ms = 270.8 kbps ✓</span><span class="en">Check: 156.25 × 8 ÷ 4.615 ms = 1250 bits ÷ 4.615 ms = 270.8 kbps ✓</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">ধাপ ৪: Normal burst-এর গঠন</span><span class="en">Step 4: structure of a normal burst</span></div><div class="fxf">3 (tail) + 57 (data) + 1 (flag) + 26 (training) + 1 (flag) + 57 (data) + 3 (tail) = <b>148 bit</b></div><div class="fxv"><span class="bn">Training sequence-এর কাজ channel পরিমাপ ও equalization। কাজের ডেটা 57 + 57 = 114 bit।</span><span class="en">The training sequence helps measure the channel and equalize. Useful data = 57 + 57 = 114 bits.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">ধাপ ৫: এক user-এর গতি</span><span class="en">Step 5: data rate of one user</span></div><div class="fxf">26-frame multiframe = 26 × 4.615 ms = 120 ms:  24 traffic + 1 SACCH + 1 idle<br>গতি = 24 × 114 bit / 120 ms = 2736 / 0.12 s = <b>22.8 kbps</b></div><div class="fxv"><span class="bn">এর মধ্যেই ভয়েসের 13 kbps এবং error-correction coding মিলিয়ে আছে।</span><span class="en">This already includes 13 kbps of voice plus error-correction coding.</span></div><div class="fxe">✍ <span class="bn">Speech: 260 bit / 20 ms = 13 kbps (RPE-LTP)। coding-এর পর 456 bit / 20 ms = 22.8 kbps ✓</span><span class="en">Speech: 260 bits / 20 ms = 13 kbps (RPE-LTP). After coding: 456 bits / 20 ms = 22.8 kbps ✓</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">ধাপ ৬: Hop rate ও সর্বোচ্চ cell size</span><span class="en">Step 6: hop rate and maximum cell size</span></div><div class="fxf">hop rate = 1 / 4.615 ms = <b>217 hop/s</b> (প্রতি frame-এ একবার)<br>1 TA step = T<sub>b</sub> × c / 2 = 3.69 µs × 3×10<sup>8</sup> / 2 ≈ 554 m;    63 × 554 m ≈ <b>35 km</b></div><div class="fxv"><span class="bn">TA = Timing Advance (ফোন কতটা আগে পাঠাবে)। সর্বোচ্চ মান 63।</span><span class="en">TA = Timing Advance (how early the phone must transmit). Maximum value is 63.</span></div></div>
+<div class="fxbox"><div class="fxn"><span class="bn">ধাপ ৭: Multiframe, superframe, hyperframe</span><span class="en">Step 7: multiframe, superframe, hyperframe</span></div><div class="fxf">traffic multiframe = 26 frame = 120 ms,   control multiframe = 51 frame = 235.4 ms<br>superframe = 51 × 26 = 1326 frame = 6.12 s,   hyperframe = 2048 superframe ≈ 3 h 28 min</div><div class="fxv"><span class="bn">Hyperframe-এ কাউন্টার ঘুরে আসে। encryption key-র সাথে frame নম্বর মিলিয়ে ব্যবহার হয়।</span><span class="en">The frame counter wraps at the hyperframe. The frame number is mixed into the encryption.</span></div></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">প্যারামিটার</span><span class="en">Parameter</span></th><th><span class="bn">মান</span><span class="en">Value</span></th><th><span class="bn">উৎস</span><span class="en">Source</span></th></tr></thead><tbody><tr><td><span class="bn">Carrier ব্যবধান</span><span class="en">Carrier spacing</span></td><td>200 kHz</td><td><span class="bn">নির্ধারিত মান</span><span class="en">Fixed by standard</span></td></tr><tr><td><span class="bn">প্রতি carrier-এ slot</span><span class="en">Slots per carrier</span></td><td>8</td><td>TDMA</td></tr><tr><td><span class="bn">Slot সময়</span><span class="en">Slot time</span></td><td>576.9 µs</td><td>156.25 × 3.6923 µs</td></tr><tr><td><span class="bn">TDMA frame</span><span class="en">TDMA frame</span></td><td>4.615 ms</td><td>8 × 576.9 µs</td></tr><tr><td><span class="bn">প্রতি slot-এ bit</span><span class="en">Bits per slot</span></td><td>156.25</td><td>148 + 8.25 guard</td></tr><tr><td><span class="bn">Carrier-এর মোট rate</span><span class="en">Gross rate</span></td><td>270.833 kbps</td><td>13 MHz / 48</td></tr><tr><td><span class="bn">Modulation</span><span class="en">Modulation</span></td><td>GMSK (BT = 0.3)</td><td><span class="bn">1 bit/symbol</span><span class="en">1 bit/symbol</span></td></tr><tr><td><span class="bn">ARFCN (GSM 900)</span><span class="en">ARFCN (GSM 900)</span></td><td>124</td><td>25 MHz / 200 kHz − 1</td></tr><tr><td><span class="bn">Hop rate</span><span class="en">Hop rate</span></td><td>≈ 217/s</td><td>1 / 4.615 ms</td></tr><tr><td><span class="bn">Speech (full-rate)</span><span class="en">Speech (full-rate)</span></td><td>13 kbps → 22.8 kbps</td><td><span class="bn">RPE-LTP, coding-এর পর</span><span class="en">RPE-LTP, after coding</span></td></tr><tr><td><span class="bn">User প্রতি carrier</span><span class="en">Users per carrier</span></td><td>8</td><td><span class="bn">half-rate হলে 16</span><span class="en">16 with half-rate</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৩.৮ GSM-এর পরিচয় নম্বর ও channel</span><span class="en">3.8 GSM identity numbers and channels</span></summary>
+<div class="tbl"><table><thead><tr><th><span class="bn">নম্বর</span><span class="en">Number</span></th><th><span class="bn">পূর্ণরূপ</span><span class="en">Full form</span></th><th><span class="bn">কী চেনায়</span><span class="en">What it identifies</span></th></tr></thead><tbody><tr><td>IMSI</td><td>International Mobile Subscriber Identity</td><td><span class="bn">SIM-এর গ্রাহক, সর্বোচ্চ 15 digit = MCC (3) + MNC (2/3) + MSIN। বাংলাদেশের MCC = 470</span><span class="en">The subscriber on the SIM, at most 15 digits = MCC (3) + MNC (2/3) + MSIN. Bangladesh MCC = 470</span></td></tr><tr><td>TMSI</td><td>Temporary Mobile Subscriber Identity</td><td><span class="bn">IMSI আড়াল করতে অস্থায়ী নাম</span><span class="en">A temporary nickname that hides the IMSI</span></td></tr><tr><td>IMEI</td><td>International Mobile Equipment Identity</td><td><span class="bn">ফোন যন্ত্রটি, 15 digit (প্রথম 8 = TAC)</span><span class="en">The handset itself, 15 digits (first 8 = TAC)</span></td></tr><tr><td>MSISDN</td><td>Mobile Station ISDN Number</td><td><span class="bn">তোমার ফোন নম্বর, যাতে মানুষ কল করে</span><span class="en">Your phone number that people dial</span></td></tr><tr><td>MSRN</td><td>Mobile Station Roaming Number</td><td><span class="bn">incoming কলের জন্য VLR-এর দেওয়া অস্থায়ী নম্বর</span><span class="en">A temporary number from the VLR for an incoming call</span></td></tr></tbody></table></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">Channel</span><span class="en">Channel</span></th><th><span class="bn">কাজ</span><span class="en">Job</span></th></tr></thead><tbody><tr><td>TCH</td><td><span class="bn">ভয়েস/ডেটা বহন করে</span><span class="en">Carries voice or data</span></td></tr><tr><td>BCCH</td><td><span class="bn">টাওয়ারের তথ্য সবাইকে জানায় (broadcast)</span><span class="en">Broadcasts tower information to everyone</span></td></tr><tr><td>FCCH / SCH</td><td><span class="bn">ফোনকে frequency ও সময় মেলাতে সাহায্য করে</span><span class="en">Help the phone sync frequency and time</span></td></tr><tr><td>RACH</td><td><span class="bn">ফোন প্রথম অনুরোধ পাঠায় (uplink)</span><span class="en">Phone sends its first request (uplink)</span></td></tr><tr><td>PCH / AGCH</td><td><span class="bn">PCH: কল এলে ডাকে। AGCH: channel বরাদ্দ জানায়</span><span class="en">PCH: pages the phone. AGCH: tells which channel is given</span></td></tr><tr><td>SDCCH</td><td><span class="bn">কল সেটআপ, SMS ও location update-এর ছোট signalling</span><span class="en">Small signalling for call setup, SMS and location update</span></td></tr><tr><td>SACCH / FACCH</td><td><span class="bn">কল চলাকালীন মাপ ও দ্রুত signalling (যেমন handoff)</span><span class="en">Measurements and fast signalling during a call (e.g. handoff)</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">৩.৯ অনুশীলন</span><span class="en">3.9 Practice</span></summary>
+<details class="qa"><summary><span class="bn">N = 7 হলে D/R কত?</span><span class="en">If N = 7, what is D/R?</span></summary><p><span class="bn">D/R = √(3N) = √21 = 4.58।</span><span class="en">D/R = √(3N) = √21 = 4.58.</span></p></details>
+<details class="qa"><summary><span class="bn">Cell radius আধা করলে cell সংখ্যা কত গুণ?</span><span class="en">If the cell radius is halved, how many times more cells?</span></summary><p><span class="bn">ক্ষেত্রফল R²-এর সমানুপাতিক, তাই (1/(1/2))² = 4 গুণ।</span><span class="en">Area is proportional to R², so (1/(1/2))² = 4 times.</span></p></details>
+<details class="qa"><summary><span class="bn">N = 7, γ = 4 হলে SIR কত dB?</span><span class="en">N = 7, γ = 4. What is the SIR in dB?</span></summary><p><span class="bn">(3N)<sup>2</sup>/6 = 441/6 = 73.5 → 18.7 dB।</span><span class="en">(3N)² / 6 = 441 / 6 = 73.5 → 18.7 dB.</span></p></details>
+<details class="qa"><summary><span class="bn">GSM-900-এ ARFCN কয়টি এবং কেন?</span><span class="en">How many ARFCNs in GSM-900 and why?</span></summary><p><span class="bn">25 MHz ÷ 200 kHz = 125, একটি guard বাদে 124।</span><span class="en">25 MHz ÷ 200 kHz = 125, minus one guard = 124.</span></p></details>
+<details class="qa"><summary><span class="bn">এক GSM user-এর গতি 22.8 kbps কীভাবে এল?</span><span class="en">How does one GSM user get 22.8 kbps?</span></summary><p><span class="bn">26 frame-এর মধ্যে 24টিতে traffic; 24 × 114 bit ÷ 120 ms = 22.8 kbps।</span><span class="en">24 of the 26 frames carry traffic: 24 × 114 bits ÷ 120 ms = 22.8 kbps.</span></p></details>
+<details class="qa"><summary><span class="bn">GSM-এ ping-pong ঠেকাতে কী করে?</span><span class="en">How does GSM avoid ping-pong?</span></summary><p><span class="bn">Hysteresis margin: নতুন টাওয়ার নির্দিষ্ট dB বেশি ভালো না হলে handoff হয় না।</span><span class="en">Hysteresis margin: no handoff unless the new tower is better by a set number of dB.</span></p></details>
+</details>
+</div>
+</div>
+<div class="tools"><a class="btn" href="cell-02.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-04.html">পরের টপিক →</a></div>
+<p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a> <a class="btn" href="cell-quiz-buet.html">🎯 BUET MCQ →</a> <a class="btn" href="cell-glossary.html">🔤 শর্টফর্ম</a> <a class="btn" href="cell-formulas.html">📐 সূত্র</a></p>
 </main>
 <footer>Created by Al Nahian Mugdho</footer>
-<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
+<script src="data/questions.js"></script><script src="js/app.js"></script><script src="data/cell_figs.js"></script><script src="js/learn.js"></script></body></html>

@@ -1,415 +1,48 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cellular Topic 11: Call Flow, Session Management ও Mobility Control — Telecommunication Lab</title>
+<title>Topic 11: Call Flow, Session Management and Mobility Control — Telecommunication Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
 <main>
-<h1>Cellular Topic 11: Call Flow, Session Management ও Mobility Control</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
-<p>এই অংশে প্রশ্ন আসে "কোন ধাপের পর কোন ধাপ" আর "কোন অবস্থা কী" নিয়ে। ক্রম মুখস্থ করা সবচেয়ে কাজের।</p>
-<p><strong>ইউজার শনাক্তকারী</strong></p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>শনাক্তকারী</th>
-<th>অর্থ</th>
-<th>কোথায়</th>
-</tr>
-<tr class="odd">
-<th>IMSI</th>
-<th>SIM-এর স্থায়ী পরিচয় (MCC + MNC + MSIN, সর্বোচ্চ 15 ডিজিট)</th>
-<th>GSM/LTE</th>
-</tr>
-<tr class="header">
-<th>TMSI / GUTI</th>
-<th>অস্থায়ী পরিচয়, IMSI গোপন রাখতে</th>
-<th>GSM / LTE</th>
-</tr>
-<tr class="odd">
-<th>SUPI / SUCI</th>
-<th>5G-তে স্থায়ী পরিচয় / তার এনক্রিপ্টেড রূপ</th>
-<th>5G</th>
-</tr>
-<tr class="header">
-<th>IMEI</th>
-<th>ডিভাইসের পরিচয় (15 ডিজিট)</th>
-<th>সব</th>
-</tr>
-<tr class="odd">
-<th>MSISDN</th>
-<th>ফোন নম্বর</th>
-<th>সব</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>LTE Attach প্রক্রিয়া (সংক্ষেপে)</strong></p>
-<ol type="1">
-<li><blockquote>
-<p>UE চালু হয়ে cell খুঁজে RRC সংযোগ তৈরি করে, <strong>Attach Request</strong> পাঠায় (eNodeB হয়ে MME-তে)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>MME <strong>HSS</strong> থেকে authentication তথ্য নেয়; UE ও নেটওয়ার্কের পারস্পরিক <strong>Authentication</strong> হয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>NAS Security Mode</strong> চালু, এনক্রিপশন ও integrity সুরক্ষা।</p>
-</blockquote></li>
-<li><blockquote>
-<p>MME <strong>Location Update</strong> করে HSS-এ, সাবস্ক্রিপশন প্রোফাইল পায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>MME S-GW ও P-GW-এর মাধ্যমে <strong>Default bearer</strong> তৈরি করে, P-GW UE-কে IP ঠিকানা দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Attach Accept</strong> আসে, UE <strong>Attach Complete</strong> দেয়; এখন UE ডেটা পাঠাতে পারে।</p>
-</blockquote></li>
-</ol>
-<p><strong>অবস্থা (States)</strong></p>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>স্তর</th>
-<th>অবস্থা</th>
-<th>অর্থ</th>
-</tr>
-<tr class="odd">
-<th>EMM (LTE)</th>
-<th>DEREGISTERED / REGISTERED</th>
-<th>নেটওয়ার্কে নিবন্ধিত কি না</th>
-</tr>
-<tr class="header">
-<th>ECM (LTE)</th>
-<th>IDLE / CONNECTED</th>
-<th>সিগন্যালিং সংযোগ আছে কি না</th>
-</tr>
-<tr class="odd">
-<th>RRC</th>
-<th>IDLE / CONNECTED (5G-তে + INACTIVE)</th>
-<th>রেডিও সংযোগ</th>
-</tr>
-<tr class="header">
-<th>5G RM</th>
-<th>RM-DEREGISTERED / RM-REGISTERED</th>
-<th>5G নিবন্ধন</th>
-</tr>
-<tr class="odd">
-<th>5G CM</th>
-<th>CM-IDLE / CM-CONNECTED</th>
-<th>NAS সংযোগ</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>Mobility ব্যবস্থাপনা</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>Idle mode:</strong> ফোন নিজে cell reselection করে। নেটওয়ার্ক জানে শুধু <strong>Tracking Area (TA)</strong> পর্যন্ত। TA বদলালে <strong>Tracking Area Update (TAU)</strong> পাঠায়। (GSM/3G-তে একই কাজ: Location Area Update / Routing Area Update।)</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Paging:</strong> ইনকামিং কলে নেটওয়ার্ক TA-র সব cell-এ paging পাঠিয়ে UE-কে খোঁজে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Connected mode handover:</strong> নেটওয়ার্ক-নিয়ন্ত্রিত, UE-র measurement রিপোর্ট (RSRP, RSRQ) দেখে।</p>
-</blockquote>
-<ul>
-<li><blockquote>
-<p><strong>X2 handover:</strong> eNodeB থেকে eNodeB সরাসরি (দ্রুত)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>S1 handover:</strong> MME-র মাধ্যমে, X2 না থাকলে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>ধাপ: Measurement → Handover Request → Resource বরাদ্দ → Handover Command → UE নতুন cell-এ যুক্ত → পুরনো রিসোর্স মুক্ত।</p>
-</blockquote></li>
-</ul></li>
-<li><blockquote>
-<p><strong>Service Request:</strong> idle UE ডেটা পাঠাতে চাইলে বা paging পেলে সংযোগ ফিরিয়ে আনে।</p>
-</blockquote></li>
-</ul>
-<p><strong>GSM mobile-terminated (ইনকামিং) কল</strong></p>
-<ol type="1">
-<li><blockquote>
-<p>কলার নম্বর ডায়াল → গেটওয়ে MSC (GMSC) <strong>HLR</strong>-কে জিজ্ঞেস করে গ্রহীতা কোথায় (SRI)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>HLR গ্রহীতার বর্তমান VLR/MSC থেকে <strong>MSRN</strong> (অস্থায়ী roaming নম্বর) নিয়ে ফেরত দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>GMSC কলটি সেই MSC-তে রুট করে; MSC paging করে, গ্রহীতা সাড়া দিলে কল সংযুক্ত হয়।</p>
-</blockquote></li>
-</ol>
-<p><strong>5G Registration ও PDU Session</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>Registration:</strong> UE → gNB → <strong>AMF</strong>; AMF <strong>AUSF/UDM</strong> দিয়ে authenticate করে, সাবস্ক্রিপশন নেয়, <strong>5G-GUTI</strong> দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>PDU Session Establishment:</strong> UE → AMF → <strong>SMF</strong>; SMF <strong>UPF</strong> বেছে নেয় ও <strong>PCF</strong> থেকে নীতি পায়; IP ঠিকানা ও QoS Flow তৈরি হয়। 4G-র bearer-এর বদলে 5G-তে <strong>PDU Session ও QoS Flow</strong>।</p>
-</blockquote></li>
-</ul>
-<p><strong>সম্ভাব্য MCQ</strong></p>
-<ul>
-<li><blockquote>
-<p>ফোন idle থাকলে নেটওয়ার্ক তার অবস্থান কোন পর্যন্ত জানে? → Tracking Area পর্যন্ত</p>
-</blockquote></li>
-<li><blockquote>
-<p>LTE Attach-এ authentication তথ্য আসে কোথা থেকে? → HSS</p>
-</blockquote></li>
-<li><blockquote>
-<p>eNodeB-গুলোর মধ্যে সরাসরি handover কোন ইন্টারফেসে? → X2</p>
-</blockquote></li>
-<li><blockquote>
-<p>MSRN কী এবং কোথা থেকে আসে? → ইনকামিং কল রুট করার অস্থায়ী roaming নম্বর; গ্রহীতার বর্তমান VLR/MSC দেয়, HLR সেটি GMSC-কে জানায়</p>
-</blockquote></li>
-<li><blockquote>
-<p>5G-তে session ব্যবস্থাপনা করে কোন NF? → SMF</p>
-</blockquote></li>
-</ul>
-<h2>বিস্তারিত নোট</h2><p><i>টপিক ১১ থেকে ১৪। এখানে ধাপে ধাপে প্রবাহ (call flow) ও নোডের মধ্যকার বার্তা বিস্তারিত দেওয়া হয়েছে, কারণ এই অংশে &quot;কোনটার পর কোনটা&quot; ধরনের প্রশ্ন বেশি আসে।</i></p>
-<h3 id="তন-ধরনর-বযবসথপন"><strong>১১.১ তিন ধরনের ব্যবস্থাপনা</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>Mobility Management (MM):</strong> ইউজার কোথায় আছে তা জানা, নিবন্ধন, authentication, handover।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Session Management (SM):</strong> ডেটা সেশন (bearer/PDU session) তৈরি, পরিবর্তন, বন্ধ; IP ও QoS।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Call/Connection Control:</strong> কল বা সংযোগের সেটআপ ও release (CS-এ CC, IMS-এ SIP)।</p>
-</blockquote></li>
-</ul>
-<p>NAS (Non-Access Stratum) বার্তা UE ও core-এর (MME/AMF) মধ্যে সরাসরি যায়, eNB/gNB শুধু বহন করে। AS (Access Stratum) বার্তা UE ও eNB/gNB-র মধ্যে (RRC)।</p>
-<h3 id="অবসথ-মডল"><strong>১১.২ অবস্থা মডেল</strong></h3>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>স্তর</th>
-<th>অবস্থা</th>
-<th>অর্থ</th>
-</tr>
-<tr class="odd">
-<th>EMM (NAS, 4G)</th>
-<th>EMM-DEREGISTERED, EMM-REGISTERED</th>
-<th>নেটওয়ার্কে নিবন্ধিত কি না</th>
-</tr>
-<tr class="header">
-<th>ECM (NAS, 4G)</th>
-<th>ECM-IDLE, ECM-CONNECTED</th>
-<th>UE ও MME-র মধ্যে signalling সংযোগ আছে কি না</th>
-</tr>
-<tr class="odd">
-<th>RRC (AS, 4G)</th>
-<th>RRC_IDLE, RRC_CONNECTED</th>
-<th>রেডিও সংযোগ</th>
-</tr>
-<tr class="header">
-<th>RRC (AS, 5G)</th>
-<th>RRC_IDLE, <strong>RRC_INACTIVE</strong>, RRC_CONNECTED</th>
-<th>INACTIVE: core সংযোগ রেখে রেডিও আংশিক বন্ধ, দ্রুত পুনঃসংযোগ</th>
-</tr>
-<tr class="odd">
-<th>RM (5G NAS)</th>
-<th>RM-DEREGISTERED, RM-REGISTERED</th>
-<th>5G নিবন্ধন</th>
-</tr>
-<tr class="header">
-<th>CM (5G NAS)</th>
-<th>CM-IDLE, CM-CONNECTED</th>
-<th>NAS signalling সংযোগ</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>Idle mode:</strong> ফোন নিজে cell বেছে নেয় (cell selection/reselection), নেটওয়ার্ক জানে Tracking Area (TA) পর্যন্ত। ব্যাটারি বাঁচাতে <strong>DRX</strong> (Discontinuous Reception): ফোন নির্দিষ্ট বিরতিতে (যেমন 1.28 s) জেগে paging দেখে।</p>
-<h3 id="random-access-ও-rrc-সযগ-lte"><strong>১১.৩ Random Access ও RRC সংযোগ (LTE)</strong></h3>
-<p>ফোন connected হতে চাইলে চার ধাপের contention-based random access:</p>
-<ol type="1">
-<li><blockquote>
-<p><strong>Msg1:</strong> random access preamble (64টির একটি) <strong>RACH</strong>-এ।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Msg2:</strong> Random Access Response: timing advance, uplink grant, temporary C-RNTI।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Msg3:</strong> <strong>RRC Connection Request</strong> (UE-র পরিচয়)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Msg4:</strong> contention resolution ও RRC Connection Setup।</p>
-</blockquote></li>
-</ol>
-<p>তারপর UE <strong>RRC Connection Setup Complete</strong> পাঠায়, যার ভেতরে NAS বার্তা (যেমন Attach Request) থাকে।</p>
-<h3 id="lte-attach-বসতরত-করম"><strong>১১.৪ LTE Attach (বিস্তারিত ক্রম)</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>RACH ও RRC Connection Setup (ওপরের ধাপ); NAS <strong>Attach Request + PDN Connectivity Request</strong> UE থেকে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>eNB → MME: <strong>Initial UE Message</strong> (S1AP) (Attach Request সহ)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>MME → HSS: <strong>Authentication Information Request</strong>; HSS authentication vector (RAND, AUTN, XRES, KASME) ফেরত দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>MME → UE: <strong>Authentication Request</strong> (RAND, AUTN); UE AUTN যাচাই করে <strong>RES</strong> ফেরত পাঠায়; MME RES = XRES মেলায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>NAS Security Mode Command/Complete:</strong> encryption ও integrity অ্যালগরিদম বেছে নেওয়া।</p>
-</blockquote></li>
-<li><blockquote>
-<p>MME → HSS: <strong>Update Location Request</strong>; HSS সাবস্ক্রিপশন (APN, QoS, AMBR) ফেরত দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>MME → S-GW: <strong>Create Session Request</strong> (S11) → S-GW → P-GW (S5); P-GW <strong>IP ঠিকানা বরাদ্দ</strong> করে ও (PCRF-এর সাথে policy মিলিয়ে) <strong>Create Session Response</strong> দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>MME → eNB: <strong>Initial Context Setup Request</strong> (Attach Accept সহ: GUTI, TAI list, IP ঠিকানা, default bearer QoS)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>eNB → UE: <strong>RRC Connection Reconfiguration</strong> (radio bearer সেটআপ + Attach Accept); UE সম্পন্ন জানায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE <strong>Attach Complete</strong> পাঠায়; MME → S-GW <strong>Modify Bearer Request</strong> (eNB-র TEID) ⇒ ডাউনলিংক পথ চালু।</p>
-</blockquote></li>
-</ol>
-<p>ফল: UE এখন <strong>EMM-REGISTERED ও ECM-CONNECTED</strong>, একটি default bearer ও IP ঠিকানাসহ। কিছুক্ষণ নিষ্ক্রিয় থাকলে UE-র ECM-IDLE ও RRC_IDLE-এ নামে (S1 release)।</p>
-<h3 id="service-request-paging-ও-detach"><strong>১১.৫ Service Request, Paging ও Detach</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>Service Request:</strong> idle ইউজার ডেটা পাঠাতে চাইলে (বা paging-এর উত্তরে) connected হয়; bearer-এর রেডিও অংশ পুনঃস্থাপিত হয়। UE-কে IP ঠিকানা আবার নিতে হয় না।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Paging:</strong> নেটওয়ার্কে ইউজারের জন্য ডেটা/কল এলে MME TA list-এর সব eNB-তে paging পাঠায় (S1AP), eNB রেডিওতে প্রচার করে; UE সাড়া দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Detach:</strong> UE-initiated (বন্ধ করলে) বা network-initiated; bearer ও context মুছে যায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Tracking Area Update (TAU):</strong> TA list-এর বাইরে গেলে বা periodic timer শেষে; MME অবস্থান হালনাগাদ করে (GSM-এ Location Update, GPRS-এ Routing Area Update)।</p>
-</blockquote></li>
-</ul>
-<h3 id="lte-handover-বসতরত"><strong>১১.৬ LTE Handover (বিস্তারিত)</strong></h3>
-<p><strong>Measurement ও trigger:</strong> UE প্রতিবেশী cell মেপে রিপোর্ট দেয়। সংকেত মাপার একক: <strong>RSRP</strong> (Reference Signal Received Power, পরিসর প্রায় −140 থেকে −44 dBm), <strong>RSRQ</strong> (প্রায় −19.5 থেকে −3 dB), <strong>SINR</strong>। ঘটনা: A1 (serving ভালো), A2 (serving খারাপ), <strong>A3 (প্রতিবেশী serving-এর চেয়ে offset-এ ভালো; সবচেয়ে সাধারণ handover trigger)</strong>, A4, A5। ping-pong এড়াতে <strong>hysteresis</strong> ও <strong>time-to-trigger (TTT)</strong> ব্যবহৃত হয়।</p>
-<p><strong>X2 handover (সরাসরি eNB–eNB):</strong></p>
-<ol type="1">
-<li><blockquote>
-<p>Source eNB measurement রিপোর্ট দেখে সিদ্ধান্ত নেয় → X2-তে <strong>Handover Request</strong> target eNB-কে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Target resource বরাদ্দ করে <strong>Handover Request Acknowledge</strong> (target-এর নতুন config সহ)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Source UE-কে <strong>RRC Connection Reconfiguration (mobility control info)</strong> পাঠায় (handover command); ডেটা source থেকে target-এ ফরওয়ার্ড শুরু।</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE target cell-এ synchronize ও RACH করে; <strong>RRC Reconfiguration Complete</strong> পাঠায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Target → MME <strong>Path Switch Request</strong>; MME → S-GW <strong>Modify Bearer</strong>; পথ target-এ সরে; <strong>Path Switch Acknowledge</strong>।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Target → source <strong>UE Context Release</strong>; পুরনো রিসোর্স মুক্ত।</p>
-</blockquote></li>
-</ol>
-<p><strong>S1 handover:</strong> eNB-দের মধ্যে X2 না থাকলে বা MME/S-GW বদলাতে হলে MME-র মাধ্যমে (Handover Required → Handover Request → …)। <strong>Inter-RAT</strong> (4G→3G/2G): SGSN/MSC-র সাথে সমন্বয়, <strong>SRVCC</strong> voice-এর জন্য।</p>
-<p><strong>লক্ষ্য:</strong> handover-এ ডেটা বন্ধ থাকার সময় (interruption) কয়েক দশ ms; LTE-তে <strong>make-before-break নয়, hard handover</strong>।</p>
-<h3 id="gsm-location-update-ও-রট"><strong>১১.৭ GSM Location Update ও রুটিং</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>IMSI Attach:</strong> ফোন চালু হলে নেটওয়ার্কে জানায়; <strong>Location Update</strong> অন্য Location Area-তে গেলে (সাথে VLR আপডেট; নতুন VLR HLR-কে জানায়, পুরনো VLR-এর রেকর্ড মোছা হয় (Cancel Location))। <strong>Periodic Location Update:</strong> নির্দিষ্ট সময় পরপর, যাতে নেটওয়ার্ক জানে ফোন আছে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>TMSI re-allocation:</strong> পরিচয় গোপন রাখতে অস্থায়ী নম্বর বদলানো।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Roaming কল (MT):</strong> GMSC → HLR (SRI) → HLR ভিজিটেড VLR-কে PRN (Provide Roaming Number) → MSRN → GMSC কল রাউট করে।</p>
-</blockquote></li>
-</ul>
-<h3 id="g-registration-ও-pdu-session"><strong>১১.৮ 5G Registration ও PDU Session</strong></h3>
-<p><strong>Registration (initial):</strong></p>
-<ol type="1">
-<li><blockquote>
-<p>UE → gNB: RRC setup; <strong>Registration Request</strong> (SUCI, requested NSSAI) NAS-এ; gNB → AMF (N2)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>AMF → AUSF → UDM: <strong>authentication</strong> (5G-AKA বা EAP-AKA')।</p>
-</blockquote></li>
-<li><blockquote>
-<p>NAS security mode।</p>
-</blockquote></li>
-<li><blockquote>
-<p>AMF → UDM: সাবস্ক্রিপশন ডেটা (Nudm_SDM) ও registration নিবন্ধন (Nudm_UECM)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>AMF → PCF (যদি প্রয়োজন): access/mobility policy।</p>
-</blockquote></li>
-<li><blockquote>
-<p>AMF → UE: <strong>Registration Accept</strong> (<strong>5G-GUTI</strong>, Allowed NSSAI, TAI list)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE <strong>Registration Complete</strong>।</p>
-</blockquote></li>
-</ol>
-<p><strong>PDU Session Establishment:</strong></p>
-<ol type="1">
-<li><blockquote>
-<p>UE → AMF: <strong>PDU Session Establishment Request</strong> (S-NSSAI, DNN, session ID)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>AMF → SMF নির্বাচন (NRF/NSSF); <strong>Nsmf_PDUSession_CreateSMContext</strong>।</p>
-</blockquote></li>
-<li><blockquote>
-<p>SMF → UDM: সাবস্ক্রিপশন; SMF → PCF: session policy।</p>
-</blockquote></li>
-<li><blockquote>
-<p>SMF → <strong>UPF</strong>: <strong>N4 Session Establishment</strong> (PFCP): packet detection ও forwarding নিয়ম।</p>
-</blockquote></li>
-<li><blockquote>
-<p>SMF → AMF: N2 SM info (QoS Flow, UPF tunnel তথ্য) ও N1 SM (Accept); AMF → gNB: <strong>PDU Session Resource Setup Request</strong>।</p>
-</blockquote></li>
-<li><blockquote>
-<p>gNB ও UE: রেডিও bearer (DRB) সেটআপ; UE-কে IP ঠিকানা।</p>
-</blockquote></li>
-<li><blockquote>
-<p>ডেটা UE ↔︎ gNB ↔︎ UPF (N3, GTP-U) ↔︎ ইন্টারনেট (N6)।</p>
-</blockquote></li>
-</ol>
-<p><strong>5G handover:</strong> <strong>Xn handover</strong> (gNB–gNB সরাসরি) বা <strong>N2 handover</strong> (AMF-এর মাধ্যমে); 4G↔︎5G <strong>N26</strong> দিয়ে।</p>
-<h3 id="অনশলন-9"><strong>১১.৯ অনুশীলন</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>LTE Attach-এ ইউজারের IP ঠিকানা কখন বরাদ্দ হয়? → P-GW-র Create Session Response-এ (Attach Accept-এ UE পায়)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>সবচেয়ে সাধারণ handover trigger event? → A3।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Random access-এর Msg3 কী? → RRC Connection Request।</p>
-</blockquote></li>
-<li><blockquote>
-<p>5G-তে নতুন RRC অবস্থা? → RRC_INACTIVE।</p>
-</blockquote></li>
-<li><blockquote>
-<p>X2 handover-এ path switch কে শুরু করে? → Target eNB (MME-কে Path Switch Request)।</p>
-</blockquote></li>
-</ol>
-</div><div class="card"><b>🎬 ইন্টারঅ্যাকটিভ অ্যানিমেশন</b><p>কল সেটআপে সিগন্যাল ও রিপ্লাই কোন পথে ঘোরে তা ১৯টি scenario-তে ধাপে ধাপে দেখুন।</p><a class="btn" href="cell-animation.html">অ্যানিমেশন দেখুন</a></div><div class="tools"><a class="btn" href="cell-10.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-12.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+<h1>Topic 11: <span class="bn">Call Flow, Session Management ও Mobility Control</span><span class="en">Call Flow, Session Management and Mobility Control</span></h1><p class="src"><span class="bn">Theory • সহজ সারাংশ + বিস্তারিত নোট</span><span class="en">Theory • short note + detailed note</span></p>
+<div class="doc">
+<div id="sumBox">
+<h2>🧠 <span class="bn">সংক্ষেপ নোট</span><span class="en">Short note</span></h2>
+<p class="lead"><span class="bn">Call flow মানে একটি কাজ (ফোন চালু, কল, handover) শুরু থেকে শেষ পর্যন্ত নোডগুলোর মধ্যে কোন বার্তা কোন ক্রমে যায় তার তালিকা। এটা মুখস্থ করার চেয়ে গল্প হিসেবে বোঝা সহজ।</span><span class="en">A call flow is the list of which messages go between nodes, and in what order, for one task (power-on, call, handover). It is easier to understand as a story than to memorize.</span></p>
+<ul><li><span class="bn"><b>LTE Attach:</b> PRACH → RRC Setup → Attach Request → Authentication → Security → Create Session → Attach Accept।</span><span class="en"><b>LTE Attach:</b> PRACH → RRC setup → Attach Request → Authentication → Security → Create Session → Attach Accept.</span></li><li><span class="bn"><b>Idle:</b> ফোন ঘুমন্ত, শুধু TAU করে (নতুন Tracking Area বা timer)। <b>Connected:</b> কল চলছে, mobility = handover।</span><span class="en"><b>Idle:</b> phone asleep, only does TAU (new Tracking Area or timer). <b>Connected:</b> call on, mobility = handover.</span></li><li><span class="bn"><b>Service Request:</b> idle ফোন ডেটা পাঠাতে সংযোগ ফেরায়। ডেটা আসলে আগে <b>Paging</b>।</span><span class="en"><b>Service Request:</b> an idle phone restores its connection to send data. For incoming data, <b>Paging</b> comes first.</span></li><li><span class="bn"><b>X2 handover:</b> Source → Target সরাসরি। শেষে Target <b>Path Switch Request</b> MME-কে পাঠায়।</span><span class="en"><b>X2 handover:</b> Source → Target directly. At the end the Target sends a <b>Path Switch Request</b> to the MME.</span></li><li><span class="bn"><b>GSM:</b> ফোন channel বরাদ্দ চায় RACH-এ, বরাদ্দ আসে AGCH-এ।</span><span class="en"><b>GSM:</b> the phone asks for a channel on RACH and the grant comes on AGCH.</span></li></ul>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">Attach-এর গল্প: "হ্যালো বলি (PRACH) → সংযোগ নিই (RRC) → পরিচয় দিই (Attach) → প্রমাণ দিই (Auth) → লুকিয়ে কথা (Security) → ঠিকানা পাই (Session) → ঢুকে পড়ি (Accept)।"</span><span class="en">The attach story: "say hello (PRACH) → get a link (RRC) → give identity (Attach) → prove it (Auth) → talk secretly (Security) → get an address (Session) → I am in (Accept)."</span></p></div>
+</div>
+<div id="detBox">
+<h2>📖 <span class="bn">বিস্তারিত নোট</span><span class="en">Detailed note</span></h2>
+<details class="sec" open><summary><span class="bn">১১.১ LTE Attach (ফোন চালু করা)</span><span class="en">11.1 LTE Attach (switching on the phone)</span></summary>
+<div class="fig" data-fig="lte-attach"></div>
+<p><span class="bn">ওপরের অ্যানিমেশনে প্রতিটি ধাপ দেখো। কমলা = radio সংযোগ, নীল = নিয়মিত বার্তা, সবুজ = উত্তর বা সফলতা।</span><span class="en">Step through the animation above. Orange = radio connection, blue = normal message, green = reply or success.</span></p>
+<div class="tbl"><table><thead><tr><th><span class="bn">ধাপ</span><span class="en">Phase</span></th><th><span class="bn">কী হয়</span><span class="en">What happens</span></th></tr></thead><tbody><tr><td><span class="bn">১. Random access</span><span class="en">1. Random access</span></td><td><span class="bn">PRACH preamble → RAR → RRC Connection Request → Setup</span><span class="en">PRACH preamble → RAR → RRC Connection Request → Setup</span></td></tr><tr><td><span class="bn">২. NAS Attach</span><span class="en">2. NAS Attach</span></td><td><span class="bn">Attach Request MME-তে যায়</span><span class="en">The Attach Request reaches the MME</span></td></tr><tr><td><span class="bn">৩. Authentication</span><span class="en">3. Authentication</span></td><td><span class="bn">MME ↔ HSS ↔ UE (RAND, AUTN, RES)</span><span class="en">MME ↔ HSS ↔ UE (RAND, AUTN, RES)</span></td></tr><tr><td><span class="bn">৪. Security</span><span class="en">4. Security</span></td><td><span class="bn">NAS ও AS encryption/integrity চালু</span><span class="en">NAS and AS encryption/integrity turn on</span></td></tr><tr><td><span class="bn">৫. Session</span><span class="en">5. Session</span></td><td><span class="bn">Create Session: S-GW, P-GW, IP ঠিকানা, default bearer</span><span class="en">Create Session: S-GW, P-GW, IP address, default bearer</span></td></tr><tr><td><span class="bn">৬. Accept</span><span class="en">6. Accept</span></td><td><span class="bn">Attach Accept / Complete</span><span class="en">Attach Accept / Complete</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">১১.২ Idle, Paging, Service Request, TAU</span><span class="en">11.2 Idle, paging, service request, TAU</span></summary>
+<ul><li><span class="bn"><b>ECM-IDLE:</b> ফোন নেটওয়ার্কের সাথে RRC সংযোগ ছেড়ে ঘুমায়। ব্যাটারি বাঁচে।</span><span class="en"><b>ECM-IDLE:</b> the phone drops its RRC link and sleeps. Saves battery.</span></li><li><span class="bn"><b>Paging:</b> ডেটা আসলে MME Tracking Area-র সব cell-এ ফোনকে ডাকে।</span><span class="en"><b>Paging:</b> when data arrives the MME calls the phone in all cells of the Tracking Area.</span></li><li><span class="bn"><b>Service Request:</b> ফোন ডাকের উত্তরে (বা নিজে ডেটা পাঠাতে) সংযোগ ফিরিয়ে আনে।</span><span class="en"><b>Service Request:</b> the phone restores the connection in answer to paging (or to send its own data).</span></li><li><span class="bn"><b>TAU (Tracking Area Update):</b> ফোন নতুন Tracking Area-তে গেলে বা periodic timer-এ নেটওয়ার্ককে জানায়। কল চলাকালীন TAU নয়, handover।</span><span class="en"><b>TAU (Tracking Area Update):</b> the phone tells the network when it enters a new Tracking Area or when a periodic timer expires. During a call it is a handover, not a TAU.</span></li></ul>
+<div class="tbl"><table><thead><tr><th><span class="bn"></span><span class="en"></span></th><th><span class="bn">2G/3G</span><span class="en">2G/3G</span></th><th><span class="bn">4G</span><span class="en">4G</span></th></tr></thead><tbody><tr><td><span class="bn">এলাকা</span><span class="en">Area</span></td><td>Location Area (LAC)</td><td>Tracking Area (TAC)</td></tr><tr><td><span class="bn">ফোনের আপডেট</span><span class="en">Phone update</span></td><td>LAU</td><td>TAU</td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">১১.৩ Handover</span><span class="en">11.3 Handover</span></summary>
+<div class="fig" data-fig="lte-ho"></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">ধরন</span><span class="en">Type</span></th><th><span class="bn">কখন</span><span class="en">When</span></th><th><span class="bn">কে নিয়ন্ত্রণ করে</span><span class="en">Who controls</span></th></tr></thead><tbody><tr><td>X2 handover</td><td><span class="bn">দুই eNodeB সরাসরি জুড়ে থাকলে</span><span class="en">Two eNodeBs directly linked</span></td><td><span class="bn">eNodeB নিজেরা, শেষে MME পথ বদলায়</span><span class="en">The eNodeBs themselves; the MME switches the path at the end</span></td></tr><tr><td>S1 handover</td><td><span class="bn">X2 না থাকলে</span><span class="en">No X2 link</span></td><td><span class="bn">MME মাঝে থেকে</span><span class="en">The MME in the middle</span></td></tr></tbody></table></div>
+<div class="callout b"><p>🎬 <span class="bn">Handoff-এর সিগন্যাল ও hysteresis-এর অ্যানিমেশন টপিক ৩-এ আছে। কল কোন নোড হয়ে যায় দেখতে <a href="cell-animation.html">নেটওয়ার্ক অ্যানিমেশন</a> দেখো।</span><span class="en">The handoff signal and hysteresis animation is in Topic 3. To see which nodes a call crosses, open the <a href="cell-animation.html">network animation</a>.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">১১.৪ GSM-এ কল সেটআপ (ধাপ)</span><span class="en">11.4 GSM call setup (steps)</span></summary>
+<ol><li><span class="bn">ফোন <b>RACH</b>-এ channel চায় (Channel Request)।</span><span class="en">The phone asks for a channel on the <b>RACH</b> (Channel Request).</span></li><li><span class="bn">নেটওয়ার্ক <b>AGCH</b>-এ SDCCH বরাদ্দ জানায় (Immediate Assignment)।</span><span class="en">The network announces an SDCCH on the <b>AGCH</b> (Immediate Assignment).</span></li><li><span class="bn"><b>CM Service Request</b>, তারপর Authentication ও Ciphering।</span><span class="en"><b>CM Service Request</b>, then authentication and ciphering.</span></li><li><span class="bn"><b>Setup</b> বার্তায় গন্তব্য নম্বর যায়; MSC কল রুট করে।</span><span class="en">The destination number goes in the <b>Setup</b> message; the MSC routes the call.</span></li><li><span class="bn"><b>Assignment:</b> ফোন SDCCH ছেড়ে TCH (ভয়েস channel)-এ যায়।</span><span class="en"><b>Assignment:</b> the phone moves from the SDCCH to a TCH (voice channel).</span></li><li><span class="bn"><b>Alerting</b> (রিং) → <b>Connect</b> (ফোন ধরা) → কথা।</span><span class="en"><b>Alerting</b> (ring) → <b>Connect</b> (answer) → talk.</span></li></ol>
+<div class="fxbox"><div class="fxn"><span class="bn">Incoming কল: MSRN পদ্ধতি</span><span class="en">Incoming call: the MSRN method</span></div><div class="fxf">GMSC → HLR (SRI) → VLR (MSRN) → GMSC → MSC → paging</div><div class="fxv"><span class="bn">বিস্তারিত অ্যানিমেশন টপিক ১৪-তে।</span><span class="en">Detailed animation in Topic 14.</span></div></div>
+</details>
+<details class="sec" open><summary><span class="bn">১১.৫ অনুশীলন</span><span class="en">11.5 Practice</span></summary>
+<details class="qa"><summary><span class="bn">LTE-তে UE-এর প্রথম বার্তা কী?</span><span class="en">What is the first LTE UE message?</span></summary><p><span class="bn">PRACH preamble (Msg1)।</span><span class="en">The PRACH preamble (Msg1).</span></p></details>
+<details class="qa"><summary><span class="bn">Idle UE ডেটা পাঠাতে কোন procedure করে?</span><span class="en">Which procedure does an idle UE use to send data?</span></summary><p><span class="bn">Service Request।</span><span class="en">Service Request.</span></p></details>
+<details class="qa"><summary><span class="bn">TAU কখন হয়?</span><span class="en">When does TAU happen?</span></summary><p><span class="bn">নতুন Tracking Area-তে গেলে বা periodic timer-এ।</span><span class="en">On entering a new Tracking Area or on the periodic timer.</span></p></details>
+<details class="qa"><summary><span class="bn">X2 handover-এর শেষে Target eNB MME-কে কী পাঠায়?</span><span class="en">At the end of X2 handover, what does the target eNB send the MME?</span></summary><p><span class="bn">Path Switch Request।</span><span class="en">Path Switch Request.</span></p></details>
+<details class="qa"><summary><span class="bn">GSM-এ প্রথম access বার্তা কোন channel-এ?</span><span class="en">On which channel is the first GSM access message sent?</span></summary><p><span class="bn">RACH।</span><span class="en">RACH.</span></p></details>
+</details>
+</div>
+</div>
+<div class="tools"><a class="btn" href="cell-10.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-12.html">পরের টপিক →</a></div>
+<p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a> <a class="btn" href="cell-quiz-buet.html">🎯 BUET MCQ →</a> <a class="btn" href="cell-glossary.html">🔤 শর্টফর্ম</a> <a class="btn" href="cell-formulas.html">📐 সূত্র</a></p>
 </main>
 <footer>Created by Al Nahian Mugdho</footer>
-<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
+<script src="data/questions.js"></script><script src="js/app.js"></script><script src="data/cell_figs.js"></script><script src="js/learn.js"></script></body></html>

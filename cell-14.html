@@ -1,299 +1,48 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cellular Topic 14: HLR, HSS ও Registry সিস্টেম — Telecommunication Lab</title>
+<title>Topic 14: HLR, HSS and Registry Systems — Telecommunication Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
 <main>
-<h1>Cellular Topic 14: HLR, HSS ও Registry সিস্টেম</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
-<p>HLR, HSS ও UDM মূলত একই ভূমিকার তিন প্রজন্ম: সাবস্ক্রাইবারের স্থায়ী ডেটাবেস। প্রজন্ম বদলালে নাম ও প্রোটোকল বদলেছে, কাজের মূল ধারণা একই।</p>
-<p><strong>ডেটাবেসের ক্রমবিবর্তন</strong></p>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-<col style="width: 25%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>বিষয়</th>
-<th>2G/3G</th>
-<th>4G</th>
-<th>5G</th>
-</tr>
-<tr class="odd">
-<th>স্থায়ী ডেটাবেস</th>
-<th>HLR (+AuC)</th>
-<th>HSS</th>
-<th>UDM + UDR (+AUSF)</th>
-</tr>
-<tr class="header">
-<th>অস্থায়ী/ভিজিটর ডেটা</th>
-<th>VLR (MSC-র সাথে)</th>
-<th>MME-র ভেতরে</th>
-<th>AMF-এর ভেতরে</th>
-</tr>
-<tr class="odd">
-<th>প্রোটোকল</th>
-<th>SS7/MAP</th>
-<th>Diameter (S6a, Cx)</th>
-<th>HTTP/2 REST (Nudm সেবা)</th>
-</tr>
-<tr class="header">
-<th>ডিভাইস যাচাই</th>
-<th>EIR</th>
-<th>EIR (S13)</th>
-<th>5G-EIR</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>HLR-এর কাজ</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>স্থায়ী ডেটা:</strong> IMSI, MSISDN, সেবার তালিকা, Ki-র সাথে যুক্ত তথ্য (AuC-র মাধ্যমে)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>গতিশীল ডেটা:</strong> ইউজার এখন কোন MSC/VLR-এর এলাকায় আছে (location)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>কল রাউটিং:</strong> ইনকামিং কলে GMSC-কে জানায় কল কোথায় পাঠাতে হবে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Supplementary service:</strong> call forwarding, call barring, call waiting-এর সেটিংস।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>MAP অপারেশন:</strong> Update Location, Send Routing Info (SRI), Send Authentication Info, Insert/Delete Subscriber Data, Cancel Location।</p>
-</blockquote></li>
-</ul>
-<p><strong>VLR:</strong> MSC-র সাথে সংযুক্ত অস্থায়ী ডেটাবেস; আগন্তুক ইউজারের প্রোফাইল HLR থেকে এনে কপি রাখে, ইউজার চলে গেলে মুছে দেয়। গতির জন্য প্রতিবার HLR-এ যেতে হয় না।</p>
-<p><strong>HSS-এর কাজ (4G ও IMS)</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>Authentication ও authorization:</strong> MME-কে authentication vector দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Subscription profile:</strong> QoS (AMBR, QCI), অনুমোদিত APN, roaming অধিকার।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Mobility:</strong> <strong>Update Location Request/Answer</strong> (ULR/ULA) দিয়ে ইউজারের বর্তমান MME জানে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>IMS সেবা:</strong> S-CSCF নির্বাচনে ও IMS প্রোফাইল সরবরাহে (Cx ইন্টারফেস)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>প্রোটোকল Diameter; <strong>DRA (Diameter Routing Agent)</strong> বড় নেটওয়ার্কে Diameter বার্তার রাউটিং করে।</p>
-</blockquote></li>
-</ul>
-<p><strong>UDM/UDR (5G)</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>UDM:</strong> সাবস্ক্রিপশন ও authentication ডেটা ব্যবস্থাপনা, SMF/AMF-কে সেবা দেয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>UDR:</strong> ডেটার আসল সংরক্ষণ (stateless UDM-এর পেছনের ডেটাবেস); <strong>UDSF</strong> অস্থায়ী কাঠামোবদ্ধ ডেটা রাখে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>নির্ভরযোগ্যতার জন্য geo-redundancy (ভিন্ন শহরে ডেটা প্রতিলিপি) অপরিহার্য, কারণ ডেটাবেস বসে গেলে পুরো নেটওয়ার্কের সেবা থেমে যায়।</p>
-</blockquote></li>
-</ul>
-<p><strong>Registry সিস্টেম</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>EIR (Equipment Identity Register):</strong> ডিভাইসের IMEI যাচাই করে। তিন তালিকা: <strong>White</strong> (অনুমোদিত), <strong>Grey</strong> (নজরদারিতে), <strong>Black</strong> (চুরি/অবৈধ, ব্লক)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>CEIR/NEIR (Central/National EIR):</strong> দেশব্যাপী কেন্দ্রীয় ডিভাইস রেজিস্ট্রি; সব অপারেটরের মধ্যে চুরি/অবৈধ হ্যান্ডসেট ব্লক সমন্বয় করে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Number portability registry:</strong> নম্বর অপারেটর বদলালেও কাজ করার জন্য কেন্দ্রীয় ডেটাবেস।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>SPR/UDR:</strong> নীতি (policy) সম্পর্কিত গ্রাহক ডেটা।</p>
-</blockquote></li>
-</ul>
-<p><strong>সম্ভাব্য MCQ</strong></p>
-<ul>
-<li><blockquote>
-<p>HLR-এ কোন ধরনের ডেটা থাকে? → স্থায়ী সাবস্ক্রাইবার ডেটা ও বর্তমান location</p>
-</blockquote></li>
-<li><blockquote>
-<p>4G-তে HLR-এর সমতুল্য নোড? → HSS</p>
-</blockquote></li>
-<li><blockquote>
-<p>HSS ও MME-র মধ্যে ইন্টারফেস? → S6a (Diameter)</p>
-</blockquote></li>
-<li><blockquote>
-<p>চুরি হওয়া ফোন ব্লক করতে কোন তালিকা? → Black list (EIR)</p>
-</blockquote></li>
-<li><blockquote>
-<p>5G-তে সাবস্ক্রিপশন ডেটার আসল সংরক্ষণ কোথায়? → UDR</p>
-</blockquote></li>
-</ul>
-<h2>বিস্তারিত নোট</h2>
-<h3 id="ববরতন"><strong>১৪.১ বিবর্তন</strong></h3>
-<table>
-<colgroup>
-<col style="width: 33%" />
-<col style="width: 33%" />
-<col style="width: 33%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>প্রজন্ম</th>
-<th>ডেটাবেস</th>
-<th>প্রোটোকল</th>
-</tr>
-<tr class="odd">
-<th>2G/3G</th>
-<th><strong>HLR + AuC</strong> (সাথে <strong>VLR</strong>, <strong>EIR</strong>)</th>
-<th>MAP (SS7)</th>
-</tr>
-<tr class="header">
-<th>4G</th>
-<th><strong>HSS</strong> (HLR + AuC + IMS ডেটা)</th>
-<th>Diameter (S6a, Cx, Sh)</th>
-</tr>
-<tr class="odd">
-<th>5G</th>
-<th><strong>UDM + UDR + AUSF/ARPF</strong></th>
-<th>HTTP/2 (SBI: Nudm, Nudr)</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<h3 id="hlr-home-location-register"><strong>১৪.২ HLR (Home Location Register)</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>স্থায়ী ডেটা:</strong> IMSI, MSISDN, সাবস্ক্রাইব করা সেবা (voice, SMS, GPRS), supplementary service (call forwarding, barring), QoS প্রোফাইল।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>গতিশীল ডেটা:</strong> বর্তমান VLR/MSC ঠিকানা (ইউজার কোথায়), SGSN ঠিকানা।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>AuC:</strong> Ki সংরক্ষণ, authentication vector তৈরি।</p>
-</blockquote></li>
-<li><blockquote>
-<p>কল রাউটিং-এ GMSC HLR-কে <strong>SRI (Send Routing Information)</strong> পাঠায়; HLR VLR-কে <strong>PRN</strong> দিয়ে MSRN আনে।</p>
-</blockquote></li>
-</ul>
-<h3 id="vlr-visitor-location-register"><strong>১৪.৩ VLR (Visitor Location Register)</strong></h3>
-<p>MSC-র সাথে থাকা অস্থায়ী ডেটাবেস: ভিজিটর ইউজারের সাবস্ক্রিপশন কপি, TMSI, Location Area। ইউজার চলে গেলে রেকর্ড মোছা হয়। কলের সময় HLR-এ বারবার না গিয়ে লোকালি কাজ হয়।</p>
-<h3 id="hss-home-subscriber-server"><strong>১৪.৪ HSS (Home Subscriber Server)</strong></h3>
-<ul>
-<li><blockquote>
-<p>4G ও IMS-এর জন্য একীভূত ডেটাবেস।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>S6a (MME ↔︎ HSS):</strong> Authentication Information, Update Location, Cancel Location, Insert Subscriber Data; Diameter।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Cx (CSCF ↔︎ HSS), Sh (AS ↔︎ HSS)।</strong></p>
-</blockquote></li>
-<li><blockquote>
-<p>সংরক্ষণ: IMSI, APN তালিকা, <strong>AMBR</strong> (aggregate max bit rate), ডিফল্ট QCI/ARP, IMS প্রোফাইল (iFC), roaming অনুমতি।</p>
-</blockquote></li>
-<li><blockquote>
-<p>ছোট/বড় অপারেটরের জন্য <strong>geo-redundant</strong> ক্লাস্টার; <strong>ইউজার ডেটা কনসোলিডেশন (UDC)</strong> আর্কিটেকচারে FE (front end) ও UDR (backend)।</p>
-</blockquote></li>
-</ul>
-<h3 id="g-udm-udr-ausf"><strong>১৪.৫ 5G: UDM, UDR, AUSF</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>UDM (Unified Data Management):</strong> সাবস্ক্রিপশন ডেটা পরিচালনা, <strong>authentication credential</strong> প্রক্রিয়াকরণ (ARPF), <strong>SUCI de-concealment</strong> (SIDF), UE-র সার্ভিং AMF/SMF নিবন্ধন, SMS ব্যবস্থাপনা। সার্ভিস: <strong>Nudm_UEAuthentication, Nudm_SDM (Subscriber Data Management), Nudm_UECM (UE Context Management)</strong>।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>UDR (Unified Data Repository):</strong> ডেটা সংরক্ষণ (সাবস্ক্রিপশন, policy, application ডেটা); UDM, PCF, NEF ব্যবহার করে (<strong>Nudr</strong>)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>AUSF:</strong> 5G-AKA/EAP authentication সার্ভার।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>UDSF:</strong> অসংগঠিত ডেটা (NF context) সংরক্ষণ।</p>
-</blockquote></li>
-</ul>
-<h3 id="eir-ও-5g-eir"><strong>১৪.৬ EIR ও 5G-EIR</strong></h3>
-<p><strong>EIR (Equipment Identity Register)</strong> IMEI-ভিত্তিক তালিকা রাখে:</p>
-<ul>
-<li><blockquote>
-<p><strong>White list:</strong> অনুমোদিত</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Grey list:</strong> পর্যবেক্ষণাধীন</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Black list:</strong> চুরি/অবৈধ; সংযোগ নিষিদ্ধ</p>
-</blockquote></li>
-</ul>
-<p>MME/AMF <strong>ME Identity Check</strong> করে (S13 ইন্টারফেস, Diameter; 5G-তে N17)। জাতীয় পর্যায়ে <strong>CEIR</strong> (Central EIR) একাধিক অপারেটরের ব্ল্যাকলিস্ট একত্র করে।</p>
-<h3 id="সরকষণ-ও-পরপযত"><strong>১৪.৭ সংরক্ষণ ও প্রাপ্যতা</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>Redundancy:</strong> active-active বা N+1; ভৌগোলিকভাবে আলাদা ডেটা সেন্টার।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>ডেটা সিঙ্ক্রোনাইজেশন</strong>, ব্যাকআপ, <strong>provisioning গেটওয়ে</strong> (নতুন SIM অ্যাক্টিভেশন, প্যাকেজ পরিবর্তন)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>MNP (Mobile Number Portability):</strong> নম্বর অপরিবর্তিত রেখে অপারেটর বদল; রাউটিং-এ NPDB/ডেটাবেস লাগে। বাংলাদেশে MNP চালু হয়েছে (বিস্তারিত তথ্য সূত্র থেকে যাচাই করুন)।</p>
-</blockquote></li>
-</ul>
-<h3 id="মল-পরথকযর-সরসকষপ"><strong>১৪.৮ মূল পার্থক্যের সারসংক্ষেপ</strong></h3>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>প্রশ্ন</th>
-<th>উত্তর</th>
-</tr>
-<tr class="odd">
-<th>HLR কী ধরে রাখে?</th>
-<th>স্থায়ী সাবস্ক্রিপশন + বর্তমান VLR ঠিকানা</th>
-</tr>
-<tr class="header">
-<th>VLR কী?</th>
-<th>ভিজিটর ইউজারের অস্থায়ী কপি (MSC-র সাথে)</th>
-</tr>
-<tr class="odd">
-<th>HSS-এ HLR-এর বাইরে বাড়তি কী?</th>
-<th>IMS প্রোফাইল, Diameter ইন্টারফেস (S6a, Cx, Sh)</th>
-</tr>
-<tr class="header">
-<th>UDM কোন প্রোটোকলে কথা বলে?</th>
-<th>HTTP/2 (SBI)</th>
-</tr>
-<tr class="odd">
-<th>IMEI ব্ল্যাকলিস্ট কোথায়?</th>
-<th>EIR/CEIR</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<h3 id="অনশলন-12"><strong>১৪.৯ অনুশীলন</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>S6a ইন্টারফেস কোন দুটির মধ্যে? → MME ↔︎ HSS।</p>
-</blockquote></li>
-<li><blockquote>
-<p>5G-তে SUCI→SUPI ডিক্রিপ্ট করে কে? → UDM-এর SIDF।</p>
-</blockquote></li>
-<li><blockquote>
-<p>EIR-এর তিন তালিকা? → White, Grey, Black।</p>
-</blockquote></li>
-<li><blockquote>
-<p>AuC কী সংরক্ষণ করে? → Ki ও authentication অ্যালগরিদম।</p>
-</blockquote></li>
-<li><blockquote>
-<p>GMSC কোন বার্তায় HLR থেকে রুটিং তথ্য নেয়? → SRI।</p>
-</blockquote></li>
-</ol>
-</div><div class="tools"><a class="btn" href="cell-13.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-15.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+<h1>Topic 14: <span class="bn">HLR, HSS ও Registry সিস্টেম</span><span class="en">HLR, HSS and Registry Systems</span></h1><p class="src"><span class="bn">Theory • সহজ সারাংশ + বিস্তারিত নোট</span><span class="en">Theory • short note + detailed note</span></p>
+<div class="doc">
+<div id="sumBox">
+<h2>🧠 <span class="bn">সংক্ষেপ নোট</span><span class="en">Short note</span></h2>
+<p class="lead"><span class="bn">নেটওয়ার্ককে জানতে হয় প্রতিটি ইউজার কে, কী সেবা পাবে এবং এখন কোথায় আছে। এই তথ্য রাখে কিছু "রেজিস্ট্রি" ডাটাবেস: 2G/3G-তে HLR, VLR, AuC, EIR; 4G-তে HSS; 5G-তে UDM ও UDR।</span><span class="en">The network must know who each user is, what service they get and where they are now. A few "registry" databases hold this: HLR, VLR, AuC, EIR in 2G/3G; HSS in 4G; UDM and UDR in 5G.</span></p>
+<ul><li><span class="bn"><b>HLR</b> = স্থায়ী ডাটাবেস (IMSI, নম্বর, সেবা) + ইউজার এখন কোন VLR/MSC-তে আছে।</span><span class="en"><b>HLR</b> = permanent database (IMSI, number, services) + which VLR/MSC the user is in now.</span></li><li><span class="bn"><b>VLR</b> = অস্থায়ী ডাটাবেস, যে এলাকায় ইউজার আছে সেখানকার।</span><span class="en"><b>VLR</b> = temporary database for the area where the user is now.</span></li><li><span class="bn"><b>AuC</b> = গোপন key (Ki)। <b>EIR</b> = ডিভাইসের IMEI তালিকা।</span><span class="en"><b>AuC</b> = secret keys (Ki). <b>EIR</b> = list of device IMEIs.</span></li><li><span class="bn"><b>EIR list:</b> White = অনুমোদিত, Grey = নজরে, Black = ব্লক (চুরি)।</span><span class="en"><b>EIR lists:</b> White = approved, Grey = watched, Black = blocked (stolen).</span></li><li><span class="bn"><b>HSS</b> = HLR + AuC + IMS তথ্য। <b>UDM/UDR</b> = 5G সমতুল্য।</span><span class="en"><b>HSS</b> = HLR + AuC + IMS data. <b>UDM/UDR</b> = the 5G equivalent.</span></li><li><span class="bn"><b>Incoming কল:</b> GMSC → HLR (SRI) → VLR (MSRN) → কল রুট।</span><span class="en"><b>Incoming call:</b> GMSC → HLR (SRI) → VLR (MSRN) → route the call.</span></li></ul>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">HLR = "বাড়ির ঠিকানা" (স্থায়ী), VLR = "হোটেলের ঠিকানা" (অস্থায়ী)। ডাক HLR-এ গিয়ে জিজ্ঞেস করে "এখন কোন হোটেলে?"</span><span class="en">HLR = "home address" (permanent), VLR = "hotel address" (temporary). The post asks the home "which hotel is he in now?"</span></p></div>
+</div>
+<div id="detBox">
+<h2>📖 <span class="bn">বিস্তারিত নোট</span><span class="en">Detailed note</span></h2>
+<details class="sec" open><summary><span class="bn">১৪.১ রেজিস্ট্রিগুলোর পরিচয়</span><span class="en">14.1 Meet the registers</span></summary>
+<div class="callout b"><p>🛵 <b><span class="bn">উপমা:</span><span class="en">Analogy:</span></b> <span class="bn">একজন মানুষের বাড়ির ঠিকানা (HLR) সবসময় থাকে। সে ঢাকা থেকে সিলেটে গিয়ে হোটেলে উঠল (VLR)। বাড়িতে ফোন করলে বাড়ি বলে দেয় "সে এখন সিলেটের এই হোটেলে", তখন আসল কল সেখানে যায়।</span><span class="en">A person always has a home address (HLR). He travels from Dhaka to Sylhet and stays in a hotel (VLR). If you call his home, the home says "he is at this hotel in Sylhet now" and the real call goes there.</span></p></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">রেজিস্টার</span><span class="en">Register</span></th><th><span class="bn">কী রাখে</span><span class="en">What it holds</span></th><th><span class="bn">কত স্থায়ী</span><span class="en">How permanent</span></th></tr></thead><tbody><tr><td>HLR</td><td><span class="bn">IMSI, MSISDN, সেবা, বর্তমান VLR/MSC ঠিকানা</span><span class="en">IMSI, MSISDN, services, current VLR/MSC address</span></td><td><span class="bn">স্থায়ী</span><span class="en">Permanent</span></td></tr><tr><td>VLR</td><td><span class="bn">যে ইউজাররা এখন এলাকায় আছে তাদের কপি, TMSI, LAI</span><span class="en">Copies for users now in the area, TMSI, LAI</span></td><td><span class="bn">অস্থায়ী</span><span class="en">Temporary</span></td></tr><tr><td>AuC</td><td><span class="bn">প্রতি ইউজারের Ki, triplet তৈরি</span><span class="en">Ki of each user, makes triplets</span></td><td><span class="bn">স্থায়ী, খুব গোপন</span><span class="en">Permanent, very secret</span></td></tr><tr><td>EIR</td><td><span class="bn">IMEI-র white/grey/black তালিকা</span><span class="en">White/grey/black lists of IMEI</span></td><td><span class="bn">তালিকা হালনাগাদ হয়</span><span class="en">Lists are updated</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">১৪.২ Location Update (ইউজার কোথায় তা জানানো)</span><span class="en">14.2 Location update (telling where the user is)</span></summary>
+<ol><li><span class="bn">ফোন নতুন Location Area-তে এসে নতুন VLR-কে জানায় (Location Update Request)।</span><span class="en">The phone enters a new Location Area and tells the new VLR (Location Update Request).</span></li><li><span class="bn">নতুন VLR ইউজারের তথ্য ও triplet HLR থেকে আনে।</span><span class="en">The new VLR fetches the user's data and triplets from the HLR.</span></li><li><span class="bn">HLR নিজের রেকর্ডে নতুন VLR/MSC ঠিকানা লিখে রাখে।</span><span class="en">The HLR writes the new VLR/MSC address in its record.</span></li><li><span class="bn">HLR পুরোনো VLR-কে বলে ইউজারকে মুছে ফেলতে (Cancel Location)।</span><span class="en">The HLR tells the old VLR to delete the user (Cancel Location).</span></li></ol>
+</details>
+<details class="sec" open><summary><span class="bn">১৪.৩ Incoming কলের রুটিং</span><span class="en">14.3 Routing an incoming call</span></summary>
+<div class="fig" data-fig="hlr-route"></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">শব্দ</span><span class="en">Term</span></th><th><span class="bn">পূর্ণরূপ</span><span class="en">Full form</span></th><th><span class="bn">কাজ</span><span class="en">Job</span></th></tr></thead><tbody><tr><td>SRI</td><td>Send Routing Information</td><td><span class="bn">GMSC HLR-কে জিজ্ঞেস করে ইউজার কোথায়</span><span class="en">The GMSC asks the HLR where the user is</span></td></tr><tr><td>PRN</td><td>Provide Roaming Number</td><td><span class="bn">HLR VLR-কে অস্থায়ী নম্বর চায়</span><span class="en">The HLR asks the VLR for a temporary number</span></td></tr><tr><td>MSRN</td><td>Mobile Station Roaming Number</td><td><span class="bn">অস্থায়ী নম্বর যা ধরে কল রুট হয়</span><span class="en">The temporary number the call is routed on</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">১৪.৪ EIR ও IMEI</span><span class="en">14.4 The EIR and the IMEI</span></summary>
+<ul><li><span class="bn"><b>IMEI:</b> 15 digit; প্রথম 8 digit = TAC (ডিভাইসের ধরন ও কোম্পানি)।</span><span class="en"><b>IMEI:</b> 15 digits; the first 8 = TAC (device type and maker).</span></li><li><span class="bn"><b>White list:</b> অনুমোদিত। <b>Black list:</b> চুরি/হারানো, ব্লক। <b>Grey list:</b> সন্দেহজনক, পর্যবেক্ষণে।</span><span class="en"><b>White list:</b> approved. <b>Black list:</b> stolen/lost, blocked. <b>Grey list:</b> suspicious, under watch.</span></li></ul>
+</details>
+<details class="sec" open><summary><span class="bn">১৪.৫ HLR থেকে HSS ও UDM</span><span class="en">14.5 From HLR to HSS and UDM</span></summary>
+<div class="tbl"><table><thead><tr><th><span class="bn"></span><span class="en"></span></th><th><span class="bn">2G/3G</span><span class="en">2G/3G</span></th><th><span class="bn">4G</span><span class="en">4G</span></th><th><span class="bn">5G</span><span class="en">5G</span></th></tr></thead><tbody><tr><td><span class="bn">ডাটাবেস</span><span class="en">Database</span></td><td>HLR + AuC</td><td>HSS</td><td><span class="bn">UDM + UDR + AUSF</span><span class="en">UDM + UDR + AUSF</span></td></tr><tr><td><span class="bn">Protocol</span><span class="en">Protocol</span></td><td>MAP / SS7</td><td>Diameter (S6a, Cx)</td><td>HTTP/2 (SBI)</td></tr><tr><td><span class="bn">কেন্দ্র</span><span class="en">Used by</span></td><td>MSC, SGSN</td><td>MME, IMS</td><td>AMF, SMF</td></tr></tbody></table></div>
+<div class="callout b"><p>💡 <span class="bn">HSS-এর বড় সুবিধা: একটি জায়গায় একই ইউজারের LTE ও IMS দুই ধরনের তথ্য থাকে, তাই আলাদা আলাদা ডাটাবেস মেলানোর ঝামেলা কমে।</span><span class="en">A big advantage of the HSS: one place holds both LTE and IMS data of a user, so there is less hassle keeping separate databases in step.</span></p></div>
+</details>
+<details class="sec" open><summary><span class="bn">১৪.৬ অনুশীলন</span><span class="en">14.6 Practice</span></summary>
+<details class="qa"><summary><span class="bn">5G-তে HSS-এর সমতুল্য কী?</span><span class="en">What is the 5G equivalent of the HSS?</span></summary><p><span class="bn">UDM / UDR।</span><span class="en">UDM / UDR.</span></p></details>
+<details class="qa"><summary><span class="bn">HLR ইউজারের বর্তমান লোকেশন কোন আকারে রাখে?</span><span class="en">In what form does the HLR hold the user's current location?</span></summary><p><span class="bn">সংশ্লিষ্ট VLR/MSC-র ঠিকানা।</span><span class="en">The address of the serving VLR/MSC.</span></p></details>
+<details class="qa"><summary><span class="bn">EIR grey list কী?</span><span class="en">What is the EIR grey list?</span></summary><p><span class="bn">পর্যবেক্ষণাধীন/সন্দেহজনক IMEI।</span><span class="en">Watched or suspicious IMEIs.</span></p></details>
+<details class="qa"><summary><span class="bn">MSRN কে দেয়?</span><span class="en">Who provides the MSRN?</span></summary><p><span class="bn">VLR (HLR-এর অনুরোধে)।</span><span class="en">The VLR (on the HLR's request).</span></p></details>
+<details class="qa"><summary><span class="bn">IMEI-র প্রথম 8 digit কী?</span><span class="en">What are the first 8 digits of the IMEI?</span></summary><p><span class="bn">TAC।</span><span class="en">The TAC.</span></p></details>
+</details>
+</div>
+</div>
+<div class="tools"><a class="btn" href="cell-13.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-15.html">পরের টপিক →</a></div>
+<p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a> <a class="btn" href="cell-quiz-buet.html">🎯 BUET MCQ →</a> <a class="btn" href="cell-glossary.html">🔤 শর্টফর্ম</a> <a class="btn" href="cell-formulas.html">📐 সূত্র</a></p>
 </main>
 <footer>Created by Al Nahian Mugdho</footer>
-<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
+<script src="data/questions.js"></script><script src="js/app.js"></script><script src="data/cell_figs.js"></script><script src="js/learn.js"></script></body></html>

@@ -1,325 +1,43 @@
 <!DOCTYPE html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cellular Topic 12: IMS Architecture (Voice ও Multimedia Switching) — Telecommunication Lab</title>
+<title>Topic 12: IMS Architecture (Voice and Multimedia Switching) — Telecommunication Lab</title>
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css"></head><body>
 <header><a class="brand" href="index.html">📡 Telecommunication Lab</a><a href="index.html">Home</a><button onclick="cycleLang()">বাংলা / English</button></header>
 <main>
-<h1>Cellular Topic 12: IMS Architecture (Voice ও Multimedia Switching)</h1><p class="src">Theory • সহজ সারাংশ + বিস্তারিত নোট</p><div class="doc">
-<p><strong>IMS (IP Multimedia Subsystem)</strong> হলো 3GPP-র IP-ভিত্তিক কাঠামো, যার উপর voice, video ও মেসেজিং সেবা চলে। LTE ও 5G-তে CS domain নেই, তাই voice চালাতে IMS লাগে; এর signalling প্রোটোকল <strong>SIP</strong>।</p>
-<p><strong>IMS-এর মূল নোড</strong></p>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>নোড</th>
-<th>কাজ</th>
-</tr>
-<tr class="odd">
-<th>P-CSCF (Proxy)</th>
-<th>UE-র প্রথম সংযোগ বিন্দু; SIP বার্তা যাচাই, নিরাপত্তা ও QoS নীতির সাথে যোগসূত্র</th>
-</tr>
-<tr class="header">
-<th>I-CSCF (Interrogating)</th>
-<th>অন্য নেটওয়ার্ক থেকে আসা কলের প্রবেশদ্বার; HSS জিজ্ঞেস করে সঠিক S-CSCF বেছে নেয়</th>
-</tr>
-<tr class="odd">
-<th>S-CSCF (Serving)</th>
-<th>কেন্দ্রীয় নোড: ইউজার registration, session নিয়ন্ত্রণ, সেবা (AS) আহ্বান</th>
-</tr>
-<tr class="header">
-<th>E-CSCF</th>
-<th>জরুরি কল (999 ইত্যাদি) রুটিং</th>
-</tr>
-<tr class="odd">
-<th>HSS</th>
-<th>সাবস্ক্রাইবার প্রোফাইল ও authentication (IMS-এ)</th>
-</tr>
-<tr class="header">
-<th>AS / TAS</th>
-<th>Application Server: সেবার যুক্তি (call forwarding, conference); Telephony AS voice সেবা দেয়</th>
-</tr>
-<tr class="odd">
-<th>MGCF / IM-MGW</th>
-<th>IMS ও পুরনো PSTN/CS নেটওয়ার্কের মধ্যে signalling ও media রূপান্তর</th>
-</tr>
-<tr class="header">
-<th>BGCF</th>
-<th>PSTN-এ কোন গেটওয়ে দিয়ে কল যাবে তা ঠিক করে</th>
-</tr>
-<tr class="odd">
-<th>MRF</th>
-<th>Media Resource Function: conference, announcement</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>ইন্টারফেস:</strong> Gm (UE–P-CSCF), Mw (CSCF-গুলোর মধ্যে), Cx (CSCF–HSS, Diameter), ISC (S-CSCF–AS), Mg (S-CSCF–MGCF), Rx (P-CSCF–PCRF/PCF)।</p>
-<p><strong>IMS Registration (সংক্ষেপে)</strong></p>
-<ol type="1">
-<li><blockquote>
-<p>UE প্রথমে LTE-তে attach করে ও IMS-এর জন্য আলাদা PDN/bearer পায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE P-CSCF-এ SIP <strong>REGISTER</strong> পাঠায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>P-CSCF → I-CSCF → HSS থেকে S-CSCF নির্বাচন → S-CSCF authentication (IMS AKA) করে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>সফল হলে <strong>200 OK</strong>; UE এখন কল করতে ও পেতে পারে।</p>
-</blockquote></li>
-</ol>
-<p><strong>IMS-ভিত্তিক সেবা</strong></p>
-<ul>
-<li><blockquote>
-<p><strong>VoLTE:</strong> LTE-তে voice। উচ্চমানের HD voice (AMR-WB বা EVS codec), দ্রুত কল সেটআপ, voice-এর জন্য dedicated bearer (QCI 1), IMS signalling-এর জন্য QCI 5।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>VoNR:</strong> 5G NR-এ voice।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>ViLTE:</strong> LTE-তে video কল।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>VoWiFi:</strong> Wi-Fi-তে voice, এখানেও IMS ব্যবহৃত।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>RCS:</strong> উন্নত মেসেজিং।</p>
-</blockquote></li>
-</ul>
-<p><strong>Voice সমাধানের তুলনা (4G-তে)</strong></p>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>পদ্ধতি</th>
-<th>কাজের ধরন</th>
-</tr>
-<tr class="odd">
-<th>CSFB (Circuit Switched Fallback)</th>
-<th>কলের সময় ফোন LTE ছেড়ে 2G/3G-তে নামে; কল সেটআপ ধীর</th>
-</tr>
-<tr class="header">
-<th>VoLTE</th>
-<th>LTE-তেই voice, কোনো fallback লাগে না</th>
-</tr>
-<tr class="odd">
-<th>SRVCC</th>
-<th>LTE কভারেজ শেষ হলে চলমান VoLTE কল 2G/3G CS-এ হস্তান্তর</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>সম্ভাব্য MCQ</strong></p>
-<ul>
-<li><blockquote>
-<p>IMS-এর সিগন্যালিং প্রোটোকল কী? → SIP</p>
-</blockquote></li>
-<li><blockquote>
-<p>IMS-এ ইউজার registration-এর প্রধান নোড? → S-CSCF</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE-র প্রথম যোগাযোগের নোড? → P-CSCF</p>
-</blockquote></li>
-<li><blockquote>
-<p>চলমান VoLTE কল 3G-তে নামিয়ে দেওয়ার কৌশল? → SRVCC</p>
-</blockquote></li>
-<li><blockquote>
-<p>VoLTE voice bearer-এর QCI কত? → 1</p>
-</blockquote></li>
-</ul>
-<h2>বিস্তারিত নোট</h2>
-<h3 id="ims-ক-ও-কন"><strong>১২.১ IMS কী ও কেন</strong></h3>
-<p><strong>IMS (IP Multimedia Subsystem)</strong> হলো IP-ভিত্তিক সার্ভিস স্তর, যা SIP দিয়ে voice, video, messaging ও অন্যান্য মাল্টিমিডিয়া সেবা দেয়। 3GPP Release 5-এ শুরু। <strong>VoLTE, VoNR, VoWiFi (Wi-Fi Calling), RCS ও VoLTE ভিডিও কল</strong> সবই IMS-এর ওপর চলে। সুবিধা: access-নিরপেক্ষ, একই core থেকে একাধিক সেবা, দ্রুত call setup, HD voice (AMR-WB)।</p>
-<h3 id="পরধন-উপদন"><strong>১২.২ প্রধান উপাদান</strong></h3>
-<table>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>উপাদান</th>
-<th>কাজ</th>
-</tr>
-<tr class="odd">
-<th><strong>P-CSCF</strong> (Proxy)</th>
-<th>UE-র প্রথম SIP যোগাযোগ বিন্দু; SIP compression, security (IPsec), QoS policy সংযোগ (PCRF/PCF-র সাথে Rx/N5)</th>
-</tr>
-<tr class="header">
-<th><strong>I-CSCF</strong> (Interrogating)</th>
-<th>হোম নেটওয়ার্কের প্রবেশদ্বার; HSS থেকে জেনে সঠিক S-CSCF বেছে নেয়</th>
-</tr>
-<tr class="odd">
-<th><strong>S-CSCF</strong> (Serving)</th>
-<th>IMS-এর কেন্দ্র; registrar, সেশন নিয়ন্ত্রণ, রুটিং, Application Server-এ ফরওয়ার্ড (iFC নিয়ম অনুযায়ী)</th>
-</tr>
-<tr class="header">
-<th><strong>HSS</strong></th>
-<th>সাবস্ক্রিপশন ও authentication ডেটা (Cx ইন্টারফেস, Diameter)</th>
-</tr>
-<tr class="odd">
-<th><strong>AS (Application Server)</strong></th>
-<th>সেবার যুক্তি: TAS (Telephony AS, VoLTE সেবা), SCC AS, মেসেজিং ইত্যাদি</th>
-</tr>
-<tr class="header">
-<th><strong>MRF</strong></th>
-<th>মিডিয়া রিসোর্স: কনফারেন্স, ঘোষণা (announcement), transcoding</th>
-</tr>
-<tr class="odd">
-<th><strong>BGCF / MGCF / IM-MGW</strong></th>
-<th>PSTN/CS নেটওয়ার্কের সাথে সংযোগ; MGCF signalling (SIP↔︎ISUP), IM-MGW মিডিয়া রূপান্তর</th>
-</tr>
-<tr class="header">
-<th><strong>SBC / IBCF</strong></th>
-<th>নেটওয়ার্কের সীমায় সুরক্ষা ও interworking</th>
-</tr>
-<tr class="odd">
-<th><strong>PCRF/PCF</strong></th>
-<th>QoS ও চার্জিং নিয়ম</th>
-</tr>
-<tr class="header">
-<th><strong>ENUM/DNS</strong></th>
-<th>টেলিফোন নম্বর ↔︎ SIP URI রূপান্তর</th>
-</tr>
-</thead>
-<tbody>
-</tbody>
-</table>
-<p><strong>মনে রাখার ছক:</strong> UE → P-CSCF → (I-CSCF) → S-CSCF → AS। P-CSCF ভিজিটেড নেটওয়ার্কে থাকতে পারে (roaming), S-CSCF সবসময় হোম নেটওয়ার্কে।</p>
-<h3 id="ইনটরফস"><strong>১২.৩ ইন্টারফেস</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>Gm:</strong> UE ↔︎ P-CSCF (SIP)</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Mw:</strong> CSCF-গুলোর মধ্যে (SIP)</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Cx:</strong> CSCF ↔︎ HSS (Diameter)</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>ISC:</strong> S-CSCF ↔︎ AS (SIP)</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Sh:</strong> AS ↔︎ HSS (Diameter)</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Rx:</strong> P-CSCF ↔︎ PCRF (Diameter); 5G-তে <strong>N5</strong></p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Mg/Mj:</strong> MGCF/BGCF-এর সাথে</p>
-</blockquote></li>
-</ul>
-<h3 id="পরচয-identities"><strong>১২.৪ পরিচয় (Identities)</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>IMPI</strong> (Private User Identity): authentication-এর জন্য, যেমন user@ims.mnc.mcc.3gppnetwork.org (ISIM-এ)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>IMPU</strong> (Public User Identity): যেটা দিয়ে অন্যরা যোগাযোগ করে: sip:+8801XXXXXXXXX@domain বা tel:+8801...।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>ISIM</strong> (IMS SIM): IMS-এর জন্য UICC অ্যাপ; না থাকলে USIM থেকে অস্থায়ী পরিচয় বানানো হয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>iFC (initial Filter Criteria):</strong> সাবস্ক্রিপশনে থাকা নিয়ম, যা S-CSCF-কে বলে কোন SIP বার্তা কোন AS-এ পাঠাতে হবে।</p>
-</blockquote></li>
-</ul>
-<h3 id="ims-registration-করম"><strong>১২.৫ IMS Registration (ক্রম)</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>UE আগে LTE attach করে এবং IMS-এর জন্য আলাদা PDN (APN = ims) পায়; এখানে <strong>QCI 5</strong> (IMS signalling) bearer থাকে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE নিজের P-CSCF ঠিকানা পায় (PDN সেটআপে বা DHCP/DNS দিয়ে)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE → P-CSCF: <strong>SIP REGISTER</strong>।</p>
-</blockquote></li>
-<li><blockquote>
-<p>P-CSCF → I-CSCF → HSS (Cx UAR) দিয়ে S-CSCF নির্বাচন।</p>
-</blockquote></li>
-<li><blockquote>
-<p>S-CSCF → UE-কে <strong>401 Unauthorized</strong> (challenge: nonce) পাঠায় (IMS-AKA, RAND/AUTN)। HSS থেকে MAR/MAA-তে vector আনা হয়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>UE challenge-এর উত্তর দিয়ে <strong>দ্বিতীয় REGISTER</strong> পাঠায়।</p>
-</blockquote></li>
-<li><blockquote>
-<p>S-CSCF যাচাই করে <strong>200 OK</strong> দেয়; HSS-এ নিবন্ধন (SAR) ও সাবস্ক্রাইবার প্রোফাইল (iFC) ডাউনলোড; AS-কে third-party REGISTER পাঠাতে পারে।</p>
-</blockquote></li>
-</ol>
-<h3 id="volte-call-setup-mobile-originating"><strong>১২.৬ VoLTE Call Setup (Mobile Originating)</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>UE → P-CSCF: <strong>INVITE</strong> (SDP offer: codec তালিকা AMR-WB/AMR-NB, IP/port)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>S-CSCF → TAS-এ ফরওয়ার্ড (iFC); তারপর গন্তব্য নেটওয়ার্কে/S-CSCF-এ রুটিং।</p>
-</blockquote></li>
-<li><blockquote>
-<p>গন্তব্য UE-র কাছ থেকে <strong>183 Session Progress</strong> (SDP answer, codec চূড়ান্ত)।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>Precondition:</strong> QoS বরাদ্দ নিশ্চিত না হওয়া পর্যন্ত রিং নয়। P-CSCF Rx-এ PCRF-কে জানায় → P-GW <strong>dedicated bearer (QCI 1, GBR)</strong> তৈরি করে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>দুই পাশে <strong>PRACK/UPDATE</strong> দিয়ে precondition পূরণের নিশ্চয়তা।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>180 Ringing</strong> → গন্তব্য উত্তর দিলে <strong>200 OK</strong> → <strong>ACK</strong>।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>RTP</strong> মিডিয়া (voice) dedicated bearer-এ চলে; RTCP নিয়ন্ত্রণ।</p>
-</blockquote></li>
-<li><blockquote>
-<p>শেষে <strong>BYE → 200 OK</strong>; dedicated bearer মুছে যায়।</p>
-</blockquote></li>
-</ol>
-<p><strong>VoLTE-র QCI:</strong> voice = <strong>QCI 1</strong> (GBR, 100 ms delay, 10⁻² loss), IMS signalling = <strong>QCI 5</strong> (non-GBR), ভিডিও = QCI 2। AMR-WB bitrate 6.6–23.85 kbps; RTP ফ্রেম প্রতি 20 ms।</p>
-<h3 id="srvcc-ও-csfb"><strong>১২.৭ SRVCC ও CSFB</strong></h3>
-<ul>
-<li><blockquote>
-<p><strong>CSFB (CS Fallback):</strong> VoLTE নেই এমন নেটওয়ার্কে কল এলে/করলে ফোন 2G/3G-তে নেমে CS কল করে। কল সেটআপ দেরি হয়; পরে LTE-তে ফেরে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>SRVCC (Single Radio Voice Call Continuity):</strong> VoLTE কল চলাকালীন LTE কভারেজ শেষ হলে কল 2G/3G CS-এ <strong>হস্তান্তর</strong>। MME ↔︎ MSC Server (Sv ইন্টারফেস); IMS-এ <strong>ATCF/SCC AS</strong> কল anchor করে।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>VoWiFi:</strong> ePDG ও IPsec টানেলের মাধ্যমে ইন্টারনেটের Wi-Fi দিয়ে IMS কল; Wi-Fi ↔︎ LTE handover সম্ভব।</p>
-</blockquote></li>
-<li><blockquote>
-<p><strong>5G:</strong> <strong>VoNR</strong> (সরাসরি 5G-তে), বা <strong>EPS Fallback</strong> (5G থেকে 4G-তে নেমে VoLTE)।</p>
-</blockquote></li>
-</ul>
-<h3 id="অনশলন-10"><strong>১২.৮ অনুশীলন</strong></h3>
-<ol type="1">
-<li><blockquote>
-<p>S-CSCF কোথায় থাকে? → সবসময় হোম নেটওয়ার্কে।</p>
-</blockquote></li>
-<li><blockquote>
-<p>VoLTE voice-এর জন্য QCI? → 1; IMS signalling-এর জন্য 5।</p>
-</blockquote></li>
-<li><blockquote>
-<p>Cx ইন্টারফেস কোন দুটির মধ্যে? → CSCF ↔︎ HSS (Diameter)।</p>
-</blockquote></li>
-<li><blockquote>
-<p>IMS-AKA-তে REGISTER-এর প্রথম উত্তর? → 401 Unauthorized।</p>
-</blockquote></li>
-<li><blockquote>
-<p>SRVCC কী করে? → চলমান VoLTE কল LTE থেকে 2G/3G CS-এ নিরবচ্ছিন্নভাবে সরায়।</p>
-</blockquote></li>
-</ol>
-</div><div class="tools"><a class="btn" href="cell-11.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-13.html">পরের টপিক →</a></div><p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a></p>
+<h1>Topic 12: <span class="bn">IMS Architecture (Voice ও Multimedia Switching)</span><span class="en">IMS Architecture (Voice and Multimedia Switching)</span></h1><p class="src"><span class="bn">Theory • সহজ সারাংশ + বিস্তারিত নোট</span><span class="en">Theory • short note + detailed note</span></p>
+<div class="doc">
+<div id="sumBox">
+<h2>🧠 <span class="bn">সংক্ষেপ নোট</span><span class="en">Short note</span></h2>
+<p class="lead"><span class="bn">IMS হলো ইন্টারনেটের (IP) ওপর ভয়েস ও মাল্টিমিডিয়া কল চালানোর কাঠামো। VoLTE, VoWiFi ও RCS সবই IMS-এর ওপর চলে। এর মূল ভাষা SIP।</span><span class="en">IMS is the framework for running voice and multimedia calls over IP. VoLTE, VoWiFi and RCS all run on IMS. Its main language is SIP.</span></p>
+<ul><li><span class="bn"><b>P-CSCF:</b> ফোনের প্রথম যোগাযোগ বিন্দু। <b>I-CSCF:</b> প্রবেশদ্বার। <b>S-CSCF:</b> রেজিস্ট্রার ও সেবার নিয়ন্ত্রক।</span><span class="en"><b>P-CSCF:</b> the phone's first contact point. <b>I-CSCF:</b> entry gate. <b>S-CSCF:</b> registrar and service controller.</span></li><li><span class="bn"><b>HSS:</b> ইউজার ডাটাবেস। <b>AS:</b> সেবা সার্ভার (SMS, call forwarding)।</span><span class="en"><b>HSS:</b> user database. <b>AS:</b> service server (SMS, call forwarding).</span></li><li><span class="bn"><b>MGCF + IM-MGW:</b> IMS ও PSTN-এর মধ্যে সেতু। <b>BGCF:</b> কোন gateway ধরে বাইরে যাবে।</span><span class="en"><b>MGCF + IM-MGW:</b> the bridge between IMS and PSTN. <b>BGCF:</b> picks which gateway to break out through.</span></li><li><span class="bn"><b>IMPI</b> = private identity (authentication), <b>IMPU</b> = public SIP URI।</span><span class="en"><b>IMPI</b> = private identity (authentication), <b>IMPU</b> = public SIP URI.</span></li><li><span class="bn"><b>Gm</b> UE–P-CSCF, <b>Mw</b> CSCF–CSCF, <b>Cx</b> CSCF–HSS, <b>Rx</b> P-CSCF–PCRF।</span><span class="en"><b>Gm</b> UE–P-CSCF, <b>Mw</b> CSCF–CSCF, <b>Cx</b> CSCF–HSS, <b>Rx</b> P-CSCF–PCRF.</span></li><li><span class="bn"><b>SRVCC:</b> VoLTE চলাকালীন LTE ছাড়লে কল 2G/3G-তে অক্ষুণ্ণ রাখে। <b>CSFB:</b> কল শুরুর আগেই 2G/3G-তে নেমে যাওয়া।</span><span class="en"><b>SRVCC:</b> keeps a VoLTE call alive when leaving LTE for 2G/3G. <b>CSFB:</b> dropping to 2G/3G before the call starts.</span></li></ul>
+<div class="callout g"><p>🧠 <b><span class="bn">মনে রাখার কৌশল:</span><span class="en">Memory trick:</span></b> <span class="bn">CSCF তিন ভাই: P = প্রহরী (প্রথম দেখা), I = ইনফরমেশন (কোন S খুঁজে দেয়), S = সার্ভিস (আসল কাজ)।</span><span class="en">The three CSCF brothers: P = Porter (first contact), I = Information (finds the right S), S = Service (does the real job).</span></p></div>
+</div>
+<div id="detBox">
+<h2>📖 <span class="bn">বিস্তারিত নোট</span><span class="en">Detailed note</span></h2>
+<details class="sec" open><summary><span class="bn">১২.১ IMS-এর নোডগুলো</span><span class="en">12.1 The IMS nodes</span></summary>
+<div class="callout b"><p>🛵 <b><span class="bn">উপমা:</span><span class="en">Analogy:</span></b> <span class="bn">একটি অফিস ভাবো: P-CSCF = রিসেপশন (প্রথম দেখা), I-CSCF = ডিরেক্টরি (কোন বিভাগে যাবে বলে), S-CSCF = বিভাগীয় ম্যানেজার (আসল কাজ ও নিয়ম), HSS = কর্মীদের রেকর্ড রুম।</span><span class="en">Think of an office: P-CSCF = reception (first contact), I-CSCF = directory (tells which department), S-CSCF = department manager (real work and rules), HSS = the staff record room.</span></p></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">নোড</span><span class="en">Node</span></th><th><span class="bn">কাজ</span><span class="en">Job</span></th></tr></thead><tbody><tr><td>P-CSCF</td><td><span class="bn">UE-র প্রথম SIP proxy; নিরাপত্তা; Rx দিয়ে QoS চায়</span><span class="en">The UE's first SIP proxy; security; asks for QoS through Rx</span></td></tr><tr><td>I-CSCF</td><td><span class="bn">HSS-কে জিজ্ঞেস করে কোন S-CSCF ব্যবহার হবে (Cx)</span><span class="en">Asks the HSS which S-CSCF to use (Cx)</span></td></tr><tr><td>S-CSCF</td><td><span class="bn">registrar; session নিয়ন্ত্রণ; AS ডাকে</span><span class="en">Registrar; controls sessions; calls the AS</span></td></tr><tr><td>HSS</td><td><span class="bn">ইউজার তথ্য ও authentication key</span><span class="en">User data and authentication keys</span></td></tr><tr><td>AS</td><td><span class="bn">SMS over IMS, call forwarding ইত্যাদি</span><span class="en">SMS over IMS, call forwarding etc.</span></td></tr><tr><td>MGCF / IM-MGW</td><td><span class="bn">PSTN-এর সাথে signalling ও media রূপান্তর</span><span class="en">Signalling and media conversion to the PSTN</span></td></tr><tr><td>BGCF</td><td><span class="bn">PSTN-এ বেরোনোর gateway বাছাই</span><span class="en">Chooses the gateway to exit to the PSTN</span></td></tr><tr><td>MRF</td><td><span class="bn">conference, announcement</span><span class="en">Conferences, announcements</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">১২.২ IMS Registration</span><span class="en">12.2 IMS registration</span></summary>
+<div class="fig" data-fig="ims-reg"></div>
+<div class="tbl"><table><thead><tr><th><span class="bn">শব্দ</span><span class="en">Term</span></th><th><span class="bn">কী</span><span class="en">What</span></th></tr></thead><tbody><tr><td>IMPI</td><td><span class="bn">private identity: authentication-এর জন্য (গোপন)</span><span class="en">private identity: for authentication (secret)</span></td></tr><tr><td>IMPU</td><td><span class="bn">public identity: sip:user@domain (মানুষ যা চেনে)</span><span class="en">public identity: sip:user@domain (what people know)</span></td></tr><tr><td>401 + RAND/AUTN</td><td><span class="bn">প্রথম REGISTER-এ S-CSCF চ্যালেঞ্জ দেয়</span><span class="en">The S-CSCF challenges the first REGISTER</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">১২.৩ VoLTE কল</span><span class="en">12.3 A VoLTE call</span></summary>
+<div class="fig" data-fig="volte"></div>
+<ul><li><span class="bn"><b>QCI 1</b> বিশেষ bearer ভয়েসের জন্য। P-CSCF Rx দিয়ে PCRF-কে বলে, PCRF সেই bearer তৈরি করায়।</span><span class="en"><b>QCI 1</b> is a special bearer for voice. The P-CSCF asks the PCRF over Rx, and the PCRF has that bearer created.</span></li><li><span class="bn"><b>SRVCC:</b> LTE এলাকা ছেড়ে গেলে MSC-তে কল সরে 2G/3G CS-এ চলে।</span><span class="en"><b>SRVCC:</b> when leaving LTE the call moves to the MSC and continues on 2G/3G CS.</span></li><li><span class="bn"><b>CSFB:</b> VoLTE না থাকলে কল আসার আগেই ফোন 2G/3G-তে নামে।</span><span class="en"><b>CSFB:</b> without VoLTE the phone falls to 2G/3G before the call.</span></li></ul>
+<div class="tbl"><table><thead><tr><th><span class="bn"></span><span class="en"></span></th><th><span class="bn">CSFB</span><span class="en">CSFB</span></th><th><span class="bn">SRVCC</span><span class="en">SRVCC</span></th></tr></thead><tbody><tr><td><span class="bn">কখন</span><span class="en">When</span></td><td><span class="bn">কল শুরুর আগে</span><span class="en">Before the call starts</span></td><td><span class="bn">কল চলার সময়</span><span class="en">During the call</span></td></tr><tr><td><span class="bn">কী</span><span class="en">What</span></td><td><span class="bn">2G/3G-তে নামিয়ে কল</span><span class="en">Drop to 2G/3G, then call</span></td><td><span class="bn">VoLTE কল 2G/3G CS-এ হস্তান্তর</span><span class="en">Hand VoLTE call to 2G/3G CS</span></td></tr></tbody></table></div>
+</details>
+<details class="sec" open><summary><span class="bn">১২.৪ অনুশীলন</span><span class="en">12.4 Practice</span></summary>
+<details class="qa"><summary><span class="bn">IMS-এ authentication-এর জন্য private identity কোনটি?</span><span class="en">Which is the private identity used for IMS authentication?</span></summary><p><span class="bn">IMPI।</span><span class="en">IMPI.</span></p></details>
+<details class="qa"><summary><span class="bn">P-CSCF ও PCRF-এর মধ্যে ইন্টারফেস?</span><span class="en">Interface between P-CSCF and PCRF?</span></summary><p><span class="bn">Rx।</span><span class="en">Rx.</span></p></details>
+<details class="qa"><summary><span class="bn">IMS registration-এ প্রথম REGISTER-এর উত্তরে কী আসে?</span><span class="en">What comes back for the first REGISTER?</span></summary><p><span class="bn">401 Unauthorized (RAND/AUTN সহ)।</span><span class="en">401 Unauthorized (with RAND/AUTN).</span></p></details>
+<details class="qa"><summary><span class="bn">IMS ও PSTN-এর মধ্যে control signalling কে সামলায়?</span><span class="en">Who handles control signalling between IMS and PSTN?</span></summary><p><span class="bn">MGCF (সাথে IM-MGW)।</span><span class="en">The MGCF (with the IM-MGW).</span></p></details>
+<details class="qa"><summary><span class="bn">VoLTE-র জন্য কোন QCI?</span><span class="en">Which QCI for VoLTE?</span></summary><p><span class="bn">QCI 1।</span><span class="en">QCI 1.</span></p></details>
+</details>
+</div>
+</div>
+<div class="tools"><a class="btn" href="cell-11.html">← আগের টপিক</a><a class="btn" href="cell-index.html">সূচি</a><a class="btn" href="cell-13.html">পরের টপিক →</a></div>
+<p><a class="btn" href="cell-qa.html">Q &amp; A →</a> <a class="btn" href="cell-quiz.html">MCQ কুইজ →</a> <a class="btn" href="cell-quiz-buet.html">🎯 BUET MCQ →</a> <a class="btn" href="cell-glossary.html">🔤 শর্টফর্ম</a> <a class="btn" href="cell-formulas.html">📐 সূত্র</a></p>
 </main>
 <footer>Created by Al Nahian Mugdho</footer>
-<script src="data/questions.js"></script><script src="js/app.js"></script></body></html>
+<script src="data/questions.js"></script><script src="js/app.js"></script><script src="data/cell_figs.js"></script><script src="js/learn.js"></script></body></html>
